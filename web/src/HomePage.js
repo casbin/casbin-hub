@@ -3,6 +3,7 @@ import * as Backend from "./Backend";
 import AdapterTable from "./AdapterTable";
 import {Button, Card, Col, Row} from "antd";
 import * as Setting from "./Setting";
+import ModelTable from "./ModelTable";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -10,11 +11,13 @@ class HomePage extends React.Component {
     this.state = {
       classes: props,
       adapters: null,
+      models: null,
     };
   }
 
   componentDidMount() {
     this.getAdapters();
+    this.getModels();
   }
 
   getAdapters() {
@@ -27,9 +30,25 @@ class HomePage extends React.Component {
       );
   }
 
+  getModels() {
+    Backend.getModels()
+      .then((res) => {
+          this.setState({
+            models: res,
+          });
+        }
+      );
+  }
+
   onUpdateAdapters(adapters) {
     this.setState({
       adapters: adapters,
+    });
+  }
+
+  onUpdateModels(models) {
+    this.setState({
+      models: models,
     });
   }
 
@@ -51,6 +70,14 @@ class HomePage extends React.Component {
           <Button type="primary" onClick={this.submitAdaptersEdit.bind(this)}>Save Change</Button>
         </div>
       } style={{marginLeft: '5px'}} type="inner">
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            Models:
+          </Col>
+          <Col span={22} >
+            <ModelTable title="Models" table={this.state.models} onUpdateTable={this.onUpdateModels.bind(this)} />
+          </Col>
+        </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
             Adapters:

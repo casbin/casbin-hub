@@ -14,3 +14,18 @@ export function updateAdapters(adapters) {
         body: JSON.stringify(adapters),
     }).then(res => res.json());
 }
+
+export function getModels() {
+    return fetch(`${Setting.ServerUrl}/api/get-models`, {
+        method: "GET",
+        credentials: "include"
+    }).then(res => res.json());
+}
+
+export function updateModels(models) {
+    return fetch(`${Setting.ServerUrl}/api/update-models`, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(models),
+    }).then(res => res.json());
+}
