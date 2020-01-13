@@ -3,11 +3,14 @@ package main
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/plugins/cors"
+	"github.com/casbin/casbin-dashboard/object"
 
 	_ "github.com/casbin/casbin-dashboard/routers"
 )
 
 func main() {
+	object.InitOrmManager()
+
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "PUT", "PATCH"},

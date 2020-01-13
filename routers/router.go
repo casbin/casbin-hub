@@ -18,4 +18,8 @@ func initAPI() {
 			),
 		)
 	beego.AddNamespace(ns)
+
+	beego.Router("/api/get-adapters", &controllers.ApiController{}, "GET:GetAdapters")
+	beego.Router("/api/get-adapters", &controllers.ApiController{}, "GET:GetAdapter")
+	beego.Router("/api/update-adapters", &controllers.ApiController{}, "POST:UpdateAdapters")
 }
