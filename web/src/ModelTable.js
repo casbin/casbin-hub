@@ -1,7 +1,9 @@
 import React from "react";
 import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Input, Row, Table, Tooltip} from 'antd';
+import {Button, Col, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
+
+const { Option } = Select;
 
 class ModelTable extends React.Component {
   constructor(props) {
@@ -99,9 +101,11 @@ class ModelTable extends React.Component {
         key: 'type',
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'type', e.target.value);
-            }} />
+            <Select style={{width: '100%'}} value={text} onChange={(value => {this.updateField(index, 'type', value);})}>
+              {
+                ['ACL', 'RBAC', 'ABAC'].map((type, index) => <Option key={index} value={type}>{type}</Option>)
+              }
+            </Select>
           )
         }
       },

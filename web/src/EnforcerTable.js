@@ -1,7 +1,9 @@
 import React from "react";
 import {DownOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Input, Row, Table} from 'antd';
+import {Button, Input, Row, Select, Table} from 'antd';
 import * as Setting from "./Setting";
+
+const { Option } = Select;
 
 class EnforcerTable extends React.Component {
   constructor(props) {
@@ -99,9 +101,11 @@ class EnforcerTable extends React.Component {
         key: 'model',
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'model', e.target.value);
-            }} />
+            <Select style={{width: '100%'}} value={text} onChange={(value => {this.updateField(index, 'model', value);})}>
+              {
+                this.props.models.map((model, index) => <Option key={index} value={model}>{model}</Option>)
+              }
+            </Select>
           )
         }
       },
@@ -111,9 +115,11 @@ class EnforcerTable extends React.Component {
         key: 'adapter',
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'adapter', e.target.value);
-            }} />
+            <Select style={{width: '100%'}} value={text} onChange={(value => {this.updateField(index, 'adapter', value);})}>
+              {
+                this.props.adapters.map((adapter, index) => <Option key={index} value={adapter}>{adapter}</Option>)
+              }
+            </Select>
           )
         }
       },

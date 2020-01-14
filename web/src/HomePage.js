@@ -71,14 +71,46 @@ class HomePage extends React.Component {
     });
   }
 
-  submitAdaptersEdit() {
+  updateMetadata() {
     Backend.updateAdapters(this.state.adapters)
       .then((res) => {
-        Setting.showMessage("success", `Save succeeded`);
+        // Setting.showMessage("success", `Save succeeded`);
+
+        Backend.updateModels(this.state.models)
+          .then((res) => {
+            // Setting.showMessage("success", `Save succeeded`);
+
+            Backend.updateEnforcers(this.state.enforcers)
+              .then((res) => {
+                Setting.showMessage("success", `Save succeeded`);
+              })
+              .catch(error => {
+                Setting.showMessage("error", `Sava failed: ${error}`);
+              });
+          })
+          .catch(error => {
+            Setting.showMessage("error", `Sava failed: ${error}`);
+          });
       })
       .catch(error => {
         Setting.showMessage("error", `Sava failed: ${error}`);
       });
+  }
+
+  getModelIds() {
+    if (this.state.models === null) {
+      return [];
+    }
+
+    return this.state.models.map(model => model.id);
+  }
+
+  getAdapterIds() {
+    if (this.state.adapters === null) {
+      return [];
+    }
+
+    return this.state.adapters.map(adapter => adapter.id);
   }
 
   renderContent() {
@@ -86,7 +118,7 @@ class HomePage extends React.Component {
       <Card size="small" title={
         <div style={{width: "90vw"}}>
           Edit Metadata&nbsp;&nbsp;&nbsp;&nbsp;
-          <Button type="primary" onClick={this.submitAdaptersEdit.bind(this)}>Save Change</Button>
+          <Button type="primary" onClick={this.updateMetadata.bind(this)}>Save Change</Button>
         </div>
       } style={{marginLeft: '5px'}} type="inner">
         <Row style={{marginTop: '20px'}} >
@@ -110,7 +142,7 @@ class HomePage extends React.Component {
             Enforcers:
           </Col>
           <Col span={22} >
-            <EnforcerTable title="Enforcers" table={this.state.enforcers} onUpdateTable={this.onUpdateEnforcers.bind(this)} />
+            <EnforcerTable title="Enforcers" table={this.state.enforcers} models={this.getModelIds()} adapters={this.getAdapterIds()} onUpdateTable={this.onUpdateEnforcers.bind(this)} />
           </Col>
         </Row>
       </Card>

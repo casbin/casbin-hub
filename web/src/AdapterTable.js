@@ -1,7 +1,9 @@
 import React from "react";
 import {DownOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Input, Row, Table} from 'antd';
+import {Button, Input, Row, Select, Table} from 'antd';
 import * as Setting from "./Setting";
+
+const { Option } = Select;
 
 class AdapterTable extends React.Component {
   constructor(props) {
@@ -99,9 +101,11 @@ class AdapterTable extends React.Component {
         key: 'database',
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'database', e.target.value);
-            }} />
+            <Select style={{width: '100%'}} value={text} onChange={(value => {this.updateField(index, 'database', value);})}>
+              {
+                ['MySQL', 'PostgreSQL', 'SQLite'].map((type, index) => <Option key={index} value={type}>{type}</Option>)
+              }
+            </Select>
           )
         }
       },
