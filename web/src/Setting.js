@@ -7,6 +7,11 @@ export function initServerUrl() {
     ServerUrl = `http://${hostname}:8000`;
 }
 
+export function openLink(link) {
+    const w = window.open('about:blank');
+    w.location.href = link;
+}
+
 export function showMessage(type, text) {
     if (type === "") {
         return;

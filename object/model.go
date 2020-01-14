@@ -17,6 +17,20 @@ func GetModels() []*Model {
 	return models
 }
 
+func GetModel(id string) *Model {
+	model := Model{Id: id}
+	existed, err := ormManager.engine.Get(&model)
+	if err != nil {
+		panic(err)
+	}
+
+	if existed {
+		return &model
+	} else {
+		return nil
+	}
+}
+
 func createModelTable() error {
 	return ormManager.engine.Sync2(new(Model))
 }
@@ -37,6 +51,15 @@ func UpdateModels(models []*Model) bool {
 	}
 
 	affected, err := ormManager.engine.Insert(&models)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}
+
+func UpdateModel(model *Model) bool {
+	affected, err := ormManager.engine.Id(model.Id).AllCols().Update(model)
 	if err != nil {
 		panic(err)
 	}

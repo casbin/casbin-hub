@@ -22,6 +22,13 @@ export function getModels() {
     }).then(res => res.json());
 }
 
+export function getModel(modelId) {
+    return fetch(`${Setting.ServerUrl}/api/get-model?id=${modelId}`, {
+        method: "GET",
+        credentials: "include"
+    }).then(res => res.json());
+}
+
 export function updateModels(models) {
     return fetch(`${Setting.ServerUrl}/api/update-models`, {
         method: 'POST',
@@ -30,6 +37,13 @@ export function updateModels(models) {
     }).then(res => res.json());
 }
 
+export function updateModel(model) {
+    return fetch(`${Setting.ServerUrl}/api/update-model`, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(model),
+    }).then(res => res.json());
+}
 
 export function getEnforcers() {
     return fetch(`${Setting.ServerUrl}/api/get-enforcers`, {
