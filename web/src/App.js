@@ -45,7 +45,7 @@ class App extends React.Component {
                   style={{lineHeight: '64px'}}
                   inlineCollapsed={false}
               >
-                <Text>Casbin Dashboard</Text>
+                <Text style={{marginRight: "20px", fontSize: "x-large"}}>Dashboard</Text>
 
                 <Menu.Item key="1">
                   <a href="/">
