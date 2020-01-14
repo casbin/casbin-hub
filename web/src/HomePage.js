@@ -4,6 +4,7 @@ import AdapterTable from "./AdapterTable";
 import {Button, Card, Col, Row} from "antd";
 import * as Setting from "./Setting";
 import ModelTable from "./ModelTable";
+import EnforcerTable from "./EnforcerTable";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -12,12 +13,14 @@ class HomePage extends React.Component {
       classes: props,
       adapters: null,
       models: null,
+      enforcers: null,
     };
   }
 
   componentDidMount() {
     this.getAdapters();
     this.getModels();
+    this.getEnforcers();
   }
 
   getAdapters() {
@@ -40,6 +43,16 @@ class HomePage extends React.Component {
       );
   }
 
+  getEnforcers() {
+    Backend.getEnforcers()
+      .then((res) => {
+          this.setState({
+            enforcers: res,
+          });
+        }
+      );
+  }
+
   onUpdateAdapters(adapters) {
     this.setState({
       adapters: adapters,
@@ -52,13 +65,19 @@ class HomePage extends React.Component {
     });
   }
 
+  onUpdateEnforcers(enforcers) {
+    this.setState({
+      enforcers: enforcers,
+    });
+  }
+
   submitAdaptersEdit() {
     Backend.updateAdapters(this.state.adapters)
       .then((res) => {
-        Setting.showMessage("success", `保存成功`);
+        Setting.showMessage("success", `Save succeeded`);
       })
       .catch(error => {
-        Setting.showMessage("error", `保存失败：${error}`);
+        Setting.showMessage("error", `Sava failed: ${error}`);
       });
   }
 
@@ -84,6 +103,14 @@ class HomePage extends React.Component {
           </Col>
           <Col span={22} >
             <AdapterTable title="Adapters" table={this.state.adapters} onUpdateTable={this.onUpdateAdapters.bind(this)} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            Enforcers:
+          </Col>
+          <Col span={22} >
+            <EnforcerTable title="Enforcers" table={this.state.enforcers} onUpdateTable={this.onUpdateEnforcers.bind(this)} />
           </Col>
         </Row>
       </Card>

@@ -17,21 +17,21 @@ func GetModels() []*Model {
 	return models
 }
 
-func createModelsTable() error {
+func createModelTable() error {
 	return ormManager.engine.Sync2(new(Model))
 }
 
-func dropModelsTable() error {
+func dropModelTable() error {
 	return ormManager.engine.DropTables(new(Model))
 }
 
 func UpdateModels(models []*Model) bool {
-	err := dropModelsTable()
+	err := dropModelTable()
 	if err != nil {
 		panic(err)
 	}
 
-	err = createModelsTable()
+	err = createModelTable()
 	if err != nil {
 		panic(err)
 	}

@@ -40,21 +40,21 @@ func GetAdapter(id string) *Adapter {
 //	return affected != 0
 //}
 
-func createAdaptersTable() error {
+func createAdapterTable() error {
 	return ormManager.engine.Sync2(new(Adapter))
 }
 
-func dropAdaptersTable() error {
+func dropAdapterTable() error {
 	return ormManager.engine.DropTables(new(Adapter))
 }
 
 func UpdateAdapters(adapters []*Adapter) bool {
-	err := dropAdaptersTable()
+	err := dropAdapterTable()
 	if err != nil {
 		panic(err)
 	}
 
-	err = createAdaptersTable()
+	err = createAdapterTable()
 	if err != nil {
 		panic(err)
 	}
