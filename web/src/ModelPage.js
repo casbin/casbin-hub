@@ -2,6 +2,10 @@ import React from "react";
 import * as Setting from "./Setting";
 import * as Backend from "./Backend";
 import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
+import {Controlled as CodeMirror} from 'react-codemirror2'
+import "codemirror/lib/codemirror.css"
+
+require("codemirror/mode/properties/properties");
 
 const { Option } = Select;
 
@@ -92,9 +96,16 @@ class ModelPage extends React.Component {
             Text:
           </Col>
           <Col span={22} >
-            <Input value={this.state.model.text} onChange={e => {
-              this.updateField('text', e.target.value);
-            }} />
+            <div style={{border: '1px solid rgb(217,217,217)'}}>
+              <CodeMirror
+                value={this.state.model.text}
+                options={{mode: 'properties',}}
+                onBeforeChange={(editor, data, value) => {
+                  this.updateField('text', value);
+                }}
+              />
+            </div>
+
           </Col>
         </Row>
       </Card>
