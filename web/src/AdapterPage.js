@@ -9,40 +9,40 @@ require("codemirror/mode/properties/properties");
 
 const { Option } = Select;
 
-class ModelPage extends React.Component {
+class AdapterPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       classes: props,
-      modelId: props.match.params.modelId,
-      model: null,
+      adapterId: props.match.params.adapterId,
+      adapter: null,
     };
   }
 
   componentDidMount() {
-    this.getModel();
+    this.getAdapter();
   }
 
-  getModel() {
-    Backend.getModel(this.state.modelId)
+  getAdapter() {
+    Backend.getAdapter(this.state.adapterId)
       .then((res) => {
           this.setState({
-            model: res,
+            adapter: res,
           });
         }
       );
   }
 
   updateField(key, value) {
-    let model = this.state.model;
-    model[key] = value;
+    let adapter = this.state.adapter;
+    adapter[key] = value;
     this.setState({
-      model: model,
+      adapter: adapter,
     });
   }
 
-  updateModel() {
-    Backend.updateModel(this.state.model)
+  updateAdapter() {
+    Backend.updateAdapter(this.state.adapter)
       .then((res) => {
         Setting.showMessage("success", `Save succeeded`);
       })
@@ -55,8 +55,8 @@ class ModelPage extends React.Component {
     return (
       <Card size="small" title={
         <div style={{width: "90vw"}}>
-          Edit Model: <Tag color="rgb(232,18,36)">{this.state.modelId}</Tag>&nbsp;&nbsp;&nbsp;&nbsp;
-          <Button type="primary" onClick={this.updateModel.bind(this)}>Save Change</Button>
+          Edit Adapter: <Tag color="rgb(232,18,36)">{this.state.adapterId}</Tag>&nbsp;&nbsp;&nbsp;&nbsp;
+          <Button type="primary" onClick={this.updateAdapter.bind(this)}>Save Change</Button>
         </div>
       } style={{marginLeft: '5px'}} type="inner">
         <Row>
@@ -64,7 +64,7 @@ class ModelPage extends React.Component {
             Id:
           </Col>
           <Col span={22} >
-            <Input value={this.state.model.id} onChange={e => {
+            <Input value={this.state.adapter.id} onChange={e => {
               this.updateField('id', e.target.value);
             }} />
           </Col>
@@ -74,37 +74,31 @@ class ModelPage extends React.Component {
             Name:
           </Col>
           <Col span={22} >
-            <Input value={this.state.model.name} onChange={e => {
+            <Input value={this.state.adapter.name} onChange={e => {
               this.updateField('name', e.target.value);
             }} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Type:
+            Database:
           </Col>
           <Col span={22} >
-            <Select style={{width: '100%'}} value={this.state.model.type} onChange={(value => {this.updateField('type', value);})}>
+            <Select style={{width: '100%'}} value={this.state.adapter.database} onChange={(value => {this.updateField('database', value);})}>
               {
-                ['ACL', 'RBAC', 'ABAC'].map((type, index) => <Option key={index} value={type}>{type}</Option>)
+                ['MySQL', 'PostgreSQL', 'SQLite'].map((database, index) => <Option key={index} value={database}>{database}</Option>)
               }
             </Select>
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Text:
+            Connection string:
           </Col>
           <Col span={22} >
-            <div style={{border: '1px solid rgb(217,217,217)'}}>
-              <CodeMirror
-                value={this.state.model.text}
-                options={{mode: 'properties',}}
-                onBeforeChange={(editor, data, value) => {
-                  this.updateField('text', value);
-                }}
-              />
-            </div>
+            <Input value={this.state.adapter.connectString} onChange={e => {
+              this.updateField('connectString', e.target.value);
+            }} />
           </Col>
         </Row>
       </Card>
@@ -116,7 +110,7 @@ class ModelPage extends React.Component {
       <div>
         <Row>
           {
-            this.state.model !== null ? this.renderContent() : null
+            this.state.adapter !== null ? this.renderContent() : null
           }
         </Row>
       </div>
@@ -125,4 +119,4 @@ class ModelPage extends React.Component {
 
 }
 
-export default ModelPage;
+export default AdapterPage;

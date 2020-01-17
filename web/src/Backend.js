@@ -7,11 +7,26 @@ export function getAdapters() {
     }).then(res => res.json());
 }
 
+export function getAdapter(adapterId) {
+    return fetch(`${Setting.ServerUrl}/api/get-adapter?id=${adapterId}`, {
+        method: "GET",
+        credentials: "include"
+    }).then(res => res.json());
+}
+
 export function updateAdapters(adapters) {
     return fetch(`${Setting.ServerUrl}/api/update-adapters`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(adapters),
+    }).then(res => res.json());
+}
+
+export function updateAdapter(adapter) {
+    return fetch(`${Setting.ServerUrl}/api/update-adapter`, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(adapter),
     }).then(res => res.json());
 }
 

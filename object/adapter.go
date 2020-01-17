@@ -66,3 +66,12 @@ func UpdateAdapters(adapters []*Adapter) bool {
 
 	return affected != 0
 }
+
+func UpdateAdapter(adapter *Adapter) bool {
+	affected, err := ormManager.engine.Id(adapter.Id).AllCols().Update(adapter)
+	if err != nil {
+		panic(err)
+	}
+
+	return affected != 0
+}

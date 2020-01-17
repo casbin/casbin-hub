@@ -20,8 +20,9 @@ func initAPI() {
 	beego.AddNamespace(ns)
 
 	beego.Router("/api/get-adapters", &controllers.ApiController{}, "GET:GetAdapters")
-	beego.Router("/api/get-adapters", &controllers.ApiController{}, "GET:GetAdapter")
+	beego.Router("/api/get-adapter", &controllers.ApiController{}, "GET:GetAdapter")
 	beego.Router("/api/update-adapters", &controllers.ApiController{}, "POST:UpdateAdapters")
+	beego.Router("/api/update-adapter", &controllers.ApiController{}, "POST:UpdateAdapter")
 
 	beego.Router("/api/get-models", &controllers.ApiController{}, "GET:GetModels")
 	beego.Router("/api/get-model", &controllers.ApiController{}, "GET:GetModel")

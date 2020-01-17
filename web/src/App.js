@@ -5,6 +5,7 @@ import {Switch, Route} from 'react-router-dom'
 import HomePage from "./HomePage";
 import {Layout, Menu, Typography} from "antd";
 import ModelPage from "./ModelPage";
+import AdapterPage from "./AdapterPage";
 
 const {Text} = Typography;
 const {Header, Footer} = Layout;
@@ -68,6 +69,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/model/:modelId" component={ModelPage}/>
+            <Route exact path="/adapter/:adapterId" component={AdapterPage}/>
           </Switch>
           <Footer style={{ textAlign: 'center' }}>
             Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤</span> by <a target="_blank" href="https://github.com/casbin">Casbin Organization</a>

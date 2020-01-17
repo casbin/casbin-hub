@@ -1,6 +1,6 @@
 import React from "react";
-import {DownOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Input, Row, Select, Table} from 'antd';
+import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
+import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 
 const { Option } = Select;
@@ -127,9 +127,18 @@ class AdapterTable extends React.Component {
         render: (text, record, index) => {
           return (
             <div>
-              <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
-              <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
-              <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
+              <Tooltip placement="topLeft" title="Edit">
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/adapter/${record.id}`)} />
+              </Tooltip>
+              <Tooltip placement="topLeft" title="Move up">
+                <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
+              </Tooltip>
+              <Tooltip placement="topLeft" title="Move down">
+                <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
+              </Tooltip>
+              <Tooltip placement="topLeft" title="Delete">
+                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
+              </Tooltip>
             </div>
           );
         }
