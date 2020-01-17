@@ -38,6 +38,14 @@ export function testAdapterConnection(adapter) {
     }).then(res => res.json());
 }
 
+export function getAdapterPolicies(adapter) {
+    return fetch(`${Setting.ServerUrl}/api/get-adapter-policies`, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(adapter),
+    }).then(res => res.json());
+}
+
 export function getModels() {
     return fetch(`${Setting.ServerUrl}/api/get-models`, {
         method: "GET",

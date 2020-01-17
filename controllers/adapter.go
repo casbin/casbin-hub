@@ -55,9 +55,28 @@ func (c *ApiController) TestAdapterConnection() {
 		panic(err)
 	}
 
-	res, msg := adapter.TestConnection()
-	if res {
+	isOk, msg := adapter.TestConnection()
+	if isOk {
 		resp = Response{Status: "ok", Msg: ""}
+	} else {
+		resp = Response{Status: "error", Msg: msg}
+	}
+	c.Data["json"] = resp
+	c.ServeJSON()
+}
+
+func (c *ApiController) GetAdapterPolicies() {
+	var resp Response
+
+	var adapter *object.Adapter
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &adapter)
+	if err != nil {
+		panic(err)
+	}
+
+	isOk, msg, policies := object.GetAdapterPolicies(adapter)
+	if isOk {
+		resp = Response{Status: "ok", Msg: "", Data: policies}
 	} else {
 		resp = Response{Status: "error", Msg: msg}
 	}

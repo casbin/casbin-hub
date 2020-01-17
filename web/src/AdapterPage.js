@@ -4,10 +4,12 @@ import * as Backend from "./Backend";
 import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
 import {Controlled as CodeMirror} from 'react-codemirror2'
 import "codemirror/lib/codemirror.css"
+import AdapterTable from "./AdapterTable";
+import PolicyTable from "./PolicyTable";
 
 require("codemirror/mode/properties/properties");
 
-const { Option } = Select;
+const {Option} = Select;
 
 class AdapterPage extends React.Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class AdapterPage extends React.Component {
       classes: props,
       adapterId: props.match.params.adapterId,
       adapter: null,
+      policies: null,
     };
   }
 
@@ -28,6 +31,18 @@ class AdapterPage extends React.Component {
       .then((res) => {
           this.setState({
             adapter: res,
+          });
+
+          this.getAdapterPolicies(res);
+        }
+      );
+  }
+
+  getAdapterPolicies(adapter) {
+    Backend.getAdapterPolicies(adapter)
+      .then((res) => {
+          this.setState({
+            policies: res.data,
           });
         }
       );
@@ -65,6 +80,10 @@ class AdapterPage extends React.Component {
       });
   }
 
+  onUpdatePolicies() {
+
+  }
+
   renderContent() {
     return (
       <Card size="small" title={
@@ -77,60 +96,70 @@ class AdapterPage extends React.Component {
           <Col style={{marginTop: '5px'}} span={2}>
             Id:
           </Col>
-          <Col span={22} >
+          <Col span={22}>
             <Input value={this.state.adapter.id} onChange={e => {
               this.updateField('id', e.target.value);
-            }} />
+            }}/>
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
+        <Row style={{marginTop: '20px'}}>
           <Col style={{marginTop: '5px'}} span={2}>
             Name:
           </Col>
-          <Col span={22} >
+          <Col span={22}>
             <Input value={this.state.adapter.name} onChange={e => {
               this.updateField('name', e.target.value);
-            }} />
+            }}/>
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
+        <Row style={{marginTop: '20px'}}>
           <Col style={{marginTop: '5px'}} span={2}>
             Type:
           </Col>
-          <Col span={22} >
-            <Select style={{width: '100%'}} value={this.state.adapter.type} onChange={(value => {this.updateField('database', value);})}>
+          <Col span={22}>
+            <Select style={{width: '100%'}} value={this.state.adapter.type} onChange={(value => {
+              this.updateField('database', value);
+            })}>
               {
                 ['MySQL', 'PostgreSQL', 'SQLite'].map((type, index) => <Option key={index} value={type}>{type}</Option>)
               }
             </Select>
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
+        <Row style={{marginTop: '20px'}}>
           <Col style={{marginTop: '5px'}} span={2}>
             Parameter 1:
           </Col>
-          <Col span={22} >
+          <Col span={22}>
             <Input value={this.state.adapter.param1} onChange={e => {
               this.updateField('param1', e.target.value);
-            }} />
+            }}/>
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
+        <Row style={{marginTop: '20px'}}>
           <Col style={{marginTop: '5px'}} span={2}>
             Parameter 2:
           </Col>
-          <Col span={22} >
+          <Col span={22}>
             <Input value={this.state.adapter.param2} onChange={e => {
               this.updateField('param2', e.target.value);
-            }} />
+            }}/>
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
+        <Row style={{marginTop: '20px'}}>
           <Col style={{marginTop: '5px'}} span={2}>
             Test:
           </Col>
-          <Col span={22} >
+          <Col span={22}>
             <Button type="primary" onClick={this.testAdapterConnection.bind(this)}>Test Connection</Button>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}}>
+          <Col style={{marginTop: '5px'}} span={2}>
+            Policies:
+          </Col>
+          <Col span={22}>
+            <PolicyTable title="Policies" table={this.state.policies} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
           </Col>
         </Row>
       </Card>
