@@ -1,10 +1,13 @@
 package object
 
+import xormadapter "github.com/casbin/xorm-adapter"
+
 type Adapter struct {
-	Id            string `xorm:"varchar(100) notnull pk" json:"id"`
-	Name          string `xorm:"varchar(100)" json:"name"`
-	Database      string `xorm:"varchar(100)" json:"database"`
-	ConnectString string `xorm:"varchar(100)" json:"connectString"`
+	Id       string `xorm:"varchar(100) notnull pk" json:"id"`
+	Name     string `xorm:"varchar(100)" json:"name"`
+	Type     string `xorm:"varchar(100)" json:"type"`
+	Param1   string `xorm:"varchar(500)" json:"param1"`
+	Param2   string `xorm:"varchar(500)" json:"param2"`
 }
 
 func GetAdapters() []*Adapter {
@@ -30,15 +33,6 @@ func GetAdapter(id string) *Adapter {
 		return nil
 	}
 }
-
-//func UpdateAdapter(adapter *Adapter) bool {
-//	affected, err := ormManager.engine.Id(adapter.Id).AllCols().Update(adapter)
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	return affected != 0
-//}
 
 func createAdapterTable() error {
 	return ormManager.engine.Sync2(new(Adapter))
@@ -74,4 +68,13 @@ func UpdateAdapter(adapter *Adapter) bool {
 	}
 
 	return affected != 0
+}
+
+func (adapter *Adapter) TestConnection() (bool, string) {
+	_, err := xormadapter.NewAdapter(adapter.Param1, adapter.Param2)
+	if err == nil {
+		return true, ""
+	} else {
+		return false, err.Error()
+	}
 }

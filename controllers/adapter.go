@@ -6,6 +6,12 @@ import (
 	"github.com/casbin/casbin-dashboard/object"
 )
 
+type Response struct {
+	Status string      `json:"status"`
+	Msg    string      `json:"msg"`
+	Data   interface{} `json:"data"`
+}
+
 func (c *ApiController) GetAdapters() {
 	c.Data["json"] = object.GetAdapters()
 	c.ServeJSON()
@@ -37,5 +43,24 @@ func (c *ApiController) UpdateAdapter() {
 	}
 
 	c.Data["json"] = object.UpdateAdapter(adapter)
+	c.ServeJSON()
+}
+
+func (c *ApiController) TestAdapterConnection() {
+	var resp Response
+
+	var adapter *object.Adapter
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &adapter)
+	if err != nil {
+		panic(err)
+	}
+
+	res, msg := adapter.TestConnection()
+	if res {
+		resp = Response{Status: "ok", Msg: ""}
+	} else {
+		resp = Response{Status: "error", Msg: msg}
+	}
+	c.Data["json"] = resp
 	c.ServeJSON()
 }

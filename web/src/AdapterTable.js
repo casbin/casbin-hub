@@ -96,27 +96,37 @@ class AdapterTable extends React.Component {
         }
       },
       {
-        title: 'Database',
-        dataIndex: 'database',
-        key: 'database',
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
         render: (text, record, index) => {
           return (
-            <Select style={{width: '100%'}} value={text} onChange={(value => {this.updateField(index, 'database', value);})}>
-              {
-                ['MySQL', 'PostgreSQL', 'SQLite'].map((type, index) => <Option key={index} value={type}>{type}</Option>)
-              }
-            </Select>
+            <Input value={text} onChange={e => {
+              this.updateField(index, 'type', e.target.value);
+            }} />
           )
         }
       },
       {
-        title: 'Connection String',
-        dataIndex: 'connectString',
-        key: 'connectString',
+        title: 'Parameter 1',
+        dataIndex: 'param1',
+        key: 'param1',
         render: (text, record, index) => {
           return (
             <Input value={text} onChange={e => {
-              this.updateField(index, 'connectString', e.target.value);
+              this.updateField(index, 'param1', e.target.value);
+            }} />
+          )
+        }
+      },
+      {
+        title: 'Parameter 2',
+        dataIndex: 'param2',
+        key: 'param2',
+        render: (text, record, index) => {
+          return (
+            <Input value={text} onChange={e => {
+              this.updateField(index, 'param2', e.target.value);
             }} />
           )
         }
