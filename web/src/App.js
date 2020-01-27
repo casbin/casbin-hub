@@ -63,6 +63,11 @@ class App extends React.Component {
                     Adapter
                   </a>
                 </Menu.Item>
+                <Menu.Item key='4' style={{float: 'right'}}>
+                  <a target="_blank" href="https://github.com/casbin/casbin-dashboard">
+                    <img alt="GitHub stars" src="https://img.shields.io/github/stars/casbin/casbin-dashboard?style=social" />
+                  </a>
+                </Menu.Item>
               </Menu>
             </Header>
           </Layout>
