@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ant-design/icons": "latest",
+    "@ant-design/icons": "4.0.0-rc.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "antd": "^4.0.0-rc.0",
+    "antd": "^4.0.0-rc.3",
     "codemirror": "^5.50.2",
     "react": "^16.12.0",
     "react-codemirror2": "^6.0.0",
