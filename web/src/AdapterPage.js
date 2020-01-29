@@ -99,11 +99,11 @@ class AdapterPage extends React.Component {
   renderContent() {
     return (
       <Card size="small" title={
-        <div style={{width: "90vw"}}>
+        <div>
           Edit Adapter: <Tag color="rgb(232,18,36)">{this.state.adapterId}</Tag>&nbsp;&nbsp;&nbsp;&nbsp;
           <Button type="primary" onClick={this.updateAdapter.bind(this)}>Save Change</Button>
         </div>
-      } style={{marginLeft: '5px'}} type="inner">
+      } style={{marginLeft: '1px'}} type="inner">
         <Row>
           <Col style={{marginTop: '5px'}} span={2}>
             Id:
@@ -203,9 +203,11 @@ class AdapterPage extends React.Component {
     return (
       <div>
         <Row>
-          {
-            this.state.adapter !== null ? this.renderContent() : null
-          }
+          <Col span={24}>
+            {
+              this.state.adapter !== null ? this.renderContent() : null
+            }
+          </Col>
         </Row>
       </div>
     );
