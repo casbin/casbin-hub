@@ -4,6 +4,7 @@ import * as Backend from "./Backend";
 import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
 import {Controlled as CodeMirror} from 'react-codemirror2'
 import "codemirror/lib/codemirror.css"
+import ModelEditor from "./ModelEditor";
 
 require("codemirror/mode/properties/properties");
 
@@ -26,11 +27,79 @@ class ModelPage extends React.Component {
   getModel() {
     Backend.getModel(this.state.modelId)
       .then((res) => {
-          this.setState({
-            model: res,
-          });
+        let model = res;
+        model.text = this.parseModelText(model.text);
+        this.setState({
+          model: model,
+        });
         }
       );
+  }
+
+  onUpdateModelText(text) {
+    let model = this.state.model;
+    model.text = text;
+    this.setState({
+      model: model,
+    });
+  }
+
+  parseLine(s) {
+    const res = s.split(",").map(value => value.trim(" "));
+    return res;
+  }
+
+  parseModelText(text) {
+    const res = {};
+
+    const lines = text.match(/[^\r\n]+/g);
+    lines.forEach((line, i) => {
+      if (line.startsWith("p = ")) {
+        res.p = line.slice(4);
+        res.p = this.parseLine(res.p);
+      } else if (line.startsWith("r = ")) {
+        res.r = line.slice(4);
+        res.r = this.parseLine(res.r);
+      } else if (line.endsWith("= _, _")) {
+        if (res.g === undefined) {
+          res.g = [];
+        }
+        res.g.push(line.split("=")[0].trim(" "));
+      } else if (line.startsWith("e = ")) {
+        res.e = line.slice(4);
+      } else if (line.startsWith("m = ")) {
+        res.m = line.slice(4);
+      }
+    });
+
+    return res;
+  }
+
+  stringifyModelText(text) {
+    const lines = [];
+
+    lines.push("[request_definition]");
+    lines.push("r = " + text.r.join(", "));
+    lines.push("");
+
+    lines.push("[policy_definition]");
+    lines.push("p = " + text.p.join(", "));
+    lines.push("");
+
+    lines.push("[role_definition]");
+    text.g.forEach((line, i) => {
+      lines.push(line + " = _, _");
+    });
+    lines.push("");
+
+    lines.push("[policy_effect]");
+    lines.push("e = " + text.e);
+    lines.push("");
+
+    lines.push("[matchers]");
+    lines.push("m = " + text.m);
+
+    return lines.join("\n");
   }
 
   updateField(key, value) {
@@ -42,7 +111,9 @@ class ModelPage extends React.Component {
   }
 
   updateModel() {
-    Backend.updateModel(this.state.model)
+    let model = Setting.deepCopy(this.state.model);
+    model.text = this.stringifyModelText(model.text);
+    Backend.updateModel(model)
       .then((res) => {
         Setting.showMessage("success", `Save succeeded`);
       })
@@ -95,10 +166,15 @@ class ModelPage extends React.Component {
           <Col style={{marginTop: '5px'}} span={2}>
             Text:
           </Col>
-          <Col span={22} >
+          <Col span={10} >
+            <ModelEditor model={this.state.model.text} onUpdateModelText={this.onUpdateModelText.bind(this)} />
+          </Col>
+          <Col span={1} >
+          </Col>
+          <Col span={11} >
             <div style={{border: '1px solid rgb(217,217,217)'}}>
               <CodeMirror
-                value={this.state.model.text}
+                value={this.stringifyModelText(this.state.model.text)}
                 options={{mode: 'properties',}}
                 onBeforeChange={(editor, data, value) => {
                   this.updateField('text', value);
@@ -124,7 +200,6 @@ class ModelPage extends React.Component {
       </div>
     );
   }
-
 }
 
 export default ModelPage;
