@@ -78,6 +78,19 @@ class PolicyTable extends React.Component {
     }
 
     const columns = [];
+    columns.push(
+      {
+        title: "PType",
+        dataIndex: "pType",
+        key: "pType",
+        render: (text, record, index) => {
+          return (
+            <Input value={text} disabled={true} />
+          )
+        }
+      },
+    );
+
     this.props.headers.forEach((title, i) => {
       columns.push(
         {
