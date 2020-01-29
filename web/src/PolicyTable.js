@@ -70,100 +70,38 @@ class PolicyTable extends React.Component {
   }
 
   renderTable(table) {
-    const columns = [
+    const keys = ["v0", "v1", "v2", "v3", "v4", "v5"];
+    const titles = ["V0", "V1", "V2", "V3", "V4", "V5"];
+
+    if (this.props.headers === undefined) {
+      return null;
+    }
+
+    const columns = [];
+    this.props.headers.forEach((title, i) => {
+      columns.push(
+        {
+          title: title,
+          dataIndex: keys[i],
+          key: keys[i],
+          render: (text, record, index) => {
+            return (
+              <Input value={text} onChange={e => {
+                this.updateField(index, keys[i], e.target.value);
+              }} />
+            )
+          }
+        },
+      );
+    });
+
+    columns.push(
       {
-        title: 'PType',
-        dataIndex: 'pType',
-        key: 'pType',
-        render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'pType', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: 'V0',
-        dataIndex: 'v0',
-        key: 'v0',
-        render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'v0', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: 'V1',
-        dataIndex: 'v1',
-        key: 'v1',
-        render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'v1', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: 'V2',
-        dataIndex: 'v2',
-        key: 'v2',
-        render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'v2', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: 'V3',
-        dataIndex: 'v3',
-        key: 'v3',
-        render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'v3', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: 'V4',
-        dataIndex: 'v4',
-        key: 'v4',
-        render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'v4', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: 'V5',
-        dataIndex: 'v5',
-        key: 'v5',
-        render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'v5', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: 'Action',
+        title: 'Edit:',
         key: 'action',
         render: (text, record, index) => {
           return (
             <div>
-              <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/adapter/${record.id}`)} />
-              </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
                 <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
               </Tooltip>
@@ -177,7 +115,7 @@ class PolicyTable extends React.Component {
           );
         }
       },
-    ];
+    );
 
     return (
       <div>

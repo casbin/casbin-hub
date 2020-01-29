@@ -18,7 +18,8 @@ class AdapterPage extends React.Component {
       classes: props,
       adapterId: props.match.params.adapterId,
       adapter: null,
-      policies: null,
+      pPolicies: null,
+      gPolicies: null,
     };
   }
 
@@ -34,6 +35,7 @@ class AdapterPage extends React.Component {
           });
 
           this.getAdapterPolicies(res);
+          this.getAdapterGroupingPolicies(res);
         }
       );
   }
@@ -42,7 +44,17 @@ class AdapterPage extends React.Component {
     Backend.getAdapterPolicies(adapter)
       .then((res) => {
           this.setState({
-            policies: res.data,
+            pPolicies: res.data,
+          });
+        }
+      );
+  }
+
+  getAdapterGroupingPolicies(adapter) {
+    Backend.getAdapterGroupingPolicies(adapter)
+      .then((res) => {
+          this.setState({
+            gPolicies: res.data,
           });
         }
       );
@@ -148,6 +160,19 @@ class AdapterPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}}>
           <Col style={{marginTop: '5px'}} span={2}>
+            Policy Headers:
+          </Col>
+          <Col span={22}>
+            <Select mode="tags" style={{width: '100%'}}
+                    value={Setting.getSelectOptions(this.state.adapter.policyHeaders)}
+                    onChange={value => {
+                      this.updateField('policyHeaders', value);
+                    }}
+            />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}}>
+          <Col style={{marginTop: '5px'}} span={2}>
             Test:
           </Col>
           <Col span={22}>
@@ -156,10 +181,18 @@ class AdapterPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}}>
           <Col style={{marginTop: '5px'}} span={2}>
-            Policies:
+            P Policies:
           </Col>
           <Col span={22}>
-            <PolicyTable title="Policies" table={this.state.policies} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
+            <PolicyTable title="P Policies" table={this.state.pPolicies} headers={this.state.adapter.policyHeaders} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}}>
+          <Col style={{marginTop: '5px'}} span={2}>
+            G Policies:
+          </Col>
+          <Col span={22}>
+            <PolicyTable title="G Policies" table={this.state.gPolicies} headers={["User", "Role"]} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
           </Col>
         </Row>
       </Card>

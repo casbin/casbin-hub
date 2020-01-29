@@ -83,3 +83,22 @@ func (c *ApiController) GetAdapterPolicies() {
 	c.Data["json"] = resp
 	c.ServeJSON()
 }
+
+func (c *ApiController) GetAdapterGroupingPolicies() {
+	var resp Response
+
+	var adapter *object.Adapter
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &adapter)
+	if err != nil {
+		panic(err)
+	}
+
+	isOk, msg, policies := object.GetAdapterGroupingPolicies(adapter)
+	if isOk {
+		resp = Response{Status: "ok", Msg: "", Data: policies}
+	} else {
+		resp = Response{Status: "error", Msg: msg}
+	}
+	c.Data["json"] = resp
+	c.ServeJSON()
+}

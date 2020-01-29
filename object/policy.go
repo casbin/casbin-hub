@@ -55,13 +55,13 @@ func matrixToCasbinRules(policies [][]string) []*CasbinRule {
 
 	for _, policy := range policies {
 		line := CasbinRule{
-			PType: safeReturn(policy, 0),
-			V0:    safeReturn(policy, 1),
-			V1:    safeReturn(policy, 2),
-			V2:    safeReturn(policy, 3),
-			V3:    safeReturn(policy, 4),
-			V4:    safeReturn(policy, 5),
-			V5:    safeReturn(policy, 6),
+			PType: "p",
+			V0:    safeReturn(policy, 0),
+			V1:    safeReturn(policy, 1),
+			V2:    safeReturn(policy, 2),
+			V3:    safeReturn(policy, 3),
+			V4:    safeReturn(policy, 4),
+			V5:    safeReturn(policy, 5),
 		}
 		res = append(res, &line)
 	}
@@ -91,4 +91,13 @@ func GetAdapterPolicies(adapter *Adapter) (bool, string, []*CasbinRule) {
 	}
 
 	return true, "", matrixToCasbinRules(e.GetPolicy())
+}
+
+func GetAdapterGroupingPolicies(adapter *Adapter) (bool, string, []*CasbinRule) {
+	e, err := getEnforcer(adapter)
+	if err != nil {
+		return false, err.Error(), nil
+	}
+
+	return true, "", matrixToCasbinRules(e.GetGroupingPolicy())
 }

@@ -1,11 +1,12 @@
 package object
 
 type Adapter struct {
-	Id     string `xorm:"varchar(100) notnull pk" json:"id"`
-	Name   string `xorm:"varchar(100)" json:"name"`
-	Type   string `xorm:"varchar(100)" json:"type"`
-	Param1 string `xorm:"varchar(500)" json:"param1"`
-	Param2 string `xorm:"varchar(500)" json:"param2"`
+	Id            string   `xorm:"varchar(100) notnull pk" json:"id"`
+	Name          string   `xorm:"varchar(100)" json:"name"`
+	Type          string   `xorm:"varchar(100)" json:"type"`
+	Param1        string   `xorm:"varchar(500)" json:"param1"`
+	Param2        string   `xorm:"varchar(500)" json:"param2"`
+	PolicyHeaders []string `json:"policyHeaders"`
 }
 
 func GetAdapters() []*Adapter {

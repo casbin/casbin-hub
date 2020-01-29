@@ -42,3 +42,11 @@ export function deleteRow(array, i) {
 export function swapRow(array, i, j) {
     return [...array.slice(0, i), array[j], ...array.slice(i + 1, j), array[i], ...array.slice(j + 1)];
 }
+
+export function getSelectOptions(options) {
+    if (options === null) {
+        return [];
+    } else {
+        return options;
+    }
+}
