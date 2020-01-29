@@ -68,13 +68,9 @@ func (c *ApiController) TestAdapterConnection() {
 func (c *ApiController) GetAdapterPolicies() {
 	var resp Response
 
-	var adapter *object.Adapter
-	err := json.Unmarshal(c.Ctx.Input.RequestBody, &adapter)
-	if err != nil {
-		panic(err)
-	}
+	id := c.Input().Get("id")
 
-	isOk, msg, policies := object.GetAdapterPolicies(adapter)
+	isOk, msg, policies := object.GetAdapterPolicies(id)
 	if isOk {
 		resp = Response{Status: "ok", Msg: "", Data: policies}
 	} else {
@@ -87,13 +83,9 @@ func (c *ApiController) GetAdapterPolicies() {
 func (c *ApiController) GetAdapterGroupingPolicies() {
 	var resp Response
 
-	var adapter *object.Adapter
-	err := json.Unmarshal(c.Ctx.Input.RequestBody, &adapter)
-	if err != nil {
-		panic(err)
-	}
+	id := c.Input().Get("id")
 
-	isOk, msg, policies := object.GetAdapterGroupingPolicies(adapter)
+	isOk, msg, policies := object.GetAdapterGroupingPolicies(id)
 	if isOk {
 		resp = Response{Status: "ok", Msg: "", Data: policies}
 	} else {

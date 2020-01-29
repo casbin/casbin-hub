@@ -84,8 +84,10 @@ func getEnforcer(adapter *Adapter) (*casbin.Enforcer, error) {
 	return e, err
 }
 
-func GetAdapterPolicies(adapter *Adapter) (bool, string, []*CasbinRule) {
-	e, err := getEnforcer(adapter)
+func GetAdapterPolicies(id string) (bool, string, []*CasbinRule) {
+	a := GetAdapter(id)
+
+	e, err := getEnforcer(a)
 	if err != nil {
 		return false, err.Error(), nil
 	}
@@ -93,8 +95,10 @@ func GetAdapterPolicies(adapter *Adapter) (bool, string, []*CasbinRule) {
 	return true, "", matrixToCasbinRules(e.GetPolicy())
 }
 
-func GetAdapterGroupingPolicies(adapter *Adapter) (bool, string, []*CasbinRule) {
-	e, err := getEnforcer(adapter)
+func GetAdapterGroupingPolicies(id string) (bool, string, []*CasbinRule) {
+	a := GetAdapter(id)
+
+	e, err := getEnforcer(a)
 	if err != nil {
 		return false, err.Error(), nil
 	}

@@ -38,19 +38,17 @@ export function testAdapterConnection(adapter) {
     }).then(res => res.json());
 }
 
-export function getAdapterPolicies(adapter) {
-    return fetch(`${Setting.ServerUrl}/api/get-adapter-policies`, {
-        method: 'POST',
+export function getAdapterPolicies(adapterId) {
+    return fetch(`${Setting.ServerUrl}/api/get-adapter-policies?id=${adapterId}`, {
+        method: 'GET',
         credentials: 'include',
-        body: JSON.stringify(adapter),
     }).then(res => res.json());
 }
 
-export function getAdapterGroupingPolicies(adapter) {
-    return fetch(`${Setting.ServerUrl}/api/get-adapter-grouping-policies`, {
-        method: 'POST',
+export function getAdapterGroupingPolicies(adapterId) {
+    return fetch(`${Setting.ServerUrl}/api/get-adapter-grouping-policies?id=${adapterId}`, {
+        method: 'GET',
         credentials: 'include',
-        body: JSON.stringify(adapter),
     }).then(res => res.json());
 }
 

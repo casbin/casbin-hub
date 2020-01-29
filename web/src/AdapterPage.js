@@ -41,7 +41,7 @@ class AdapterPage extends React.Component {
   }
 
   getAdapterPolicies(adapter) {
-    Backend.getAdapterPolicies(adapter)
+    Backend.getAdapterPolicies(adapter.id)
       .then((res) => {
           this.setState({
             pPolicies: res.data,
@@ -51,7 +51,7 @@ class AdapterPage extends React.Component {
   }
 
   getAdapterGroupingPolicies(adapter) {
-    Backend.getAdapterGroupingPolicies(adapter)
+    Backend.getAdapterGroupingPolicies(adapter.id)
       .then((res) => {
           this.setState({
             gPolicies: res.data,
