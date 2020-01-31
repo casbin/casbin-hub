@@ -113,6 +113,13 @@ export function getEnforcers() {
     }).then(res => res.json());
 }
 
+export function getEnforcer(enforcerId) {
+    return fetch(`${Setting.ServerUrl}/api/get-enforcer?id=${enforcerId}`, {
+        method: "GET",
+        credentials: "include"
+    }).then(res => res.json());
+}
+
 export function updateEnforcers(enforcers) {
     return fetch(`${Setting.ServerUrl}/api/update-enforcers`, {
         method: 'POST',

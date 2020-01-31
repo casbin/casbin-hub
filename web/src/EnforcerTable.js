@@ -1,6 +1,6 @@
 import React from "react";
-import {DownOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Input, Row, Select, Table} from 'antd';
+import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
+import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 
 const { Option } = Select;
@@ -103,7 +103,7 @@ class EnforcerTable extends React.Component {
           return (
             <Select style={{width: '100%'}} value={text} onChange={(value => {this.updateField(index, 'model', value);})}>
               {
-                this.props.models.map((model, index) => <Option key={index} value={model}>{model}</Option>)
+                this.props.models.map((item, index) => <Option key={index} value={item.id}>{item.id}</Option>)
               }
             </Select>
           )
@@ -117,7 +117,7 @@ class EnforcerTable extends React.Component {
           return (
             <Select style={{width: '100%'}} value={text} onChange={(value => {this.updateField(index, 'adapter', value);})}>
               {
-                this.props.adapters.map((adapter, index) => <Option key={index} value={adapter}>{adapter}</Option>)
+                this.props.adapters.map((item, index) => <Option key={index} value={item.id}>{item.id}</Option>)
               }
             </Select>
           )
@@ -129,9 +129,18 @@ class EnforcerTable extends React.Component {
         render: (text, record, index) => {
           return (
             <div>
-              <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
-              <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
-              <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
+              <Tooltip placement="topLeft" title="Edit">
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/enforcer/${record.id}`)} />
+              </Tooltip>
+              <Tooltip placement="topLeft" title="Move up">
+                <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
+              </Tooltip>
+              <Tooltip placement="topLeft" title="Move down">
+                <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
+              </Tooltip>
+              <Tooltip placement="topLeft" title="Delete">
+                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
+              </Tooltip>
             </div>
           );
         }

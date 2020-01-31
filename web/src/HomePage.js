@@ -97,22 +97,6 @@ class HomePage extends React.Component {
       });
   }
 
-  getModelIds() {
-    if (this.state.models === null) {
-      return [];
-    }
-
-    return this.state.models.map(model => model.id);
-  }
-
-  getAdapterIds() {
-    if (this.state.adapters === null) {
-      return [];
-    }
-
-    return this.state.adapters.map(adapter => adapter.id);
-  }
-
   renderContent() {
     return (
       <Card size="small" title={
@@ -142,7 +126,7 @@ class HomePage extends React.Component {
             Enforcers:
           </Col>
           <Col span={22} >
-            <EnforcerTable title="Enforcers" table={this.state.enforcers} models={this.getModelIds()} adapters={this.getAdapterIds()} onUpdateTable={this.onUpdateEnforcers.bind(this)} />
+            <EnforcerTable title="Enforcers" table={this.state.enforcers} models={this.state.models === null ? [] : this.state.models} adapters={this.state.adapters === null ? [] : this.state.adapters} onUpdateTable={this.onUpdateEnforcers.bind(this)} />
           </Col>
         </Row>
       </Card>

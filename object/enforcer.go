@@ -17,6 +17,20 @@ func GetEnforcers() []*Enforcer {
 	return enforcers
 }
 
+func GetEnforcer(id string) *Enforcer {
+	enforcer := Enforcer{Id: id}
+	existed, err := ormManager.engine.Get(&enforcer)
+	if err != nil {
+		panic(err)
+	}
+
+	if existed {
+		return &enforcer
+	} else {
+		return nil
+	}
+}
+
 func createEnforcerTable() error {
 	return ormManager.engine.Sync2(new(Enforcer))
 }

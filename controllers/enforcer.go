@@ -11,6 +11,13 @@ func (c *ApiController) GetEnforcers() {
 	c.ServeJSON()
 }
 
+func (c *ApiController) GetEnforcer() {
+	id := c.Input().Get("id")
+
+	c.Data["json"] = object.GetEnforcer(id)
+	c.ServeJSON()
+}
+
 func (c *ApiController) UpdateEnforcers() {
 	var enforcers []*object.Enforcer
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &enforcers)

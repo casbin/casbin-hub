@@ -6,6 +6,7 @@ import HomePage from "./HomePage";
 import {Layout, Menu, Typography} from "antd";
 import ModelPage from "./ModelPage";
 import AdapterPage from "./AdapterPage";
+import EnforcerPage from "./EnforcerPage";
 
 const {Text} = Typography;
 const {Header, Footer} = Layout;
@@ -27,6 +28,8 @@ class App extends React.Component {
       this.setState({ selectedMenuKey: 2 });
     } else if (uri.includes('adapter')) {
       this.setState({ selectedMenuKey: 3 });
+    } else if (uri.includes('enforcer')) {
+      this.setState({ selectedMenuKey: 4 });
     } else {
       this.setState({ selectedMenuKey: 1 });
     }
@@ -63,7 +66,12 @@ class App extends React.Component {
                     Adapter
                   </a>
                 </Menu.Item>
-                <Menu.Item key='4' style={{float: 'right'}}>
+                <Menu.Item key="4">
+                  <a href="#">
+                    Enforcer
+                  </a>
+                </Menu.Item>
+                <Menu.Item key='5' style={{float: 'right'}}>
                   <a target="_blank" href="https://github.com/casbin/casbin-dashboard">
                     <img alt="GitHub stars" src="https://img.shields.io/github/stars/casbin/casbin-dashboard?style=social" />
                   </a>
@@ -75,6 +83,7 @@ class App extends React.Component {
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/model/:modelId" component={ModelPage}/>
             <Route exact path="/adapter/:adapterId" component={AdapterPage}/>
+            <Route exact path="/enforcer/:enforcerId" component={EnforcerPage}/>
           </Switch>
           <Footer style={{ textAlign: 'center' }}>
             Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤</span> by <a target="_blank" href="https://github.com/casbin">Casbin Organization</a>

@@ -36,5 +36,6 @@ func initAPI() {
 	beego.Router("/api/update-model", &controllers.ApiController{}, "POST:UpdateModel")
 
 	beego.Router("/api/get-enforcers", &controllers.ApiController{}, "GET:GetEnforcers")
+	beego.Router("/api/get-enforcer", &controllers.ApiController{}, "GET:GetEnforcer")
 	beego.Router("/api/update-enforcers", &controllers.ApiController{}, "POST:UpdateEnforcers")
 }
