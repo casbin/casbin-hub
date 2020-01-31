@@ -24,24 +24,23 @@ class AdapterPage extends React.Component {
   }
 
   componentDidMount() {
-    this.getAdapter();
+    this.getAdapter(this.state.adapterId);
+    this.getAdapterPolicies(this.state.adapterId);
+    this.getAdapterGroupingPolicies(this.state.adapterId);
   }
 
-  getAdapter() {
-    Backend.getAdapter(this.state.adapterId)
+  getAdapter(adapterId) {
+    Backend.getAdapter(adapterId)
       .then((res) => {
           this.setState({
             adapter: res,
           });
-
-          this.getAdapterPolicies(res);
-          this.getAdapterGroupingPolicies(res);
         }
       );
   }
 
-  getAdapterPolicies(adapter) {
-    Backend.getAdapterPolicies(adapter.id)
+  getAdapterPolicies(adapterId) {
+    Backend.getAdapterPolicies(adapterId)
       .then((res) => {
           this.setState({
             pPolicies: res.data,
@@ -50,8 +49,8 @@ class AdapterPage extends React.Component {
       );
   }
 
-  getAdapterGroupingPolicies(adapter) {
-    Backend.getAdapterGroupingPolicies(adapter.id)
+  getAdapterGroupingPolicies(adapterId) {
+    Backend.getAdapterGroupingPolicies(adapterId)
       .then((res) => {
           this.setState({
             gPolicies: res.data,
@@ -216,17 +215,14 @@ class AdapterPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}}>
           <Col style={{marginTop: '5px'}} span={2}>
-            P Policies:
+            Policies:
           </Col>
-          <Col span={22}>
+          <Col span={10}>
             <PolicyTable title="P Policies" type="p" table={this.state.pPolicies} headers={this.state.adapter.policyHeaders} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
           </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}}>
-          <Col style={{marginTop: '5px'}} span={2}>
-            G Policies:
+          <Col span={2}>
           </Col>
-          <Col span={22}>
+          <Col span={10}>
             <PolicyTable title="G Policies" type="g" table={this.state.gPolicies} headers={["User", "Role"]} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
           </Col>
         </Row>

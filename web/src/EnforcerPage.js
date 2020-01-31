@@ -4,7 +4,7 @@ import * as Backend from "./Backend";
 import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
 import {Controlled as CodeMirror} from 'react-codemirror2'
 import "codemirror/lib/codemirror.css"
-import ModelEditor from "./ModelEditor";
+import PolicyTable from "./PolicyTable";
 
 require("codemirror/mode/properties/properties");
 
@@ -19,40 +19,52 @@ class EnforcerPage extends React.Component {
       enforcer: null,
       adapters: [],
       models: [],
+      adapter: null,
+      model: null,
+      pPolicies: null,
+      gPolicies: null,
     };
   }
 
   componentDidMount() {
-    this.getEnforcer();
-    this.getModels();
-    this.getAdapters();
+    Promise.all([
+      Backend.getEnforcer(this.state.enforcerId),
+      Backend.getAdapters(),
+      Backend.getModels(),
+    ]).then((values) => {
+      let enforcer = values[0];
+      let adapters = values[1];
+      let models = values[2];
+
+      this.setState({
+        enforcer: enforcer,
+        adapters: adapters,
+        models: models,
+        adapter: adapters.filter(adapter => adapter.id === enforcer.adapter)[0],
+        model: models.filter(model => model.id === enforcer.model)[0],
+      });
+
+      this.getAdapterPolicies(enforcer.adapter);
+      this.getAdapterGroupingPolicies(enforcer.adapter);
+    });
   }
 
-  getEnforcer() {
-    Backend.getEnforcer(this.state.enforcerId)
-      .then((res) => {
-        this.setState({
-          enforcer: res,
-        });
-        }
-      );
-  }
 
-  getAdapters() {
-    Backend.getAdapters()
+  getAdapterPolicies(adapterId) {
+    Backend.getAdapterPolicies(adapterId)
       .then((res) => {
           this.setState({
-            adapters: res,
+            pPolicies: res.data,
           });
         }
       );
   }
 
-  getModels() {
-    Backend.getModels()
+  getAdapterGroupingPolicies(adapterId) {
+    Backend.getAdapterGroupingPolicies(adapterId)
       .then((res) => {
           this.setState({
-            models: res,
+            gPolicies: res.data,
           });
         }
       );
@@ -84,6 +96,9 @@ class EnforcerPage extends React.Component {
       .catch(error => {
         Setting.showMessage("error", `Sava failed: ${error}`);
       });
+  }
+
+  onUpdatePolicies() {
   }
 
   renderContent() {
@@ -118,24 +133,46 @@ class EnforcerPage extends React.Component {
           <Col style={{marginTop: '5px'}} span={2}>
             Model:
           </Col>
-          <Col span={22}>
+          <Col span={2}>
             <Select style={{width: '100%'}} value={this.state.enforcer.model} onChange={(value => {this.updateField('model', value);})}>
               {
                 this.state.models.map((item, index) => <Option key={index} value={item.id}>{item.id}</Option>)
               }
             </Select>
+            <Button style={{width: '100%', marginTop: '10px'}} type="primary" onClick={() => Setting.openLink(`/model/${this.state.enforcer.model}`)}>Edit</Button>
+          </Col>
+          <Col span={1}>
+          </Col>
+          <Col span={19}>
+            <div style={{border: '1px solid rgb(217,217,217)'}}>
+              <CodeMirror
+                value={this.state.model.text}
+                options={{mode: 'properties',}}
+              />
+            </div>
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}}>
           <Col style={{marginTop: '5px'}} span={2}>
             Adapter:
           </Col>
-          <Col span={22}>
+          <Col span={2}>
             <Select style={{width: '100%'}} value={this.state.enforcer.adapter} onChange={(value => {this.updateField('adapter', value);})}>
               {
                 this.state.adapters.map((item, index) => <Option key={index} value={item.id}>{item.id}</Option>)
               }
             </Select>
+            <Button style={{width: '100%', marginTop: '10px'}} type="primary" onClick={() => Setting.openLink(`/adapter/${this.state.enforcer.adapter}`)}>Edit</Button>
+          </Col>
+          <Col span={1}>
+          </Col>
+          <Col span={9}>
+            <PolicyTable title="P Policies" type="p" table={this.state.pPolicies} headers={this.state.adapter.policyHeaders} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
+          </Col>
+          <Col span={1}>
+          </Col>
+          <Col span={9}>
+            <PolicyTable title="G Policies" type="g" table={this.state.gPolicies} headers={["User", "Role"]} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
           </Col>
         </Row>
       </Card>
@@ -148,7 +185,7 @@ class EnforcerPage extends React.Component {
         <Row>
           <Col span={24}>
             {
-              this.state.enforcer !== null ? this.renderContent() : null
+              (this.state.enforcer !== null && this.state.adapter !== null && this.state.model !== null) ? this.renderContent() : null
             }
           </Col>
         </Row>

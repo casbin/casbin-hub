@@ -3,8 +3,6 @@ import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design
 import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 
-const { Option } = Select;
-
 class AdapterTable extends React.Component {
   constructor(props) {
     super(props);

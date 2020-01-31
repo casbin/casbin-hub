@@ -1,6 +1,5 @@
 import React from "react";
-import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Card, Col, Input, Row, Select, Table, Tag, Tooltip} from 'antd';
+import {Card, Col, Input, Row, Select} from 'antd';
 import * as Setting from "./Setting";
 
 const { Option } = Select;
