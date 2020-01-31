@@ -94,3 +94,45 @@ func (c *ApiController) GetAdapterGroupingPolicies() {
 	c.Data["json"] = resp
 	c.ServeJSON()
 }
+
+func (c *ApiController) AddAdapterPolicy() {
+	var resp Response
+
+	id := c.Input().Get("id")
+
+	var policy []string
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &policy)
+	if err != nil {
+		panic(err)
+	}
+
+	isOk, msg := object.AddAdapterPolicy(id, policy...)
+	if isOk {
+		resp = Response{Status: "ok", Msg: ""}
+	} else {
+		resp = Response{Status: "error", Msg: msg}
+	}
+	c.Data["json"] = resp
+	c.ServeJSON()
+}
+
+func (c *ApiController) RemoveAdapterPolicy() {
+	var resp Response
+
+	id := c.Input().Get("id")
+
+	var policy []string
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &policy)
+	if err != nil {
+		panic(err)
+	}
+
+	isOk, msg := object.RemoveAdapterPolicy(id, policy...)
+	if isOk {
+		resp = Response{Status: "ok", Msg: ""}
+	} else {
+		resp = Response{Status: "error", Msg: msg}
+	}
+	c.Data["json"] = resp
+	c.ServeJSON()
+}

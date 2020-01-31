@@ -105,3 +105,35 @@ func GetAdapterGroupingPolicies(id string) (bool, string, []*CasbinRule) {
 
 	return true, "", matrixToCasbinRules("g", e.GetGroupingPolicy())
 }
+
+func AddAdapterPolicy(id string, policy... string) (bool, string) {
+	a := GetAdapter(id)
+
+	e, err := getEnforcer(a)
+	if err != nil {
+		return false, err.Error()
+	}
+
+	_, err = e.AddPolicy(policy)
+	if err != nil {
+		return false, err.Error()
+	}
+
+	return true, ""
+}
+
+func RemoveAdapterPolicy(id string, policy... string) (bool, string) {
+	a := GetAdapter(id)
+
+	e, err := getEnforcer(a)
+	if err != nil {
+		return false, err.Error()
+	}
+
+	_, err = e.RemovePolicy(policy)
+	if err != nil {
+		return false, err.Error()
+	}
+
+	return true, ""
+}

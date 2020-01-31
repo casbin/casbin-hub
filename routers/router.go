@@ -26,6 +26,8 @@ func initAPI() {
 	beego.Router("/api/test-adapter-connection", &controllers.ApiController{}, "POST:TestAdapterConnection")
 	beego.Router("/api/get-adapter-policies", &controllers.ApiController{}, "GET:GetAdapterPolicies")
 	beego.Router("/api/get-adapter-grouping-policies", &controllers.ApiController{}, "GET:GetAdapterGroupingPolicies")
+	beego.Router("/api/add-adapter-policy", &controllers.ApiController{}, "POST:AddAdapterPolicy")
+	beego.Router("/api/remove-adapter-policy", &controllers.ApiController{}, "POST:RemoveAdapterPolicy")
 
 	beego.Router("/api/get-models", &controllers.ApiController{}, "GET:GetModels")
 	beego.Router("/api/get-model", &controllers.ApiController{}, "GET:GetModel")

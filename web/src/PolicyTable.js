@@ -33,7 +33,7 @@ class PolicyTable extends React.Component {
   }
 
   newRow() {
-    return {id: "new id"};
+    return {pType: this.props.type, v0: "", v1: "", v2: "", v3: "", v4: "", v5: ""};
   }
 
   addRow() {
@@ -45,7 +45,6 @@ class PolicyTable extends React.Component {
     if (table.length > 0) {
       const last = table.slice(-1)[0];
       row = Setting.deepCopy(last);
-      row.id = last.id + " (new)";
     }
     table = Setting.addRow(table, row);
     this.updateTable(table);
@@ -71,7 +70,7 @@ class PolicyTable extends React.Component {
 
   renderTable(table) {
     const keys = ["v0", "v1", "v2", "v3", "v4", "v5"];
-    const titles = ["V0", "V1", "V2", "V3", "V4", "V5"];
+    // const titles = ["V0", "V1", "V2", "V3", "V4", "V5"];
 
     if (this.props.headers === undefined) {
       return null;
