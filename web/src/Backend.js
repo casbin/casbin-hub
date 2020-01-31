@@ -52,6 +52,14 @@ export function getAdapterGroupingPolicies(adapterId) {
     }).then(res => res.json());
 }
 
+export function setAdapterAllPolicies(adapterId, policies) {
+    return fetch(`${Setting.ServerUrl}/api/set-adapter-all-policies?id=${adapterId}`, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(policies),
+    }).then(res => res.json());
+}
+
 export function addAdapterPolicy(adapterId, policy) {
     return fetch(`${Setting.ServerUrl}/api/add-adapter-policy?id=${adapterId}`, {
         method: 'POST',

@@ -69,13 +69,37 @@ class AdapterPage extends React.Component {
   }
 
   updateAdapter() {
-    Backend.updateAdapter(this.state.adapter)
-      .then((res) => {
-        Setting.showMessage("success", `Save succeeded`);
-      })
-      .catch(error => {
-        Setting.showMessage("error", `Sava failed: ${error}`);
-      });
+    // Backend.updateAdapter(this.state.adapter)
+    //   .then((res) => {
+    //     Setting.showMessage("success", `Save succeeded`);
+    //   })
+    //   .catch(error => {
+    //     Setting.showMessage("error", `Sava failed: ${error}`);
+    //   });
+    //
+    // Backend.setAdapterAllPolicies(this.state.adapter.id, this.state.pPolicies.concat(this.state.gPolicies))
+    //   .then((res) => {
+    //     Setting.showMessage("success", `Save succeeded`);
+    //   })
+    //   .catch(error => {
+    //     Setting.showMessage("error", `Sava failed: ${error}`);
+    //   });
+
+    Promise.all([
+      Backend.updateAdapter(this.state.adapter),
+      Backend.setAdapterAllPolicies(this.state.adapter.id, this.state.pPolicies.concat(this.state.gPolicies)),
+    ]).then((values) => {
+      let res1 = values[0];
+      let res2 = values[1];
+
+      Setting.showMessage("success", `Save succeeded`);
+    }).catch((errors) => {
+      let error1 = errors[0];
+      let error2 = errors[1];
+
+      Setting.showMessage("error", `Sava failed: ${error1}`);
+      Setting.showMessage("error", `Sava failed: ${error2}`);
+    });
   }
 
   testAdapterConnection() {
@@ -92,8 +116,19 @@ class AdapterPage extends React.Component {
       });
   }
 
-  onUpdatePolicies() {
+  onUpdatePolicies(pType, policies) {
+    let pPolicies = this.state.pPolicies;
+    let gPolicies = this.state.gPolicies;
+    if (pType === "p") {
+      pPolicies = policies;
+    } else if (pType === "g") {
+      gPolicies = policies;
+    }
 
+    this.setState({
+      pPolicies: pPolicies,
+      gPolicies: gPolicies,
+    });
   }
 
   renderContent() {
@@ -184,7 +219,7 @@ class AdapterPage extends React.Component {
             P Policies:
           </Col>
           <Col span={22}>
-            <PolicyTable title="P Policies" table={this.state.pPolicies} headers={this.state.adapter.policyHeaders} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
+            <PolicyTable title="P Policies" type="p" table={this.state.pPolicies} headers={this.state.adapter.policyHeaders} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}}>
@@ -192,7 +227,7 @@ class AdapterPage extends React.Component {
             G Policies:
           </Col>
           <Col span={22}>
-            <PolicyTable title="G Policies" table={this.state.gPolicies} headers={["User", "Role"]} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
+            <PolicyTable title="G Policies" type="g" table={this.state.gPolicies} headers={["User", "Role"]} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
           </Col>
         </Row>
       </Card>

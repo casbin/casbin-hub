@@ -14,7 +14,7 @@ class PolicyTable extends React.Component {
   }
 
   updateTable(table) {
-    this.props.onUpdateTable(table);
+    this.props.onUpdateTable(this.props.type, table);
   }
 
   parseField(key, value) {

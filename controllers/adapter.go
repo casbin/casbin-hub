@@ -95,6 +95,27 @@ func (c *ApiController) GetAdapterGroupingPolicies() {
 	c.ServeJSON()
 }
 
+func (c *ApiController) SetAdapterAllPolicies() {
+	var resp Response
+
+	id := c.Input().Get("id")
+
+	var policies []*object.CasbinRule
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &policies)
+	if err != nil {
+		panic(err)
+	}
+
+	isOk, msg := object.SetAdapterAllPolicies(id, policies)
+	if isOk {
+		resp = Response{Status: "ok", Msg: ""}
+	} else {
+		resp = Response{Status: "error", Msg: msg}
+	}
+	c.Data["json"] = resp
+	c.ServeJSON()
+}
+
 func (c *ApiController) AddAdapterPolicy() {
 	var resp Response
 
