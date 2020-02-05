@@ -21,14 +21,18 @@ class App extends React.Component {
     Setting.initServerUrl();
   }
 
-  componentWillMount() {
+  getUrlPath() {
     // eslint-disable-next-line no-restricted-globals
-    const uri = location.pathname;
-    if (uri.includes('model')) {
+    return location.pathname;
+  }
+
+  componentWillMount() {
+    const path = this.getUrlPath();
+    if (path.includes('model')) {
       this.setState({ selectedMenuKey: 2 });
-    } else if (uri.includes('adapter')) {
+    } else if (path.includes('adapter')) {
       this.setState({ selectedMenuKey: 3 });
-    } else if (uri.includes('enforcer')) {
+    } else if (path.includes('enforcer')) {
       this.setState({ selectedMenuKey: 4 });
     } else {
       this.setState({ selectedMenuKey: 1 });
@@ -56,21 +60,30 @@ class App extends React.Component {
                     Home
                   </a>
                 </Menu.Item>
-                <Menu.Item key="2">
-                  <a href="#">
-                    Model
-                  </a>
-                </Menu.Item>
-                <Menu.Item key="3">
-                  <a href="#">
-                    Adapter
-                  </a>
-                </Menu.Item>
-                <Menu.Item key="4">
-                  <a href="#">
-                    Enforcer
-                  </a>
-                </Menu.Item>
+                {
+                  !this.getUrlPath().includes('model') ? null :
+                    <Menu.Item key="2">
+                      <a href="#">
+                        Model
+                      </a>
+                    </Menu.Item>
+                }
+                {
+                  !this.getUrlPath().includes('adapter') ? null :
+                    <Menu.Item key="3">
+                      <a href="#">
+                        Adapter
+                      </a>
+                    </Menu.Item>
+                }
+                {
+                  !this.getUrlPath().includes('enforcer') ? null :
+                    <Menu.Item key="4">
+                      <a href="#">
+                        Enforcer
+                      </a>
+                    </Menu.Item>
+                }
                 <Menu.Item key='5' style={{float: 'right'}}>
                   <a target="_blank" href="https://github.com/casbin/casbin-dashboard">
                     <img alt="GitHub stars" src="https://img.shields.io/github/stars/casbin/casbin-dashboard?style=social" />
