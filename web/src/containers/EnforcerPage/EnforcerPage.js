@@ -1,10 +1,10 @@
 import React from "react";
-import * as Setting from "./Setting";
-import * as Backend from "./Backend";
+import * as Setting from "../../utils/Setting";
+import * as Backend from "../../utils/Backend";
 import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
 import {Controlled as CodeMirror} from 'react-codemirror2'
 import "codemirror/lib/codemirror.css"
-import PolicyTable from "./PolicyTable";
+import PolicyTable from "../../components/Tables/PolicyTable/PolicyTable";
 
 require("codemirror/mode/properties/properties");
 

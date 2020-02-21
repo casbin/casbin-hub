@@ -1,9 +1,11 @@
 import React from "react";
 import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
 import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
-import * as Setting from "./Setting";
+import * as Setting from "../../../utils/Setting";
 
-class AdapterTable extends React.Component {
+const { Option } = Select;
+
+class EnforcerTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,38 +96,30 @@ class AdapterTable extends React.Component {
         }
       },
       {
-        title: 'Type',
-        dataIndex: 'type',
-        key: 'type',
+        title: 'Model',
+        dataIndex: 'model',
+        key: 'model',
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'type', e.target.value);
-            }} />
+            <Select style={{width: '100%'}} value={text} onChange={(value => {this.updateField(index, 'model', value);})}>
+              {
+                this.props.models.map((item, index) => <Option key={index} value={item.id}>{item.id}</Option>)
+              }
+            </Select>
           )
         }
       },
       {
-        title: 'Parameter 1',
-        dataIndex: 'param1',
-        key: 'param1',
+        title: 'Adapter',
+        dataIndex: 'adapter',
+        key: 'adapter',
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'param1', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: 'Parameter 2',
-        dataIndex: 'param2',
-        key: 'param2',
-        render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'param2', e.target.value);
-            }} />
+            <Select style={{width: '100%'}} value={text} onChange={(value => {this.updateField(index, 'adapter', value);})}>
+              {
+                this.props.adapters.map((item, index) => <Option key={index} value={item.id}>{item.id}</Option>)
+              }
+            </Select>
           )
         }
       },
@@ -136,7 +130,7 @@ class AdapterTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/adapter/${record.id}`)} />
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/enforcer/${record.id}`)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
                 <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
@@ -180,4 +174,4 @@ class AdapterTable extends React.Component {
   }
 }
 
-export default AdapterTable;
+export default EnforcerTable;

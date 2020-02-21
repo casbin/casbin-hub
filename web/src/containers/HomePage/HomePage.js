@@ -1,10 +1,10 @@
 import React from "react";
-import * as Backend from "./Backend";
-import AdapterTable from "./AdapterTable";
+import * as Backend from "../../utils/Backend";
+import AdapterTable from "../../components/Tables/AdapterTable/AdapterTable";
 import {Button, Card, Col, Row} from "antd";
-import * as Setting from "./Setting";
-import ModelTable from "./ModelTable";
-import EnforcerTable from "./EnforcerTable";
+import * as Setting from "../../utils/Setting";
+import ModelTable from "../../components/Tables/ModelTable/ModelTable";
+import EnforcerTable from "../../components/Tables/EnforcerTable/EnforcerTable";
 
 class HomePage extends React.Component {
   constructor(props) {

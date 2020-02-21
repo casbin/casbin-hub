@@ -1,6 +1,6 @@
 import React from "react";
 import {Card, Col, Input, Row, Select} from 'antd';
-import * as Setting from "./Setting";
+import * as Setting from "../../utils/Setting";
 
 const { Option } = Select;
 

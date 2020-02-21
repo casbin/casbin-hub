@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import * as Setting from "./Setting";
-import {Switch, Route} from 'react-router-dom'
-import HomePage from "./HomePage";
+import * as Setting from "./utils/Setting";
+import {Switch, Route, Link} from 'react-router-dom'
+import HomePage from "./containers/HomePage/HomePage";
 import {Layout, Menu, Typography} from "antd";
-import ModelPage from "./ModelPage";
-import AdapterPage from "./AdapterPage";
-import EnforcerPage from "./EnforcerPage";
+import ModelPage from "./containers/ModelPage/ModelPage";
+import AdapterPage from "./containers/AdapterPage/AdapterPage";
+import EnforcerPage from "./containers/EnforcerPage/EnforcerPage";
 
 const {Text} = Typography;
 const {Header, Footer} = Layout;
@@ -56,9 +56,9 @@ class App extends React.Component {
                 <Text style={{marginRight: "20px", fontSize: "x-large"}}>Dashboard</Text>
 
                 <Menu.Item key="1">
-                  <a href="/">
+                  <Link to="/">
                     Home
-                  </a>
+                  </Link>
                 </Menu.Item>
                 {
                   !this.getUrlPath().includes('model') ? null :
@@ -71,17 +71,17 @@ class App extends React.Component {
                 {
                   !this.getUrlPath().includes('adapter') ? null :
                     <Menu.Item key="3">
-                      <a href="#">
+                      <Link href="#">
                         Adapter
-                      </a>
+                      </Link>
                     </Menu.Item>
                 }
                 {
                   !this.getUrlPath().includes('enforcer') ? null :
                     <Menu.Item key="4">
-                      <a href="#">
+                      <Link to="#">
                         Enforcer
-                      </a>
+                      </Link>
                     </Menu.Item>
                 }
                 <Menu.Item key='5' style={{float: 'right'}}>
