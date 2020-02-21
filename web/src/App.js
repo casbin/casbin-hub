@@ -98,8 +98,8 @@ class App extends React.Component {
             <Route exact path="/adapter/:adapterId" component={AdapterPage}/>
             <Route exact path="/enforcer/:enforcerId" component={EnforcerPage}/>
           </Switch>
-          <Footer style={{ textAlign: 'center' }}>
-            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤</span> by <a target="_blank" href="https://github.com/casbin">Casbin Organization</a>
+          <Footer style={{ textAlign: 'center', position:'fixed',bottom:'0',width: '100%',left: '0' }}>
+            Made with <span style={{color: 'rgb(255, 0, 0)'}}>❤</span> by <a target="_blank" href="https://github.com/casbin">Casbin Organization</a>
           </Footer>
         </div>
     );
