@@ -1,8 +1,10 @@
 import React from "react";
+import {Controlled as CodeMirror} from 'react-codemirror2'
+import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
+
+
 import * as Setting from "../../utils/Setting";
 import * as Backend from "../../utils/Backend";
-import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
-import {Controlled as CodeMirror} from 'react-codemirror2'
 import "codemirror/lib/codemirror.css"
 import ModelEditor from "../ModelEditor/ModelEditor";
 
@@ -27,12 +29,12 @@ class ModelPage extends React.Component {
   getModel() {
     Backend.getModel(this.state.modelId)
       .then((res) => {
-        console.log("aaa",res);
-        // let model = res;
-        // model.text = this.parseModelText(model.text);
-        // this.setState({
-        //   model: model,
-        // });
+        console.log("Response", res)
+        let model = res;
+        model.text = this.parseModelText(model.text);
+        this.setState({
+          model: model,
+        });
         }
       );
   }

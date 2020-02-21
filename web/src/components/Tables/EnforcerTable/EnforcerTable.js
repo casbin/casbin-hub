@@ -1,5 +1,6 @@
 import React from "react";
 import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
+import { withRouter } from "react-router-dom";
 import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "../../../utils/Setting";
 
@@ -69,6 +70,11 @@ class EnforcerTable extends React.Component {
     this.updateTable(table);
   }
 
+  editEnforcer = (route) => {
+    this.props.history.push(route);
+  }
+
+
   renderTable(table) {
     const columns = [
       {
@@ -130,7 +136,7 @@ class EnforcerTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/enforcer/${record.id}`)} />
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.editEnforcer(`/enforcer/${record.id}`)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
                 <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
@@ -174,4 +180,4 @@ class EnforcerTable extends React.Component {
   }
 }
 
-export default EnforcerTable;
+export default withRouter(EnforcerTable);

@@ -71,7 +71,7 @@ class App extends React.Component {
                 {
                   !this.getUrlPath().includes('adapter') ? null :
                     <Menu.Item key="3">
-                      <Link href="#">
+                      <Link to="#">
                         Adapter
                       </Link>
                     </Menu.Item>
@@ -99,7 +99,7 @@ class App extends React.Component {
             <Route exact path="/enforcer/:enforcerId" component={EnforcerPage}/>
           </Switch>
           <Footer style={{ textAlign: 'center' }}>
-            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤</span> by <a target="_blank" href="https://github.com/casbin">Casbin Organization</a>
+            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤️</span> by <a target="_blank" href="https://github.com/casbin">Casbin Organization</a>
           </Footer>
         </div>
     );

@@ -2,6 +2,7 @@ import React from "react";
 import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
 import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "../../../utils/Setting";
+import { withRouter } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -69,6 +70,10 @@ class ModelTable extends React.Component {
     this.updateTable(table);
   }
 
+  editModel = (route) => {
+    this.props.history.push(route);
+  }
+
   renderTable(table) {
     const columns = [
       {
@@ -128,7 +133,7 @@ class ModelTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/model/${record.id}`)} />
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.editModel(`/model/${record.id}`)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
                 <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
@@ -172,4 +177,4 @@ class ModelTable extends React.Component {
   }
 }
 
-export default ModelTable;
+export default withRouter(ModelTable);

@@ -2,6 +2,7 @@ import React from "react";
 import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
 import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "../../../utils/Setting";
+import { withRouter } from "react-router-dom";
 
 class AdapterTable extends React.Component {
   constructor(props) {
@@ -66,6 +67,11 @@ class AdapterTable extends React.Component {
     table = Setting.swapRow(table, i, i + 1);
     this.updateTable(table);
   }
+
+  editAdapter = (route) => {
+    this.props.history.push(route);
+  }
+
 
   renderTable(table) {
     const columns = [
@@ -136,7 +142,7 @@ class AdapterTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/adapter/${record.id}`)} />
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.editAdapter(`/adapter/${record.id}`)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
                 <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
@@ -180,4 +186,4 @@ class AdapterTable extends React.Component {
   }
 }
 
-export default AdapterTable;
+export default withRouter(AdapterTable);

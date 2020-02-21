@@ -85,15 +85,15 @@ class HomePage extends React.Component {
                 Setting.showMessage("success", `Save succeeded`);
               })
               .catch(error => {
-                Setting.showMessage("error", `Sava failed: ${error}`);
+                Setting.showMessage("error", `Save failed: ${error}`);
               });
           })
           .catch(error => {
-            Setting.showMessage("error", `Sava failed: ${error}`);
+            Setting.showMessage("error", `Save failed: ${error}`);
           });
       })
       .catch(error => {
-        Setting.showMessage("error", `Sava failed: ${error}`);
+        Setting.showMessage("error", `Save failed: ${error}`);
       });
   }
 
