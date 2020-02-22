@@ -14,18 +14,18 @@ class EnforcerTable extends React.Component {
     };
   }
 
-  updateTable(table) {
+  updateTable = (table) => {
     this.props.onUpdateTable(table);
   }
 
-  parseField(key, value) {
+  parseField = (key, value) => {
     if (["start", "end"].includes(key)) {
       value = Setting.myParseInt(value);
     }
     return value;
   }
 
-  updateField(index, key, value) {
+  updateField = (index, key, value) => {
     value = this.parseField(key, value);
 
     let table = this.props.table;
@@ -33,11 +33,11 @@ class EnforcerTable extends React.Component {
     this.updateTable(table);
   }
 
-  newRow() {
+  newRow = () => {
     return {id: "new id"};
   }
 
-  addRow() {
+  addRow = () => {
     let table = this.props.table;
     let row = this.newRow();
     if (table === undefined) {
@@ -52,19 +52,19 @@ class EnforcerTable extends React.Component {
     this.updateTable(table);
   }
 
-  deleteRow(i) {
+  deleteRow = (i) => {
     let table = this.props.table;
     table = Setting.deleteRow(table, i);
     this.updateTable(table);
   }
 
-  upRow(i) {
+  upRow = (i) => {
     let table = this.props.table;
     table = Setting.swapRow(table, i - 1, i);
     this.updateTable(table);
   }
 
-  downRow(i) {
+  downRow = (i) => {
     let table = this.props.table;
     table = Setting.swapRow(table, i, i + 1);
     this.updateTable(table);
@@ -75,7 +75,7 @@ class EnforcerTable extends React.Component {
   }
 
 
-  renderTable(table) {
+  renderTable = (table) => {
     const columns = [
       {
         title: 'Id',
@@ -139,13 +139,13 @@ class EnforcerTable extends React.Component {
                 <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.editEnforcer(`/enforcer/${record.id}`)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
-                <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
+                <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow(index)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move down">
-                <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
+                <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow(index)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Delete">
-                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
+                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow(index)} />
               </Tooltip>
             </div>
           );
@@ -159,7 +159,7 @@ class EnforcerTable extends React.Component {
                title={() => (
                  <div>
                    {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={this.addRow.bind(this)}>Add</Button>
+                   <Button type="primary" size="small" onClick={this.addRow}>Add</Button>
                  </div>
                )}
         />

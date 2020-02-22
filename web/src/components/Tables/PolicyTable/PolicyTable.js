@@ -13,18 +13,18 @@ class PolicyTable extends React.Component {
     };
   }
 
-  updateTable(table) {
+  updateTable = (table) => {
     this.props.onUpdateTable(this.props.type, table);
   }
 
-  parseField(key, value) {
+  parseField = (key, value) => {
     if (["start", "end"].includes(key)) {
       value = Setting.myParseInt(value);
     }
     return value;
   }
 
-  updateField(index, key, value) {
+  updateField = (index, key, value) => {
     value = this.parseField(key, value);
 
     let table = this.props.table;
@@ -32,11 +32,11 @@ class PolicyTable extends React.Component {
     this.updateTable(table);
   }
 
-  newRow() {
+  newRow = () => {
     return {pType: this.props.type, v0: "", v1: "", v2: "", v3: "", v4: "", v5: ""};
   }
 
-  addRow() {
+  addRow = () => {
     let table = this.props.table;
     let row = this.newRow();
     if (table === undefined) {
@@ -50,25 +50,25 @@ class PolicyTable extends React.Component {
     this.updateTable(table);
   }
 
-  deleteRow(i) {
+  deleteRow = (i) => {
     let table = this.props.table;
     table = Setting.deleteRow(table, i);
     this.updateTable(table);
   }
 
-  upRow(i) {
+  upRow = (i) => {
     let table = this.props.table;
     table = Setting.swapRow(table, i - 1, i);
     this.updateTable(table);
   }
 
-  downRow(i) {
+  downRow = (i) => {
     let table = this.props.table;
     table = Setting.swapRow(table, i, i + 1);
     this.updateTable(table);
   }
 
-  renderTable(table) {
+  renderTable = (table) => {
     const keys = ["v0", "v1", "v2", "v3", "v4", "v5"];
     // const titles = ["V0", "V1", "V2", "V3", "V4", "V5"];
 
@@ -115,13 +115,13 @@ class PolicyTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Move up">
-                <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
+                <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow(index)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move down">
-                <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
+                <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow(index)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Delete">
-                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
+                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow(index)} />
               </Tooltip>
             </div>
           );
@@ -135,7 +135,7 @@ class PolicyTable extends React.Component {
                title={() => (
                  <div>
                    {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={this.addRow.bind(this)}>Add</Button>
+                   <Button type="primary" size="small" onClick={this.addRow}>Add</Button>
                  </div>
                )}
         />

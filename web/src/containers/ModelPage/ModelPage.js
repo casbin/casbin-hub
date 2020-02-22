@@ -26,10 +26,9 @@ class ModelPage extends React.Component {
     this.getModel();
   }
 
-  getModel() {
+  getModel = () => {
     Backend.getModel(this.state.modelId)
       .then((res) => {
-        console.log("Response", res)
         let model = res;
         model.text = this.parseModelText(model.text);
         this.setState({
@@ -39,7 +38,7 @@ class ModelPage extends React.Component {
       );
   }
 
-  onUpdateModelText(text) {
+  onUpdateModelText = (text) => {
     let model = this.state.model;
     model.text = text;
     this.setState({
@@ -47,12 +46,12 @@ class ModelPage extends React.Component {
     });
   }
 
-  parseLine(s) {
+  parseLine = (s) => {
     const res = s.split(",").map(value => value.trim(" "));
     return res;
   }
 
-  parseModelText(text) {
+  parseModelText = (text) => {
     const res = {};
 
     const lines = text.match(/[^\r\n]+/g);
@@ -78,7 +77,7 @@ class ModelPage extends React.Component {
     return res;
   }
 
-  stringifyModelText(text) {
+  stringifyModelText = (text) => {
     const lines = [];
 
     lines.push("[request_definition]");
@@ -105,7 +104,7 @@ class ModelPage extends React.Component {
     return lines.join("\n");
   }
 
-  updateField(key, value) {
+  updateField = (key, value) => {
     let model = this.state.model;
     model[key] = value;
     this.setState({
@@ -113,7 +112,7 @@ class ModelPage extends React.Component {
     });
   }
 
-  updateModel() {
+  updateModel = () => {
     let model = Setting.deepCopy(this.state.model);
     model.text = this.stringifyModelText(model.text);
     Backend.updateModel(model)
@@ -121,16 +120,16 @@ class ModelPage extends React.Component {
         Setting.showMessage("success", `Save succeeded`);
       })
       .catch(error => {
-        Setting.showMessage("error", `Sava failed: ${error}`);
+        Setting.showMessage("error", `Save failed: ${error}`);
       });
   }
 
-  renderContent() {
+  renderContent = () => {
     return (
       <Card size="small" title={
         <div>
           Edit Model: <Tag color="rgb(232,18,36)">{this.state.modelId}</Tag>&nbsp;&nbsp;&nbsp;&nbsp;
-          <Button type="primary" onClick={this.updateModel.bind(this)}>Save Change</Button>
+          <Button type="primary" onClick={this.updateModel}>Save Change</Button>
         </div>
       } style={{marginLeft: '1px'}} type="inner">
         <Row>
@@ -158,7 +157,7 @@ class ModelPage extends React.Component {
             Type:
           </Col>
           <Col span={22} >
-            <Select style={{width: '100%'}} value={this.state.model.type} onChange={(value => {this.updateField('type', value);})}>
+            <Select style={{width: '100%'}} value={this.state.model.type} onChange={(value) => {this.updateField('type', value);}}>
               {
                 ['ACL', 'RBAC', 'ABAC'].map((type, index) => <Option key={index} value={type}>{type}</Option>)
               }
@@ -170,7 +169,7 @@ class ModelPage extends React.Component {
             Text:
           </Col>
           <Col span={10} >
-            <ModelEditor model={this.state.model.text} onUpdateModelText={this.onUpdateModelText.bind(this)} />
+            <ModelEditor model={this.state.model.text} onUpdateModelText={this.onUpdateModelText} />
           </Col>
           <Col span={1} >
           </Col>

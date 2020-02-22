@@ -19,17 +19,17 @@ class ModelEditor extends React.Component {
     };
   }
 
-  updateModel(model) {
+  updateModel = (model) => {
     this.props.onUpdateModelText(model);
   }
 
-  updateField(key, value) {
+  updateField = (key, value) => {
     let model = this.props.model;
     model[key] = value;
     this.updateModel(model);
   }
 
-  renderContent() {
+  renderContent = () => {
     return (
       <Card size="small" title={
         <div>

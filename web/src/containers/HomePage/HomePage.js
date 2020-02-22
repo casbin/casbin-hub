@@ -23,7 +23,7 @@ class HomePage extends React.Component {
     this.getEnforcers();
   }
 
-  getAdapters() {
+  getAdapters = () => {
     Backend.getAdapters()
       .then((res) => {
           this.setState({
@@ -33,7 +33,7 @@ class HomePage extends React.Component {
       );
   }
 
-  getModels() {
+  getModels = () =>{
     Backend.getModels()
       .then((res) => {
           this.setState({
@@ -43,7 +43,7 @@ class HomePage extends React.Component {
       );
   }
 
-  getEnforcers() {
+  getEnforcers = () => {
     Backend.getEnforcers()
       .then((res) => {
           this.setState({
@@ -53,25 +53,25 @@ class HomePage extends React.Component {
       );
   }
 
-  onUpdateAdapters(adapters) {
+  onUpdateAdapters = (adapters) => {
     this.setState({
       adapters: adapters,
     });
   }
 
-  onUpdateModels(models) {
+  onUpdateModels = (models) => {
     this.setState({
       models: models,
     });
   }
 
-  onUpdateEnforcers(enforcers) {
+  onUpdateEnforcers = (enforcers) => {
     this.setState({
       enforcers: enforcers,
     });
   }
 
-  updateMetadata() {
+  updateMetadata = () => {
     Backend.updateAdapters(this.state.adapters)
       .then((res) => {
         // Setting.showMessage("success", `Save succeeded`);
@@ -97,12 +97,12 @@ class HomePage extends React.Component {
       });
   }
 
-  renderContent() {
+  renderContent = () => {
     return (
       <Card size="small" title={
         <div style={{width: "90vw"}}>
           Edit Metadata&nbsp;&nbsp;&nbsp;&nbsp;
-          <Button type="primary" onClick={this.updateMetadata.bind(this)}>Save Change</Button>
+          <Button type="primary" onClick={this.updateMetadata}>Save Change</Button>
         </div>
       } style={{marginLeft: '5px'}} type="inner">
         <Row style={{marginTop: '20px'}} >
@@ -110,7 +110,7 @@ class HomePage extends React.Component {
             Models:
           </Col>
           <Col span={22} >
-            <ModelTable title="Models" table={this.state.models} onUpdateTable={this.onUpdateModels.bind(this)} />
+            <ModelTable title="Models" table={this.state.models} onUpdateTable={this.onUpdateModels} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
@@ -118,7 +118,7 @@ class HomePage extends React.Component {
             Adapters:
           </Col>
           <Col span={22} >
-            <AdapterTable title="Adapters" table={this.state.adapters} onUpdateTable={this.onUpdateAdapters.bind(this)} />
+            <AdapterTable title="Adapters" table={this.state.adapters} onUpdateTable={this.onUpdateAdapters} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
@@ -126,7 +126,7 @@ class HomePage extends React.Component {
             Enforcers:
           </Col>
           <Col span={22} >
-            <EnforcerTable title="Enforcers" table={this.state.enforcers} models={this.state.models === null ? [] : this.state.models} adapters={this.state.adapters === null ? [] : this.state.adapters} onUpdateTable={this.onUpdateEnforcers.bind(this)} />
+            <EnforcerTable title="Enforcers" table={this.state.enforcers} models={this.state.models === null ? [] : this.state.models} adapters={this.state.adapters === null ? [] : this.state.adapters} onUpdateTable={this.onUpdateEnforcers} />
           </Col>
         </Row>
       </Card>

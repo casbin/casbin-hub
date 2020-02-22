@@ -29,7 +29,7 @@ class AdapterPage extends React.Component {
     this.getAdapterGroupingPolicies(this.state.adapterId);
   }
 
-  getAdapter(adapterId) {
+  getAdapter = (adapterId) => {
     Backend.getAdapter(adapterId)
       .then((res) => {
           this.setState({
@@ -39,7 +39,7 @@ class AdapterPage extends React.Component {
       );
   }
 
-  getAdapterPolicies(adapterId) {
+  getAdapterPolicies = (adapterId) => {
     Backend.getAdapterPolicies(adapterId)
       .then((res) => {
           this.setState({
@@ -49,7 +49,7 @@ class AdapterPage extends React.Component {
       );
   }
 
-  getAdapterGroupingPolicies(adapterId) {
+  getAdapterGroupingPolicies = (adapterId) => {
     Backend.getAdapterGroupingPolicies(adapterId)
       .then((res) => {
           this.setState({
@@ -59,7 +59,7 @@ class AdapterPage extends React.Component {
       );
   }
 
-  updateField(key, value) {
+  updateField = (key, value) => {
     let adapter = this.state.adapter;
     adapter[key] = value;
     this.setState({
@@ -67,7 +67,7 @@ class AdapterPage extends React.Component {
     });
   }
 
-  updateAdapter() {
+  updateAdapter = () => {
     // Backend.updateAdapter(this.state.adapter)
     //   .then((res) => {
     //     Setting.showMessage("success", `Save succeeded`);
@@ -101,7 +101,7 @@ class AdapterPage extends React.Component {
     });
   }
 
-  testAdapterConnection() {
+  testAdapterConnection = () => {
     Backend.testAdapterConnection(this.state.adapter)
       .then((res) => {
         if (res.status === 'ok') {
@@ -115,7 +115,7 @@ class AdapterPage extends React.Component {
       });
   }
 
-  onUpdatePolicies(pType, policies) {
+  onUpdatePolicies = (pType, policies) => {
     let pPolicies = this.state.pPolicies;
     let gPolicies = this.state.gPolicies;
     if (pType === "p") {
@@ -130,12 +130,12 @@ class AdapterPage extends React.Component {
     });
   }
 
-  renderContent() {
+  renderContent = () => {
     return (
       <Card size="small" title={
         <div>
           Edit Adapter: <Tag color="rgb(232,18,36)">{this.state.adapterId}</Tag>&nbsp;&nbsp;&nbsp;&nbsp;
-          <Button type="primary" onClick={this.updateAdapter.bind(this)}>Save Change</Button>
+          <Button type="primary" onClick={this.updateAdapter}>Save Change</Button>
         </div>
       } style={{marginLeft: '1px'}} type="inner">
         <Row>
@@ -210,7 +210,7 @@ class AdapterPage extends React.Component {
             Test:
           </Col>
           <Col span={22}>
-            <Button type="primary" onClick={this.testAdapterConnection.bind(this)}>Test Connection</Button>
+            <Button type="primary" onClick={this.testAdapterConnection}>Test Connection</Button>
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}}>
@@ -218,12 +218,12 @@ class AdapterPage extends React.Component {
             Policies:
           </Col>
           <Col span={10}>
-            <PolicyTable title="P Policies" type="p" table={this.state.pPolicies} headers={this.state.adapter.policyHeaders} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
+            <PolicyTable title="P Policies" type="p" table={this.state.pPolicies} headers={this.state.adapter.policyHeaders} onUpdateTable={this.onUpdatePolicies}/>
           </Col>
           <Col span={2}>
           </Col>
           <Col span={10}>
-            <PolicyTable title="G Policies" type="g" table={this.state.gPolicies} headers={["User", "Role"]} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
+            <PolicyTable title="G Policies" type="g" table={this.state.gPolicies} headers={["User", "Role"]} onUpdateTable={this.onUpdatePolicies}/>
           </Col>
         </Row>
       </Card>
