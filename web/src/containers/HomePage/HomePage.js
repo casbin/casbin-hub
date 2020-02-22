@@ -1,10 +1,12 @@
-import React from "react";
-import * as Backend from "../../utils/Backend";
-import AdapterTable from "../../components/Tables/AdapterTable/AdapterTable";
-import {Button, Card, Col, Row} from "antd";
-import * as Setting from "../../utils/Setting";
-import ModelTable from "../../components/Tables/ModelTable/ModelTable";
-import EnforcerTable from "../../components/Tables/EnforcerTable/EnforcerTable";
+import React from 'react';
+import {
+ Button, Card, Col, Row
+} from 'antd';
+import * as Backend from '../../utils/Backend';
+import AdapterTable from '../../components/Tables/AdapterTable/AdapterTable';
+import * as Setting from '../../utils/Setting';
+import ModelTable from '../../components/Tables/ModelTable/ModelTable';
+import EnforcerTable from '../../components/Tables/EnforcerTable/EnforcerTable';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -29,18 +31,16 @@ class HomePage extends React.Component {
           this.setState({
             adapters: res,
           });
-        }
-      );
+        });
   }
 
-  getModels = () =>{
+  getModels = () => {
     Backend.getModels()
       .then((res) => {
           this.setState({
             models: res,
           });
-        }
-      );
+        });
   }
 
   getEnforcers = () => {
@@ -49,25 +49,24 @@ class HomePage extends React.Component {
           this.setState({
             enforcers: res,
           });
-        }
-      );
+        });
   }
 
   onUpdateAdapters = (adapters) => {
     this.setState({
-      adapters: adapters,
+      adapters,
     });
   }
 
   onUpdateModels = (models) => {
     this.setState({
-      models: models,
+      models,
     });
   }
 
   onUpdateEnforcers = (enforcers) => {
     this.setState({
-      enforcers: enforcers,
+      enforcers,
     });
   }
 
@@ -82,56 +81,59 @@ class HomePage extends React.Component {
 
             Backend.updateEnforcers(this.state.enforcers)
               .then((res) => {
-                Setting.showMessage("success", `Save succeeded`);
+                Setting.showMessage('success', 'Save succeeded');
               })
-              .catch(error => {
-                Setting.showMessage("error", `Save failed: ${error}`);
+              .catch((error) => {
+                Setting.showMessage('error', `Save failed: ${error}`);
               });
           })
-          .catch(error => {
-            Setting.showMessage("error", `Save failed: ${error}`);
+          .catch((error) => {
+            Setting.showMessage('error', `Save failed: ${error}`);
           });
       })
-      .catch(error => {
-        Setting.showMessage("error", `Save failed: ${error}`);
+      .catch((error) => {
+        Setting.showMessage('error', `Save failed: ${error}`);
       });
   }
 
-  renderContent = () => {
-    return (
-      <Card size="small" title={
-        <div style={{width: "90vw"}}>
+  renderContent = () => (
+    <Card
+      size="small"
+      title={(
+        <div style={{ width: '90vw' }}>
           Edit Metadata&nbsp;&nbsp;&nbsp;&nbsp;
           <Button type="primary" onClick={this.updateMetadata}>Save Change</Button>
         </div>
-      } style={{marginLeft: '5px'}} type="inner">
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            Models:
-          </Col>
-          <Col span={22} >
-            <ModelTable title="Models" table={this.state.models} onUpdateTable={this.onUpdateModels} />
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            Adapters:
-          </Col>
-          <Col span={22} >
-            <AdapterTable title="Adapters" table={this.state.adapters} onUpdateTable={this.onUpdateAdapters} />
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            Enforcers:
-          </Col>
-          <Col span={22} >
-            <EnforcerTable title="Enforcers" table={this.state.enforcers} models={this.state.models === null ? [] : this.state.models} adapters={this.state.adapters === null ? [] : this.state.adapters} onUpdateTable={this.onUpdateEnforcers} />
-          </Col>
-        </Row>
-      </Card>
+      )}
+      style={{ marginLeft: '5px' }}
+      type="inner"
+    >
+      <Row style={{ marginTop: '20px' }}>
+        <Col style={{ marginTop: '5px' }} span={2}>
+          Models:
+        </Col>
+        <Col span={22}>
+          <ModelTable title="Models" table={this.state.models} onUpdateTable={this.onUpdateModels} />
+        </Col>
+      </Row>
+      <Row style={{ marginTop: '20px' }}>
+        <Col style={{ marginTop: '5px' }} span={2}>
+          Adapters:
+        </Col>
+        <Col span={22}>
+          <AdapterTable title="Adapters" table={this.state.adapters} onUpdateTable={this.onUpdateAdapters} />
+        </Col>
+      </Row>
+      <Row style={{ marginTop: '20px' }}>
+        <Col style={{ marginTop: '5px' }} span={2}>
+          Enforcers:
+        </Col>
+        <Col span={22}>
+          <EnforcerTable title="Enforcers" table={this.state.enforcers} models={this.state.models === null ? [] : this.state.models} adapters={this.state.adapters === null ? [] : this.state.adapters} onUpdateTable={this.onUpdateEnforcers} />
+        </Col>
+      </Row>
+    </Card>
     )
-  }
 
   render() {
     return (
@@ -144,7 +146,6 @@ class HomePage extends React.Component {
       </div>
     );
   }
-
 }
 
 export default HomePage;

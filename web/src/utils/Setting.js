@@ -1,9 +1,9 @@
-import {message} from "antd";
+import { message } from 'antd';
 
 export let ServerUrl = '';
 
 export function initServerUrl() {
-    const hostname = window.location.hostname;
+    const { hostname } = window.location;
     if (hostname === 'localhost') {
         ServerUrl = `http://${hostname}:8000`;
     }
@@ -15,17 +15,17 @@ export function openLink(link) {
 }
 
 export function showMessage(type, text) {
-    if (type === "") {
-        return;
-    } else if (type === "success") {
+    if (type === '') {
+        
+    } else if (type === 'success') {
         message.success(text);
-    } else if (type === "error") {
+    } else if (type === 'error') {
         message.error(text);
     }
 }
 
 export function deepCopy(obj) {
-    return Object.assign({}, obj);
+    return { ...obj };
 }
 
 export function myParseInt(i) {
@@ -48,7 +48,6 @@ export function swapRow(array, i, j) {
 export function getSelectOptions(options) {
     if (options === null) {
         return [];
-    } else {
+    } 
         return options;
-    }
 }

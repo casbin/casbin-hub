@@ -1,12 +1,14 @@
-import React from "react";
-import * as Setting from "../../utils/Setting";
-import * as Backend from "../../utils/Backend";
-import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
-import {Controlled as CodeMirror} from 'react-codemirror2'
-import "codemirror/lib/codemirror.css"
-import PolicyTable from "../../components/Tables/PolicyTable/PolicyTable";
+import React from 'react';
+import {
+Button, Card, Col, Input, Row, Select, Tag 
+} from 'antd';
+import { Controlled as CodeMirror } from 'react-codemirror2';
+import * as Setting from '../../utils/Setting';
+import * as Backend from '../../utils/Backend';
+import 'codemirror/lib/codemirror.css';
+import PolicyTable from '../../components/Tables/PolicyTable/PolicyTable';
 
-require("codemirror/mode/properties/properties");
+require('codemirror/mode/properties/properties');
 
 const { Option } = Select;
 
@@ -32,16 +34,16 @@ class EnforcerPage extends React.Component {
       Backend.getAdapters(),
       Backend.getModels(),
     ]).then((values) => {
-      let enforcer = values[0];
-      let adapters = values[1];
-      let models = values[2];
+      const enforcer = values[0];
+      const adapters = values[1];
+      const models = values[2];
 
       this.setState({
-        enforcer: enforcer,
-        adapters: adapters,
-        models: models,
-        adapter: adapters.filter(adapter => adapter.id === enforcer.adapter)[0],
-        model: models.filter(model => model.id === enforcer.model)[0],
+        enforcer,
+        adapters,
+        models,
+        adapter: adapters.filter((adapter) => adapter.id === enforcer.adapter)[0],
+        model: models.filter((model) => model.id === enforcer.model)[0],
       });
 
       this.getAdapterPolicies(enforcer.adapter);
@@ -56,8 +58,7 @@ class EnforcerPage extends React.Component {
           this.setState({
             pPolicies: res.data,
           });
-        }
-      );
+        });
   }
 
   getAdapterGroupingPolicies(adapterId) {
@@ -66,35 +67,34 @@ class EnforcerPage extends React.Component {
           this.setState({
             gPolicies: res.data,
           });
-        }
-      );
+        });
   }
 
   onUpdateModelText(text) {
-    let model = this.state.model;
+    const { model } = this.state;
     model.text = text;
     this.setState({
-      model: model,
+      model,
     });
   }
 
   updateField(key, value) {
-    let model = this.state.model;
+    const { model } = this.state;
     model[key] = value;
     this.setState({
-      model: model,
+      model,
     });
   }
 
   updateModel() {
-    let model = Setting.deepCopy(this.state.model);
+    const model = Setting.deepCopy(this.state.model);
     model.text = this.stringifyModelText(model.text);
     Backend.updateModel(model)
       .then((res) => {
-        Setting.showMessage("success", `Save succeeded`);
+        Setting.showMessage('success', 'Save succeeded');
       })
-      .catch(error => {
-        Setting.showMessage("error", `Sava failed: ${error}`);
+      .catch((error) => {
+        Setting.showMessage('error', `Sava failed: ${error}`);
       });
   }
 
@@ -103,80 +103,91 @@ class EnforcerPage extends React.Component {
 
   renderContent() {
     return (
-      <Card size="small" title={
-        <div>
-          Edit Enforcer: <Tag color="rgb(232,18,36)">{this.state.enforcerId}</Tag>&nbsp;&nbsp;&nbsp;&nbsp;
-          <Button type="primary" onClick={this.updateModel.bind(this)}>Save Change</Button>
-        </div>
-      } style={{marginLeft: '1px'}} type="inner">
+      <Card
+        size="small"
+        title={(
+          <div>
+            Edit Enforcer: 
+            {' '}
+            <Tag color="rgb(232,18,36)">{this.state.enforcerId}</Tag>
+&nbsp;&nbsp;&nbsp;&nbsp;
+            <Button type="primary" onClick={this.updateModel.bind(this)}>Save Change</Button>
+          </div>
+      )}
+        style={{ marginLeft: '1px' }}
+        type="inner"
+      >
         <Row>
-          <Col style={{marginTop: '5px'}} span={2}>
+          <Col style={{ marginTop: '5px' }} span={2}>
             Id:
           </Col>
-          <Col span={22} >
-            <Input value={this.state.enforcer.id} onChange={e => {
+          <Col span={22}>
+            <Input
+              value={this.state.enforcer.id}
+              onChange={(e) => {
               this.updateField('id', e.target.value);
-            }} />
+            }}
+            />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{ marginTop: '20px' }}>
+          <Col style={{ marginTop: '5px' }} span={2}>
             Name:
           </Col>
-          <Col span={22} >
-            <Input value={this.state.enforcer.name} onChange={e => {
+          <Col span={22}>
+            <Input
+              value={this.state.enforcer.name}
+              onChange={(e) => {
               this.updateField('name', e.target.value);
-            }} />
+            }}
+            />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}}>
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{ marginTop: '20px' }}>
+          <Col style={{ marginTop: '5px' }} span={2}>
             Model:
           </Col>
           <Col span={2}>
-            <Select style={{width: '100%'}} value={this.state.enforcer.model} onChange={(value => {this.updateField('model', value);})}>
+            <Select style={{ width: '100%' }} value={this.state.enforcer.model} onChange={((value) => { this.updateField('model', value); })}>
               {
                 this.state.models.map((item, index) => <Option key={index} value={item.id}>{item.id}</Option>)
               }
             </Select>
-            <Button style={{width: '100%', marginTop: '10px'}} type="primary" onClick={() => Setting.openLink(`/model/${this.state.enforcer.model}`)}>Edit</Button>
+            <Button style={{ width: '100%', marginTop: '10px' }} type="primary" onClick={() => Setting.openLink(`/model/${this.state.enforcer.model}`)}>Edit</Button>
           </Col>
-          <Col span={1}>
-          </Col>
+          <Col span={1} />
           <Col span={19}>
-            <div style={{border: '1px solid rgb(217,217,217)'}}>
+            <div style={{ border: '1px solid rgb(217,217,217)' }}>
               <CodeMirror
                 value={this.state.model.text}
-                options={{mode: 'properties',}}
+                options={{ mode: 'properties', }}
               />
             </div>
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}}>
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{ marginTop: '20px' }}>
+          <Col style={{ marginTop: '5px' }} span={2}>
             Adapter:
           </Col>
           <Col span={2}>
-            <Select style={{width: '100%'}} value={this.state.enforcer.adapter} onChange={(value => {this.updateField('adapter', value);})}>
+            <Select style={{ width: '100%' }} value={this.state.enforcer.adapter} onChange={((value) => { this.updateField('adapter', value); })}>
               {
                 this.state.adapters.map((item, index) => <Option key={index} value={item.id}>{item.id}</Option>)
               }
             </Select>
-            <Button style={{width: '100%', marginTop: '10px'}} type="primary" onClick={() => Setting.openLink(`/adapter/${this.state.enforcer.adapter}`)}>Edit</Button>
+            <Button style={{ width: '100%', marginTop: '10px' }} type="primary" onClick={() => Setting.openLink(`/adapter/${this.state.enforcer.adapter}`)}>Edit</Button>
           </Col>
-          <Col span={1}>
-          </Col>
+          <Col span={1} />
           <Col span={9}>
-            <PolicyTable title="P Policies" type="p" table={this.state.pPolicies} headers={this.state.adapter.policyHeaders} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
+            <PolicyTable title="P Policies" type="p" table={this.state.pPolicies} headers={this.state.adapter.policyHeaders} onUpdateTable={this.onUpdatePolicies.bind(this)} />
           </Col>
-          <Col span={1}>
-          </Col>
+          <Col span={1} />
           <Col span={9}>
-            <PolicyTable title="G Policies" type="g" table={this.state.gPolicies} headers={["User", "Role"]} onUpdateTable={this.onUpdatePolicies.bind(this)}/>
+            <PolicyTable title="G Policies" type="g" table={this.state.gPolicies} headers={['User', 'Role']} onUpdateTable={this.onUpdatePolicies.bind(this)} />
           </Col>
         </Row>
       </Card>
-    )
+    );
   }
 
   render() {
