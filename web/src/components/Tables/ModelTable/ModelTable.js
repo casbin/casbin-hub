@@ -70,8 +70,8 @@ class ModelTable extends React.Component {
     this.updateTable(table);
   }
 
-  editModel = (route) => {
-    this.props.history.push(route);
+  goToEditModel = (id) => {
+    this.props.history.push(`/model/${id}`);
   }
 
   renderTable(table) {
@@ -133,7 +133,7 @@ class ModelTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.editModel(`/model/${record.id}`)} />
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.goToEditModel(record.id)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
                 <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />

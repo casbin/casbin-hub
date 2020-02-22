@@ -29,7 +29,6 @@ class ModelPage extends React.Component {
   getModel() {
     Backend.getModel(this.state.modelId)
       .then((res) => {
-        console.log("Response", res)
         let model = res;
         model.text = this.parseModelText(model.text);
         this.setState({

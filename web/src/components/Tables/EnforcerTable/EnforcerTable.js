@@ -70,8 +70,8 @@ class EnforcerTable extends React.Component {
     this.updateTable(table);
   }
 
-  editEnforcer = (route) => {
-    this.props.history.push(route);
+  goToEditEnforcer = (id) => {
+    this.props.history.push(`/enforcer/${id}`);
   }
 
 
@@ -136,7 +136,7 @@ class EnforcerTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.editEnforcer(`/enforcer/${record.id}`)} />
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.goToEditEnforcer(record.id)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
                 <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />

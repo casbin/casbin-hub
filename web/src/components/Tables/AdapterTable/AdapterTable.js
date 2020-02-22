@@ -68,8 +68,8 @@ class AdapterTable extends React.Component {
     this.updateTable(table);
   }
 
-  editAdapter = (route) => {
-    this.props.history.push(route);
+  goToEditAdapter = (id) => {
+    this.props.history.push(`/adapter/${id}`);
   }
 
 
@@ -142,7 +142,7 @@ class AdapterTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.editAdapter(`/adapter/${record.id}`)} />
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.goToEditAdapter(record.id)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
                 <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
