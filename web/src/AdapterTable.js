@@ -1,13 +1,18 @@
 import React from "react";
-import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
+import {
+  DownOutlined,
+  EditOutlined,
+  MinusOutlined,
+  UpOutlined
+} from "@ant-design/icons";
+import { Button, Input, Row, Select, Table, Tooltip } from "antd";
 import * as Setting from "./Setting";
 
 class AdapterTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classes: props,
+      classes: props
     };
   }
 
@@ -31,7 +36,7 @@ class AdapterTable extends React.Component {
   }
 
   newRow() {
-    return {id: "new id"};
+    return { id: "new id" };
   }
 
   addRow() {
@@ -70,98 +75,149 @@ class AdapterTable extends React.Component {
   renderTable(table) {
     const columns = [
       {
-        title: 'Id',
-        dataIndex: 'id',
-        key: 'id',
+        title: "Id",
+        dataIndex: "id",
+        key: "id",
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'id', e.target.value);
-            }} />
-          )
+            <Input
+              value={text}
+              minLength={1}
+              onChange={e => {
+                this.updateField(index, "id", e.target.value);
+              }}
+            />
+          );
         }
       },
       {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'name', e.target.value);
-            }} />
-          )
+            <Input
+              value={text}
+              minLength={1}
+              maxLength={256}
+              onChange={e => {
+                this.updateField(index, "name", e.target.value);
+              }}
+            />
+          );
         }
       },
       {
-        title: 'Type',
-        dataIndex: 'type',
-        key: 'type',
+        title: "Type",
+        dataIndex: "type",
+        key: "type",
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'type', e.target.value);
-            }} />
-          )
+            <Input
+              value={text}
+              onChange={e => {
+                this.updateField(index, "type", e.target.value);
+              }}
+            />
+          );
         }
       },
       {
-        title: 'Parameter 1',
-        dataIndex: 'param1',
-        key: 'param1',
+        title: "Parameter 1",
+        dataIndex: "param1",
+        key: "param1",
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'param1', e.target.value);
-            }} />
-          )
+            <Input
+              value={text}
+              onChange={e => {
+                this.updateField(index, "param1", e.target.value);
+              }}
+            />
+          );
         }
       },
       {
-        title: 'Parameter 2',
-        dataIndex: 'param2',
-        key: 'param2',
+        title: "Parameter 2",
+        dataIndex: "param2",
+        key: "param2",
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(index, 'param2', e.target.value);
-            }} />
-          )
+            <Input
+              value={text}
+              onChange={e => {
+                this.updateField(index, "param2", e.target.value);
+              }}
+            />
+          );
         }
       },
       {
-        title: 'Action',
-        key: 'action',
+        title: "Action",
+        key: "action",
         render: (text, record, index) => {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/adapter/${record.id}`)} />
+                <Button
+                  style={{ marginRight: "5px" }}
+                  icon={<EditOutlined />}
+                  size="small"
+                  onClick={() => Setting.openLink(`/adapter/${record.id}`)}
+                />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
-                <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
+                <Button
+                  style={{ marginRight: "5px" }}
+                  disabled={index === 0}
+                  icon={<UpOutlined />}
+                  size="small"
+                  onClick={() => this.upRow.bind(this)(index)}
+                />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move down">
-                <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
+                <Button
+                  style={{ marginRight: "5px" }}
+                  disabled={index === table.length - 1}
+                  icon={<DownOutlined />}
+                  size="small"
+                  onClick={() => this.downRow.bind(this)(index)}
+                />
               </Tooltip>
               <Tooltip placement="topLeft" title="Delete">
-                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
+                <Button
+                  icon={<MinusOutlined />}
+                  size="small"
+                  onClick={() => this.deleteRow.bind(this)(index)}
+                />
               </Tooltip>
             </div>
           );
         }
-      },
+      }
     ];
 
     return (
       <div>
-        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 100}} scroll={{y: '100vh'}}
-               title={() => (
-                 <div>
-                   {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={this.addRow.bind(this)}>Add</Button>
-                 </div>
-               )}
+        <Table
+          columns={columns}
+          dataSource={table}
+          size="middle"
+          bordered
+          pagination={{ pageSize: 100 }}
+          scroll={{ y: "100vh" }}
+          title={() => (
+            <div>
+              {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button
+                type="primary"
+                size="small"
+                onClick={this.addRow.bind(this)}
+              >
+                Add
+              </Button>
+            </div>
+          )}
         />
       </div>
     );
@@ -170,13 +226,11 @@ class AdapterTable extends React.Component {
   render() {
     return (
       <div>
-        <Row style={{marginTop: '20px'}} >
-          {
-            this.renderTable(this.props.table)
-          }
+        <Row style={{ marginTop: "20px" }}>
+          {this.renderTable(this.props.table)}
         </Row>
       </div>
-    )
+    );
   }
 }
 

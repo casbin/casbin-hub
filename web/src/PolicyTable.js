@@ -1,6 +1,11 @@
 import React from "react";
-import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
+import {
+  DownOutlined,
+  EditOutlined,
+  MinusOutlined,
+  UpOutlined
+} from "@ant-design/icons";
+import { Button, Input, Row, Select, Table, Tooltip } from "antd";
 import * as Setting from "./Setting";
 
 const { Option } = Select;
@@ -9,7 +14,7 @@ class PolicyTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classes: props,
+      classes: props
     };
   }
 
@@ -33,7 +38,15 @@ class PolicyTable extends React.Component {
   }
 
   newRow() {
-    return {pType: this.props.type, v0: "", v1: "", v2: "", v3: "", v4: "", v5: ""};
+    return {
+      pType: this.props.type,
+      v0: "",
+      v1: "",
+      v2: "",
+      v3: "",
+      v4: "",
+      v5: ""
+    };
   }
 
   addRow() {
@@ -77,67 +90,92 @@ class PolicyTable extends React.Component {
     }
 
     const columns = [];
-    columns.push(
-      {
-        title: "PType",
-        dataIndex: "pType",
-        key: "pType",
-        render: (text, record, index) => {
-          return (
-            <Input value={text} disabled={true} />
-          )
-        }
-      },
-    );
-
-    this.props.headers.forEach((title, i) => {
-      columns.push(
-        {
-          title: title,
-          dataIndex: keys[i],
-          key: keys[i],
-          render: (text, record, index) => {
-            return (
-              <Input value={text} onChange={e => {
-                this.updateField(index, keys[i], e.target.value);
-              }} />
-            )
-          }
-        },
-      );
+    columns.push({
+      title: "PType",
+      dataIndex: "pType",
+      key: "pType",
+      render: (text, record, index) => {
+        return <Input value={text} disabled={true} />;
+      }
     });
 
-    columns.push(
-      {
-        title: 'Edit:',
-        key: 'action',
+    this.props.headers.forEach((title, i) => {
+      columns.push({
+        title: title,
+        dataIndex: keys[i],
+        key: keys[i],
         render: (text, record, index) => {
           return (
-            <div>
-              <Tooltip placement="topLeft" title="Move up">
-                <Button style={{marginRight: "5px"}} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
-              </Tooltip>
-              <Tooltip placement="topLeft" title="Move down">
-                <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
-              </Tooltip>
-              <Tooltip placement="topLeft" title="Delete">
-                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
-              </Tooltip>
-            </div>
+            <Input
+              value={text}
+              onChange={e => {
+                this.updateField(index, keys[i], e.target.value);
+              }}
+              minLength={1}
+              maxLength={256}
+            />
           );
         }
-      },
-    );
+      });
+    });
+
+    columns.push({
+      title: "Edit:",
+      key: "action",
+      render: (text, record, index) => {
+        return (
+          <div>
+            <Tooltip placement="topLeft" title="Move up">
+              <Button
+                style={{ marginRight: "5px" }}
+                disabled={index === 0}
+                icon={<UpOutlined />}
+                size="small"
+                onClick={() => this.upRow.bind(this)(index)}
+              />
+            </Tooltip>
+            <Tooltip placement="topLeft" title="Move down">
+              <Button
+                style={{ marginRight: "5px" }}
+                disabled={index === table.length - 1}
+                icon={<DownOutlined />}
+                size="small"
+                onClick={() => this.downRow.bind(this)(index)}
+              />
+            </Tooltip>
+            <Tooltip placement="topLeft" title="Delete">
+              <Button
+                icon={<MinusOutlined />}
+                size="small"
+                onClick={() => this.deleteRow.bind(this)(index)}
+              />
+            </Tooltip>
+          </div>
+        );
+      }
+    });
 
     return (
       <div>
-        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 100}} scroll={{y: '100vh'}}
-               title={() => (
-                 <div>
-                   {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={this.addRow.bind(this)}>Add</Button>
-                 </div>
-               )}
+        <Table
+          columns={columns}
+          dataSource={table}
+          size="middle"
+          bordered
+          pagination={{ pageSize: 100 }}
+          scroll={{ y: "100vh" }}
+          title={() => (
+            <div>
+              {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button
+                type="primary"
+                size="small"
+                onClick={this.addRow.bind(this)}
+              >
+                Add
+              </Button>
+            </div>
+          )}
         />
       </div>
     );
@@ -146,13 +184,11 @@ class PolicyTable extends React.Component {
   render() {
     return (
       <div>
-        <Row style={{marginTop: '20px'}} >
-          {
-            this.renderTable(this.props.table)
-          }
+        <Row style={{ marginTop: "20px" }}>
+          {this.renderTable(this.props.table)}
         </Row>
       </div>
-    )
+    );
   }
 }
 

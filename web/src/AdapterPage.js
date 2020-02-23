@@ -143,7 +143,7 @@ class AdapterPage extends React.Component {
             Id:
           </Col>
           <Col span={22}>
-            <Input value={this.state.adapter.id} onChange={e => {
+            <Input value={this.state.adapter.id} minLength={1} onChange={e => {
               this.updateField('id', e.target.value);
             }}/>
           </Col>
@@ -153,7 +153,7 @@ class AdapterPage extends React.Component {
             Name:
           </Col>
           <Col span={22}>
-            <Input value={this.state.adapter.name} onChange={e => {
+            <Input value={this.state.adapter.name} minLength={1} maxLength={256} onChange={e => {
               this.updateField('name', e.target.value);
             }}/>
           </Col>
