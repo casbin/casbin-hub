@@ -34,19 +34,23 @@ dataSourceName = root:123@tcp(localhost:3306)/
 
 Casbin-dashboard uses XORM to connect to DB, so all DBs supported by XORM can also be used.
 
-- Run backend (in port 8000):
+- Run backend (in port 8000) and frontend (in the same machine's port 3030):
 
 ```
-go run main.go
+npm install
+cd web
+npm install
+cd ..
+npm run dev
  ```
-
-- Run frontend (in the same machine's port 3030):
+<!-- go run main.go -->
+<!-- - Run frontend (in the same machine's port 3030):
 
 ```
 cd web
 npm install
 npm start
-```
+``` -->
 
 - Open browser:
 

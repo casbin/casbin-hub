@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"go run main.go\" \"cd web && npm run start\""
+  }
+}
