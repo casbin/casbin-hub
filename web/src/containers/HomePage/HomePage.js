@@ -16,6 +16,7 @@ class HomePage extends React.Component {
       adapters: null,
       models: null,
       enforcers: null,
+      isButtonDisabled: false
     };
   }
 
@@ -70,29 +71,42 @@ class HomePage extends React.Component {
     });
   }
 
+  enableSaveButton = () => {
+    setTimeout(()=> {
+      this.setState({
+        isButtonDisabled: false
+      });
+    }, 3000);
+  }
+
   updateMetadata = () => {
+    this.setState({
+      isButtonDisabled: true
+    });
     Backend.updateAdapters(this.state.adapters)
       .then((res) => {
         // Setting.showMessage("success", `Save succeeded`);
-
         Backend.updateModels(this.state.models)
           .then((res) => {
             // Setting.showMessage("success", `Save succeeded`);
-
             Backend.updateEnforcers(this.state.enforcers)
               .then((res) => {
                 Setting.showMessage('success', 'Save succeeded');
+                this.enableSaveButton();
               })
               .catch((error) => {
                 Setting.showMessage('error', `Save failed: ${error}`);
+                this.enableSaveButton();
               });
           })
           .catch((error) => {
             Setting.showMessage('error', `Save failed: ${error}`);
+            this.enableSaveButton();
           });
       })
       .catch((error) => {
         Setting.showMessage('error', `Save failed: ${error}`);
+        this.enableSaveButton();
       });
   }
 
@@ -102,7 +116,7 @@ class HomePage extends React.Component {
       title={(
         <div style={{ width: '90vw' }}>
           Edit Metadata&nbsp;&nbsp;&nbsp;&nbsp;
-          <Button type="primary" onClick={this.updateMetadata}>Save Change</Button>
+          <Button type="primary" onClick={this.updateMetadata} disabled={this.state.isButtonDisabled}>Save Change</Button>
         </div>
       )}
       style={{ marginLeft: '5px' }}

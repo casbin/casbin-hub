@@ -94,7 +94,7 @@ class EnforcerPage extends React.Component {
         Setting.showMessage('success', 'Save succeeded');
       })
       .catch((error) => {
-        Setting.showMessage('error', `Sava failed: ${error}`);
+        Setting.showMessage('error', `Save failed: ${error}`);
       });
   }
 
