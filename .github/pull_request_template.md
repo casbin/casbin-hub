@@ -2,9 +2,11 @@
 
 ### Description :
 
-describe changes made in code
+<!--Describe changes made in code.-->
 
 ### Screenshot of changes :
+
+<!--Where-ever possible attach a screenshot of the issue.-->
 
 ### Please ensure Checkmark the following :
 
