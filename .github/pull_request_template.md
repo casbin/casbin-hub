@@ -1,10 +1,12 @@
 ### Fixes : [issue-number]
 
-### Description
+### Description :
 
 describe changes made in code
 
-### Please ensure Checkmark the following:
+### Screenshot of changes :
+
+### Please ensure Checkmark the following :
 
 [ ] - Tested Localy
 [ ] - Checked in IE11 and Firefox
