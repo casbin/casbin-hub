@@ -1,9 +1,9 @@
 import React from "react";
-import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
+import {DownOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
+import {Button, Input, Row, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 
-const { Option } = Select;
+//const { Option } = Select;
 
 class PolicyTable extends React.Component {
   constructor(props) {

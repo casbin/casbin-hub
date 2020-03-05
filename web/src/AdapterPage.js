@@ -2,9 +2,9 @@ import React from "react";
 import * as Setting from "./Setting";
 import * as Backend from "./Backend";
 import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
-import {Controlled as CodeMirror} from 'react-codemirror2'
+//import {Controlled as CodeMirror} from 'react-codemirror2'
 import "codemirror/lib/codemirror.css"
-import AdapterTable from "./AdapterTable";
+//import AdapterTable from "./AdapterTable";
 import PolicyTable from "./PolicyTable";
 
 require("codemirror/mode/properties/properties");
@@ -88,8 +88,8 @@ class AdapterPage extends React.Component {
       Backend.updateAdapter(this.state.adapter),
       Backend.setAdapterAllPolicies(this.state.adapter.id, this.state.pPolicies.concat(this.state.gPolicies)),
     ]).then((values) => {
-      let res1 = values[0];
-      let res2 = values[1];
+      //let res1 = values[0];
+      //let res2 = values[1];
 
       Setting.showMessage("success", `Save succeeded`);
     }).catch((errors) => {
