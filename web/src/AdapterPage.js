@@ -1,7 +1,7 @@
 import React from "react";
 import * as Setting from "./Setting";
 import * as Backend from "./Backend";
-import {Button, Card, Col, Input, Row, Select, Tag} from "antd";
+import {Button, Card, Col, Input, Row, Select, Tag, message} from "antd";
 import {Controlled as CodeMirror} from 'react-codemirror2'
 import "codemirror/lib/codemirror.css"
 import AdapterTable from "./AdapterTable";
@@ -83,14 +83,14 @@ class AdapterPage extends React.Component {
     //   .catch(error => {
     //     Setting.showMessage("error", `Sava failed: ${error}`);
     //   });
-
+    Setting.showMessage("loading", `Please wait...`);
     Promise.all([
       Backend.updateAdapter(this.state.adapter),
       Backend.setAdapterAllPolicies(this.state.adapter.id, this.state.pPolicies.concat(this.state.gPolicies)),
     ]).then((values) => {
       let res1 = values[0];
       let res2 = values[1];
-
+      
       Setting.showMessage("success", `Save succeeded`);
     }).catch((errors) => {
       let error1 = errors[0];
@@ -102,6 +102,7 @@ class AdapterPage extends React.Component {
   }
 
   testAdapterConnection() {
+    Setting.showMessage("loading", `Please wait...`);
     Backend.testAdapterConnection(this.state.adapter)
       .then((res) => {
         if (res.status === 'ok') {
