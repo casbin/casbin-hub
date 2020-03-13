@@ -85,7 +85,7 @@ class App extends React.Component {
                     </Menu.Item>
                 }
                 <Menu.Item key='5' style={{float: 'right'}}>
-                  <a target="_blank" href="https://github.com/casbin/casbin-dashboard" rel='noreferrer'>
+                  <a target="_blank" without rel="noopener noreferrer" href="https://github.com/casbin/casbin-dashboard">
                     <img alt="GitHub stars" src="https://img.shields.io/github/stars/casbin/casbin-dashboard?style=social" />
                   </a>
                 </Menu.Item>
@@ -99,7 +99,7 @@ class App extends React.Component {
             <Route exact path="/enforcer/:enforcerId" component={EnforcerPage}/>
           </Switch>
           <Footer style={{ textAlign: 'center' }}>
-            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤</span> by <a target="_blank" href="https://github.com/casbin" rel='noreferrer'>Casbin Organization</a>
+            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤</span> by <a target="_blank" without rel="noopener noreferrer" href="https://github.com/casbin">Casbin Organization</a>
           </Footer>
         </div>
     );
