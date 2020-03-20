@@ -1,9 +1,9 @@
 package object
 
 import (
-	"github.com/casbin/casbin"
-	"github.com/casbin/casbin/model"
-	xormadapter "github.com/casbin/xorm-adapter"
+	"github.com/casbin/casbin/v2"
+	"github.com/casbin/casbin/v2/model"
+	xormadapter "github.com/casbin/xorm-adapter/v2"
 )
 
 var rbacModel = `
