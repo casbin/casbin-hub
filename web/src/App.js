@@ -28,15 +28,15 @@ class App extends React.Component {
 
   componentWillMount() {
     const path = this.getUrlPath();
-    if (path.includes('model')) {
-      this.setState({ selectedMenuKey: 2 });
-    } else if (path.includes('adapter')) {
-      this.setState({ selectedMenuKey: 3 });
-    } else if (path.includes('enforcer')) {
-      this.setState({ selectedMenuKey: 4 });
-    } else {
-      this.setState({ selectedMenuKey: 1 });
-    }
+    switch(path.includes){
+      case 'model': this.setState({ selectedMenuKey: 2 });
+        break;
+      case 'adapter': this.setState({ selectedMenuKey: 3 });
+        break;
+      case 'enforcer': this.setState({ selectedMenuKey: 4 });
+        break;
+      default: this.setState({ selectedMenuKey: 1 });
+           }
   }
 
   render() {
