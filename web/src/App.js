@@ -99,7 +99,7 @@ class App extends React.Component {
             <Route exact path="/enforcer/:enforcerId" component={EnforcerPage}/>
           </Switch>
           <Footer style={{ textAlign: 'center' }}>
-            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤</span> by <a target="_blank" href="https://github.com/casbin" rel='noreferrer'>Casbin Organization</a>
+            Made with <span style={{color: '#FF0000'}}>❤</span> by <a target="_blank" href="https://github.com/casbin" rel='noreferrer'>Casbin Organization</a>
           </Footer>
         </div>
     );
