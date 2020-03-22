@@ -81,7 +81,7 @@ class AdapterPage extends React.Component {
     //   .catch(error => {
     //     Setting.showMessage("error", `Sava failed: ${error}`);
     //   });
-    Setting.showMessage("loading", `Please wait...`);
+    Setting.showWaitingMessage();
     Promise.all([
       Backend.updateAdapter(this.state.adapter),
       Backend.setAdapterAllPolicies(this.state.adapter.id, this.state.pPolicies.concat(this.state.gPolicies)),
@@ -97,7 +97,7 @@ class AdapterPage extends React.Component {
   }
 
   testAdapterConnection() {
-    Setting.showMessage("loading", `Please wait...`);
+    Setting.showWaitingMessage();
     Backend.testAdapterConnection(this.state.adapter)
       .then((res) => {
         if (res.status === 'ok') {

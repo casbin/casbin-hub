@@ -111,7 +111,7 @@ class ModelPage extends React.Component {
   }
 
   updateModel() {
-    Setting.showMessage("loading", `Please wait...`);
+    Setting.showWaitingMessage();
     let model = Setting.deepCopy(this.state.model);
     model.text = this.stringifyModelText(model.text);
     Backend.updateModel(model)

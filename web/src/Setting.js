@@ -15,17 +15,18 @@ export function openLink(link) {
 }
 
 export function showMessage(type, text) {
+    message.destroy();
     if (type === "") {
         return;
     } else if (type === "success") {
-        message.destroy();
         message.success(text);
-    } else if (type === "loading") {
-        message.loading(text, 0);
     } else if (type === "error") {
-        message.destroy();
         message.error(text);
     }
+}
+
+export function showWaitingMessage() {
+    message.loading(`Please wait...`, 0);
 }
 
 export function deepCopy(obj) {

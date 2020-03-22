@@ -75,7 +75,7 @@ class HomePage extends React.Component {
     Backend.updateAdapters(this.state.adapters)
       .then((res) => {
         // Setting.showMessage("success", `Save succeeded`);
-        Setting.showMessage("loading", `Please wait...`);
+        Setting.showWaitingMessage();
         Backend.updateModels(this.state.models)
           .then((res) => {
             // Setting.showMessage("success", `Save succeeded`);
