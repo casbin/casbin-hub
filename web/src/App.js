@@ -28,14 +28,24 @@ class App extends React.Component {
 
   componentWillMount() {
     const path = this.getUrlPath();
-    if (path.includes('model')) {
-      this.setState({ selectedMenuKey: 2 });
-    } else if (path.includes('adapter')) {
-      this.setState({ selectedMenuKey: 3 });
-    } else if (path.includes('enforcer')) {
-      this.setState({ selectedMenuKey: 4 });
-    } else {
-      this.setState({ selectedMenuKey: 1 });
+   switch (path.includes) {
+      case "model":
+        this.setState({ selectedMenuKey: 2 });
+        break;
+      case "adapter":
+        this.setState({ selectedMenuKey: 3 });
+        break;
+      case "enforcer":
+        this.setState({ selectedMenuKey: 4 });
+        break;
+      case "about":
+        this.setState({ selectedMenuKey: 5 });
+        break;
+      case "contact":
+        this.setState({ selectedMenuKey: 6 });
+        break;
+      default:
+        this.setState({ selectedMenuKey: 1 });
     }
   }
 
@@ -59,6 +69,19 @@ class App extends React.Component {
                   <Menu.Item key="1">
                     <a href="/">
                       Home
+                    </a>
+                  </Menu.Item>
+                  </Menu.Item>
+                  {/*providing new route /About and key= 5 */}
+                  <Menu.Item key="5">
+                    <a href="/">
+                      About
+                    </a>
+                  </Menu.Item>
+                  {/*providing new route /Contact and key= 6 */}
+                  <Menu.Item key="6">
+                    <a href="/">
+                      Contact
                     </a>
                   </Menu.Item>
                   {
