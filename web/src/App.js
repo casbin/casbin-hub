@@ -34,7 +34,13 @@ class App extends React.Component {
       this.setState({ selectedMenuKey: 3 });
     } else if (path.includes('enforcer')) {
       this.setState({ selectedMenuKey: 4 });
-    } else {
+    } else if (path.includes('user-management')) {
+      this.setState({ selectedMenuKey: 5 });
+    } else if (path.includes('role-management')) {
+      this.setState({ selectedMenuKey: 6 });
+    } else if (path.includes('permission-management')) {
+      this.setState({ selectedMenuKey: 7 });
+    else {
       this.setState({ selectedMenuKey: 1 });
     }
   }
@@ -56,11 +62,18 @@ class App extends React.Component {
                 >
                   <Text style={{marginRight: "20px", fontSize: "x-large"}}>Dashboard</Text>
 
-                  <Menu.Item key="1">
-                    <a href="/">
-                      Home
-                    </a>
-                  </Menu.Item>
+                 <Menu.Item key="1">
+                  <a href="/">Home</a>
+                </Menu.Item>
+                <Menu.Item key="5">
+                  <a href="/">User Management</a>
+                </Menu.Item>
+                <Menu.Item key="6">
+                  <a href="/">Role Management</a>
+                </Menu.Item>
+                <Menu.Item key="7">
+                  <a href="/">Permission Management</a>
+                </Menu.Item>
                   {
                     !this.getUrlPath().includes('model') ? null :
                       <Menu.Item key="2">
