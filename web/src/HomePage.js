@@ -99,7 +99,7 @@ class HomePage extends React.Component {
 
   renderContent() {
     return (
-      <Card size="small" title={
+      <Card className='full-width' title={
         <div style={{width: "90vw"}}>
           Edit Metadata&nbsp;&nbsp;&nbsp;&nbsp;
           <Button type="primary" onClick={this.updateMetadata.bind(this)}>Save Change</Button>
