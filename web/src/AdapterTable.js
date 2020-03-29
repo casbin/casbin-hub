@@ -155,7 +155,7 @@ class AdapterTable extends React.Component {
 
     return (
       <div>
-        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 100}} scroll={{y: '100vh'}}
+        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 10}} 
                title={() => (
                  <div>
                    {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
