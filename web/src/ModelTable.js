@@ -28,7 +28,7 @@ class ModelTable extends React.Component {
     return res;
   };
   addError = (error, index) => {
-    let indexedError = `${error} at column ${index + 1}`;
+    let indexedError = `${error} at row ${index + 1}`;
     if (this.state.errors.indexOf(indexedError) == -1) {
       this.setState({
         errors: [...this.state.errors, indexedError]
@@ -38,7 +38,7 @@ class ModelTable extends React.Component {
 
   removeError = (error, index) => {
     let errors = this.state.errors.filter(eachError => {
-      return eachError != `${error} at column ${index + 1}`;
+      return eachError != `${error} at row ${index + 1}`;
     });
     let uniqueErrors = Array.from(new Set(errors));
     this.setState({
