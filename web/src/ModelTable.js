@@ -49,13 +49,11 @@ class ModelTable extends React.Component {
   parseModel = (index, key = "text") => {
     let res = {};
     let models = this.props.table[index][key];
-    console.log("YO MODEL", models);
     if (models == "") {
       return null;
     }
     const lines = models.match(/[^\r\n]+/g);
     lines.forEach((line, i) => {
-      console.log("line", line);
       if (line.startsWith("p = ")) {
         res.p = line.slice(4);
         res.p = this.parseLine(res.p);
@@ -76,10 +74,8 @@ class ModelTable extends React.Component {
     return res;
   };
   validateModel = (index, key = "text") => {
-    // console.log("Validating..." , text);
 
     let res = this.parseModel(index);
-    console.log("TYPE" , this.props.table[index]['type'])
 
     if (res == null || res.r == undefined || res.r[0].length == 0) {
       this.addError("Please add arguments to request_definition", index);
