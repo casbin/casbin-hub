@@ -1,9 +1,8 @@
 import React from "react";
-import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
+import {DownOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
+import {Button, Input, Row,  Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 
-const { Option } = Select;
 
 class PolicyTable extends React.Component {
   constructor(props) {
@@ -130,7 +129,7 @@ class PolicyTable extends React.Component {
     );
 
     return (
-      <div>
+      <div className='full-width'>
         <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 100}} scroll={{y: '100vh'}}
                title={() => (
                  <div>

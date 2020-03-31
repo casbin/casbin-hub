@@ -117,21 +117,14 @@ class HomePage extends React.Component {
 
   renderContent() {
     return (
-      <Card
-        size="small"
-        title={
-          <div style={{ width: "90vw" }}>
-            Edit Metadata&nbsp;&nbsp;&nbsp;&nbsp;
-            <Button type="primary" onClick={this.updateMetadata.bind(this)}>
-              Save Change
-            </Button>
-          </div>
-        }
-        style={{ marginLeft: "5px" }}
-        type="inner"
-      >
-        <Row style={{ marginTop: "20px" }}>
-          <Col style={{ marginTop: "5px" }} span={2}>
+      <Card className='full-width' title={
+        <div style={{width: "90vw"}}>
+          Edit Metadata&nbsp;&nbsp;&nbsp;&nbsp;
+          <Button type="primary" onClick={this.updateMetadata.bind(this)}>Save Change</Button>
+        </div>
+      } style={{marginLeft: '5px'}} type="inner">
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
             Models:
           </Col>
           <Col span={22}>
