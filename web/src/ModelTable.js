@@ -87,13 +87,13 @@ class ModelTable extends React.Component {
     } else {
       this.removeError("Please add a policy_definition", index);
     }
-    let listOfValidPolicyEffects = [
-      "some(where (p.eft == allow))",
-      "!some(where (p.eft == deny))",
-      "some(where (p.eft == allow)) && !some(where (p.eft == deny))",
-      "priority(p.eft) || deny"
-    ];
-    if (res == null || listOfValidPolicyEffects.indexOf(res.e.trim())) {
+    let mapOfValidPolicyEffects = {
+      "some(where (p.eft == allow))" : true,
+      "!some(where (p.eft == deny))" : true,
+      "some(where (p.eft == allow)) && !some(where (p.eft == deny))" : true,
+      "priority(p.eft) || deny" : true,
+    };
+    if (res == null ||  !mapOfValidPolicyEffects[res.e.trim()]) {
       this.addError("Please add valid policy_effect", index);
     } else {
       this.removeError("Please add valid policy_effect", index);
@@ -212,7 +212,7 @@ class ModelTable extends React.Component {
                 this.updateField(index, "type", value);
               }}
             >
-              {["ACL", "RBAC", "ABAC"].map((type, index) => (
+              {["ACL", "RBAC", "ABAC", "TEST"].map((type, index) => (
                 <Option key={index} value={type}>
                   {type}
                 </Option>
