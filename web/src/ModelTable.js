@@ -212,7 +212,7 @@ class ModelTable extends React.Component {
                 this.updateField(index, "type", value);
               }}
             >
-              {["ACL", "RBAC", "ABAC", "TEST"].map((type, index) => (
+              {["ACL", "RBAC", "ABAC"].map((type, index) => (
                 <Option key={index} value={type}>
                   {type}
                 </Option>
