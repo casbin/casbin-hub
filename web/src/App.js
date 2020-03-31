@@ -86,7 +86,7 @@ class App extends React.Component {
                       </Menu.Item>
                   }
                   <Menu.Item key='5' style={{float: 'right'}}>
-                    <a target="_blank" href="https://github.com/casbin/casbin-dashboard" rel='noreferrer'>
+                    <a target="_blank" href="https://github.com/casbin/casbin-dashboard" rel="noopener noreferrer">
                       <img alt="GitHub stars" src="https://img.shields.io/github/stars/casbin/casbin-dashboard?style=social" />
                     </a>
                   </Menu.Item>
@@ -109,7 +109,7 @@ class App extends React.Component {
               textAlign: 'center',
             }
           }>
-            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤️</span> by <a style={{fontWeight: "bold", color: "black"}} target="_blank" href="https://casbin.org">Casbin</a>
+            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤️</span> by <a style={{fontWeight: "bold", color: "black"}} target="_blank" href="https://casbin.org"  rel="noopener noreferrer">Casbin</a>
           </Footer>
         </div>
     );
