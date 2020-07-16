@@ -147,7 +147,7 @@ class ModelTable extends React.Component {
 
     return (
       <div className='full-width'>
-        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 100}} rowKey = {obj => obj.id} scroll={{y: '100vh'}}
+        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 100}} rowKey={obj => obj.id} scroll={{y: '100vh'}}
                title={() => (
                  <div>
                    {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
