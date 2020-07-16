@@ -43,9 +43,9 @@ class EnforcerTable extends React.Component {
       table = [];
     }
     if (table.length > 0) {
-      const last = table.slice(-1)[0];
-      row = Setting.deepCopy(last);
-      row.id = last.id + " (new)";
+      const first = table.slice(0,1)[0];
+      row = Setting.deepCopy(first);
+      row.id = first.id + " (new)";
     }
     table = Setting.addRow(table, row);
     this.updateTable(table);
@@ -149,7 +149,7 @@ class EnforcerTable extends React.Component {
 
     return (
       <div className='full-width'>
-        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 100}} scroll={{y: '100vh'}}
+        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 100}} rowKey={obj => obj.id} scroll={{y: '100vh'}}
                title={() => (
                  <div>
                    {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
