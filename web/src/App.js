@@ -109,7 +109,7 @@ class App extends React.Component {
               textAlign: 'center',
             }
           }>
-            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤</span> by <a style={{fontWeight: "bold", color: "black"}} rel='noopener noreferrer' target="_blank" href="https://casbin.org">Casbin</a>
+            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤</span> {" "} by <a style={{fontWeight: "bold", color: "black"}} rel='noopener noreferrer' target="_blank" href="https://casbin.org">Casbin</a>
           </Footer>
         </div>
     );
