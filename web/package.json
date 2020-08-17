@@ -8,12 +8,13 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.0.0-rc.3",
+    "axios": "^0.19.2",
     "codemirror": "^5.50.2",
-    "react": "^16.12.0",
+    "react": "^16.13.1",
     "react-codemirror2": "^6.0.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0"
+    "react-scripts": "^3.2.0"
   },
   "scripts": {
     "start": "set PORT=3030 && react-scripts start",
@@ -22,7 +23,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "jsx-a11y/anchor-is-valid": "off"
+    }
   },
   "browserslist": {
     "production": [

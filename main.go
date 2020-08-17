@@ -11,7 +11,6 @@ import (
 
 func main() {
 	object.InitOrmManager()
-
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "PUT", "PATCH"},

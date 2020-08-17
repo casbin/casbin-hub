@@ -31,6 +31,16 @@ func GetEnforcer(id string) *Enforcer {
 	}
 }
 
+
+func NewEnforcer() *Enforcer {
+	return &Enforcer{
+		Id:              "",
+		Name:            "",
+		Model:            "",
+		Adapter:          "",
+	}
+}
+
 func createEnforcerTable() error {
 	return ormManager.engine.Sync2(new(Enforcer))
 }
@@ -55,5 +65,21 @@ func UpdateEnforcers(enforcers []*Enforcer) bool {
 		panic(err)
 	}
 
+	return affected != 0
+}
+
+func UpdateEnforcer(enforcer *Enforcer) bool {
+	affected, err := ormManager.engine.Insert(enforcer)
+	if err != nil {
+		panic(err)
+	}
+	return affected != 0
+}
+
+func DeleteEnforcer(enforcer *Enforcer) bool {
+	affected, err := ormManager.engine.Delete(enforcer)
+	if err != nil {
+		panic(err)
+	}
 	return affected != 0
 }
