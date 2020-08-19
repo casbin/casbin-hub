@@ -40,7 +40,7 @@ Casbin-dashboard uses XORM to connect to DB, so all DBs supported by XORM can al
 go run main.go
  ```
 
-- Run frontend (in the same machine's port 3030):
+- Run frontend (in the same machine's port 3000):
 
 ```
 cd web
@@ -50,4 +50,4 @@ npm start
 
 - Open browser:
 
-http://localhost:3030/
+http://localhost:3000/
