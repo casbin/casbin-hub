@@ -4,7 +4,7 @@ export function getAdapters() {
     return fetch(`${Setting.ServerUrl}/api/get-adapters`, {
         method: "GET",
         credentials: "include"
-    }).then(res => res.json())
+    }).then(res => res.json());
 }
 
 export function getAdapter(adapterId) {
@@ -24,14 +24,6 @@ export function updateAdapters(adapters) {
 
 export function updateAdapter(adapter) {
     return fetch(`${Setting.ServerUrl}/api/update-adapter`, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(adapter),
-    }).then(res => res.json());
-}
-
-export function deleteAdapter(adapter){
-    return fetch(`${Setting.ServerUrl}/api/delete-adapter`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(adapter),
@@ -84,13 +76,6 @@ export function removeAdapterPolicy(adapterId, policy) {
     }).then(res => res.json());
 }
 
-export function getEmptyAdapter() {
-    return fetch(`${Setting.ServerUrl}/api/get-empty-adapter`, {
-        method: 'Get',
-        credentials: 'include'
-    }).then(res => res.json());
-}
-
 export function getModels() {
     return fetch(`${Setting.ServerUrl}/api/get-models`, {
         method: "GET",
@@ -121,21 +106,6 @@ export function updateModel(model) {
     }).then(res => res.json());
 }
 
-export function getEmptyModel() {
-    return fetch(`${Setting.ServerUrl}/api/get-empty-model`, {
-        method: 'Get',
-        credentials: 'include'
-    }).then(res => res.json());
-}
-
-export function deleteModel(model){
-    return fetch(`${Setting.ServerUrl}/api/delete-model`, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(model),
-    }).then(res => res.json());
-}
-
 export function getEnforcers() {
     return fetch(`${Setting.ServerUrl}/api/get-enforcers`, {
         method: "GET",
@@ -155,73 +125,5 @@ export function updateEnforcers(enforcers) {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(enforcers),
-    }).then(res => res.json());
-}
-
-export function getEmptyEnforcer() {
-    return fetch(`${Setting.ServerUrl}/api/get-empty-enforcer`, {
-        method: 'Get',
-        credentials: 'include'
-    }).then(res => res.json());
-}
-
-export function updateEnforcer(enforcer) {
-    return fetch(`${Setting.ServerUrl}/api/update-enforcer`, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(enforcer),
-    }).then(res => res.json());
-}
-
-export function deleteEnforcer(enforcer){
-    return fetch(`${Setting.ServerUrl}/api/delete-enforcer`, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(enforcer),
-    }).then(res => res.json());
-}
-
-export function getPolicyLists() {
-    return fetch(`${Setting.ServerUrl}/api/get-policyLists`, {
-        method: "GET",
-        credentials: "include"
-    }).then(res => res.json())
-}
-
-export function getPolicyList(policyListId) {
-    return fetch(`${Setting.ServerUrl}/api/get-policyList?id=${policyListId}`, {
-        method: "GET",
-        credentials: "include"
-    }).then(res => res.json());
-}
-
-export function updatePolicyLists(policyLists) {
-    return fetch(`${Setting.ServerUrl}/api/update-policyLists`, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(policyLists),
-    }).then(res => res.json());
-}
-
-export function updatePolicyList(policyList) {
-    return fetch(`${Setting.ServerUrl}/api/update-policyList`, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(policyList),
-    }).then(res => res.json());
-}
-
-export function deletePolicyList(policyList){
-    return fetch(`${Setting.ServerUrl}/api/delete-policyList`, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(policyList),
-    }).then(res => res.json());
-}
-
-export function getEmptyPolicyList() {
-    return fetch(`${Setting.ServerUrl}/api/get-empty-policyList`, {
-        method: 'Get',
-        credentials: 'include'
     }).then(res => res.json());
 }
