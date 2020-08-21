@@ -1,15 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
 import 'antd/dist/antd.css';
-import { BrowserRouter } from 'react-router-dom'
+import { 
+    HashRouter as Router,
+    Switch,
+    Route,
+    Redirect
+} from 'react-router-dom';
+import {mainRoutes} from "./routes";
 
 ReactDOM.render((
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
+        <Router>
+            <Switch>
+            <Route path="/dashboard" render={routeProps=><App {...routeProps}/> }/>
+                {mainRoutes.map(route => {
+                    return <Route key = {route.path}{...route} />;
+                })}
+                <Redirect to ="/dashboard" from="/"/>
+                <Redirect to ="/404" />
+            </Switch>
+        </Router>
     ),
     document.getElementById('root'));
 
