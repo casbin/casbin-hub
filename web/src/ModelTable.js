@@ -1,5 +1,5 @@
 import React from "react";
-import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
+import {DownOutlined, EditOutlined, UpOutlined, DeleteOutlined} from '@ant-design/icons';
 import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 
@@ -137,7 +137,7 @@ class ModelTable extends React.Component {
                 <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Delete">
-                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
+                <Button icon={<DeleteOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
               </Tooltip>
             </div>
           );
