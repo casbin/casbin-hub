@@ -86,7 +86,7 @@ export function removeAdapterPolicy(adapterId, policy) {
 
 export function getEmptyAdapter() {
     return fetch(`${ServerUrl}/api/v1/empty-adapter`, {
-        method: 'Get',
+        method: 'GET',
         credentials: 'include'
     }).then(res => res.json());
 }
