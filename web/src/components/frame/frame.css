@@ -3,17 +3,17 @@
     justify-content: space-between;
 }
 
-.ant-menu-inline > .ant-menu-item{
-    font-size: 16px !important;
+.ant-menu-inline > .ant-menu-item {
+    font-size: 1rem !important;
 }
 
 #content-wrap {
-    padding-bottom: 60px;    /* Footer height */
+    padding-bottom: 4rem;    /* Footer height */
 }
 
 #footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 60px;            /* Footer height */
+    height: 4rem;            /* Footer height */
 }

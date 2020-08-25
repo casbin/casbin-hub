@@ -19,7 +19,7 @@ class EditEnforcer extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         Backend.getEnforcer(this.props.match.params.id)
             .then((res) => {
                 this.setState({
@@ -52,7 +52,6 @@ class EditEnforcer extends React.Component {
             }
         }
         const onFinish = values => {
-            Setting.initServerUrl();
             Backend.deleteEnforcer(this.props.location.state[0])
             .then((res) => {
                 this.setState({

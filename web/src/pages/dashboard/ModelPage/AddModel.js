@@ -52,7 +52,6 @@ class AddModel extends React.Component {
             }
         }
         const onFinish = values => {
-            Setting.initServerUrl();
             this.setState({
                 model: {
                     id: values.model.id,

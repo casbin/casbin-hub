@@ -17,7 +17,7 @@ class EditModel extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         Backend.getModel(this.props.match.params.id)
             .then((res) => {
                 this.setState({
@@ -50,7 +50,6 @@ class EditModel extends React.Component {
             }
         }
         const onFinish = values => {
-            Setting.initServerUrl();
             Backend.deleteModel(this.props.location.state)
                 .then((res) => {
                     this.setState({

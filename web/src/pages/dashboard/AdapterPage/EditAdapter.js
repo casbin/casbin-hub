@@ -14,7 +14,7 @@ class EditAdapter extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         Backend.getAdapter(this.props.match.params.id)
             .then((res) => {
                 this.setState({
@@ -47,7 +47,6 @@ class EditAdapter extends React.Component {
             }
         }
         const onFinish = values => {
-            Setting.initServerUrl();
             Backend.deleteAdapter(this.props.location.state)
                 .then((res) => {
                     this.setState({

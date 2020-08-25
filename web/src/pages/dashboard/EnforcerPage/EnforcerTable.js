@@ -11,7 +11,6 @@ class EnforcerTable extends React.Component {
     this.state = {
       classes: props,
     };
-    Setting.initServerUrl();
   }
 
   updateTable(table) {
@@ -130,15 +129,15 @@ class EnforcerTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{ marginRight: "5px" }} icon={<EditOutlined />} size="small" 
+                <Button style={{ marginRight: "0.5rem" }} icon={<EditOutlined />} size="small" 
                 onClick={() => this.props.history.push({pathname:`/dashboard/enforcers/edit/${record.id}`,state:[record,this.props]})} 
                 />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
-                <Button style={{ marginRight: "5px" }} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
+                <Button style={{ marginRight: "0.5rem" }} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move down">
-                <Button style={{ marginRight: "5px" }} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
+                <Button style={{ marginRight: "0.5rem" }} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
               </Tooltip>
               <Popconfirm
                 title="Sure to DELETE this enforcer?"

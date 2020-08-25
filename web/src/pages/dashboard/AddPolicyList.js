@@ -50,7 +50,6 @@ class AddPolicyList extends React.Component {
             }
         }
         const onFinish = values => {
-            Setting.initServerUrl();
             this.setState({
                 policyList: {
                     id: values.policyList.id,

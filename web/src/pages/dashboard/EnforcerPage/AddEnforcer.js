@@ -52,7 +52,6 @@ class AddEnforcer extends React.Component {
             }
         }
         const onFinish = values => {
-            Setting.initServerUrl();
             this.setState({
                 enforcer: {
                     id: values.enforcer.id,

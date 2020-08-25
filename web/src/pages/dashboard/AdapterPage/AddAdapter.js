@@ -48,7 +48,6 @@ class AddAdapter extends React.Component {
             }
         }
         const onFinish = values => {
-            Setting.initServerUrl();
             this.setState({
                 adapter: {
                     id: values.adapter.id,

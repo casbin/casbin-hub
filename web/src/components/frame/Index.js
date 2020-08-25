@@ -8,16 +8,18 @@ import { clearToken } from '../../utils/auth'
 const { Header, Content, Footer, Sider } = Layout;
 
 function index(props) {
+    function adminRoute (option) {
+        if (option === "logout") {
+            clearToken()
+            props.history.push('/login')
+        } else {
+            message.info(option)//tip
+        };
+    }
+    
     const popMenu = (
         <Menu
-            onClick={p => {
-                if (p.key === "logout") {
-                    clearToken()
-                    props.history.push('/login')
-                } else {
-                    message.info(p.key)//tip
-                }
-            }}>
+            onClick={p => adminRoute(p.key)}>
             <Menu.Item key="notice" icon = {<NotificationOutlined />}>Notice</Menu.Item>
             <Menu.Item key="Seting" icon = {<SettingOutlined />}>Seting</Menu.Item>
             <Menu.Item key="logout" icon = {<LoginOutlined />}>Exit</Menu.Item>
@@ -31,15 +33,15 @@ function index(props) {
                 <div className="logo" />
                 <Dropdown overlay={popMenu} trigger={['click']}>
                     <div>
-                        <Avatar>U</Avatar>&nbsp;&nbsp;&nbsp;
+                        <Avatar style={{marginRight: '1rem'}}>U</Avatar>
                         <a href="/" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                             Admin <DownOutlined />
                         </a>
                     </div>
                 </Dropdown>
             </Header>
-            <Content style={{ padding: '0 50px' }}>
-                <Layout className="site-layout-background" style={{ padding: '24px 0'}}>
+            <Content style={{ padding: '0 3rem' }}>
+                <Layout className="site-layout-background" style={{ padding: '1.5rem 0'}}>
                     <Sider className="site-layout-background" width={200}>
                         <Menu
                             mode="inline"
@@ -47,15 +49,15 @@ function index(props) {
                             defaultOpenKeys={['sub1']}
                             style={{ height: '100%'}}
                         >
-                                <Menu.Item onClick={p => props.history.push("/dashboard/home")} icon={<HomeOutlined />}>
+                                <Menu.Item style={{marginTop: '1rem'}} onClick={p => props.history.push("/dashboard/home")} icon={<HomeOutlined />}>
                                     Home
-                                </Menu.Item>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <Menu.Item onClick={p => props.history.push("/dashboard/policy")} icon={<GroupOutlined />}>
+                                </Menu.Item>;
+                                <Menu.Item style={{marginTop: '1rem'}} onClick={p => props.history.push("/dashboard/policy")} icon={<GroupOutlined />}>
                                     Policy
-                                </Menu.Item>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </Menu.Item>;
                         </Menu>
                     </Sider>
-                    <Content style={{ padding: '0 50px',width: "100%" }}>
+                    <Content style={{ padding: '0 3rem',width: "100%" }}>
                         {props.children}
                     </Content>
                 </Layout>

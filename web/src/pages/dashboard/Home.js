@@ -16,7 +16,6 @@ class Home extends React.Component {
           models: null,
           enforcers: null,
         };
-        Setting.initServerUrl();
       }
     
       componentDidMount() {
@@ -107,18 +106,18 @@ class Home extends React.Component {
                 <img alt="GitHub stars" src="https://img.shields.io/github/stars/casbin/casbin-dashboard?style=social" />
               </a>
             </div>
-          } style={{marginLeft: '5px'}} type="inner">
-            <Row style={{marginTop: '20px'}} >
+          } style={{marginLeft: '0.5rem'}} type="inner">
+            <Row style={{marginTop: '1rem'}} >
               <Col span={22} >
                 <ModelTable  history={this.props.history} table={this.state.models} onUpdateTable={this.onUpdateModels.bind(this)} />
               </Col>
             </Row>
-            <Row style={{marginTop: '20px'}} >
+            <Row style={{marginTop: '1rem'}} >
               <Col span={22} >
                 <AdapterTable  history={this.props.history} table={this.state.adapters} onUpdateTable={this.onUpdateAdapters.bind(this)} />
               </Col>
             </Row>
-            <Row style={{marginTop: '20px'}} >
+            <Row style={{marginTop: '1rem'}} >
               <Col span={22} >
                 <EnforcerTable  history={this.props.history} table={this.state.enforcers} models={this.state.models === null ? [] : this.state.models} adapters={this.state.adapters === null ? [] : this.state.adapters} onUpdateTable={this.onUpdateEnforcers.bind(this)} />
               </Col>

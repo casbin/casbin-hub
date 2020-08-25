@@ -49,7 +49,6 @@ class EditPolicyList extends React.Component {
             }
         }
         const onFinish = values => {
-            Setting.initServerUrl();
             Backend.deletePolicyList(this.props.location.state)
                 .then((res) => {
                     this.setState({
