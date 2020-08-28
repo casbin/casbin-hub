@@ -36,16 +36,18 @@ class EnforcerPage extends React.Component {
       let adapters = values[1];
       let models = values[2];
 
-      this.setState({
-        enforcer: enforcer,
-        adapters: adapters,
-        models: models,
-        adapter: adapters.filter(adapter => adapter.id === enforcer.adapter)[0],
-        model: models.filter(model => model.id === enforcer.model)[0],
-      });
+      if(enforcer != null) {
+        this.setState({
+          enforcer: enforcer,
+          adapters: adapters,
+          models: models,
+          adapter: adapters.filter(adapter => adapter.id === enforcer.adapter)[0],
+          model: models.filter(model => model.id === enforcer.model)[0],
+        });
 
-      this.getAdapterPolicies(enforcer.adapter);
-      this.getAdapterGroupingPolicies(enforcer.adapter);
+        this.getAdapterPolicies(enforcer.adapter);
+        this.getAdapterGroupingPolicies(enforcer.adapter);
+      }
     });
   }
 
