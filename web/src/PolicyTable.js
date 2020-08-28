@@ -88,24 +88,26 @@ class PolicyTable extends React.Component {
         }
       },
     );
-
-    this.props.headers.forEach((title, i) => {
-      columns.push(
-        {
-          title: title,
-          dataIndex: keys[i],
-          key: keys[i],
-          render: (text, record, index) => {
-            return (
-              <Input value={text} onChange={e => {
-                this.updateField(index, keys[i], e.target.value);
-              }} />
-            )
-          }
-        },
-      );
-    });
-
+    
+    if(this.props.headers) {
+      this.props.headers.forEach((title, i) => {
+        columns.push(
+          {
+            title: title,
+            dataIndex: keys[i],
+            key: keys[i],
+            render: (text, record, index) => {
+              return (
+                <Input value={text} onChange={e => {
+                  this.updateField(index, keys[i], e.target.value);
+                }} />
+              )
+            }
+          },
+        );
+      });
+    }
+    
     columns.push(
       {
         title: 'Edit:',
