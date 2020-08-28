@@ -89,7 +89,7 @@ class PolicyTable extends React.Component {
       },
     );
     
-    if(this.props.headers != null) {
+    if(this.props.headers) {
       this.props.headers.forEach((title, i) => {
         columns.push(
           {
