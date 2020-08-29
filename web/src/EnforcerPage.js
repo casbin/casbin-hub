@@ -36,7 +36,7 @@ class EnforcerPage extends React.Component {
       let adapters = values[1];
       let models = values[2];
 
-      if(enforcer != null) {
+      if(enforcer) {
         this.setState({
           enforcer: enforcer,
           adapters: adapters,
