@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-
 	"github.com/casbin/casbin-dashboard/object"
 )
 
@@ -14,6 +13,11 @@ type Response struct {
 
 func (c *ApiController) GetAdapters() {
 	c.Data["json"] = object.GetAdapters()
+	c.ServeJSON()
+}
+
+func (c *ApiController) GetEmptyAdapter() {
+	c.Data["json"] = object.NewAdapter()
 	c.ServeJSON()
 }
 
@@ -37,12 +41,22 @@ func (c *ApiController) UpdateAdapters() {
 
 func (c *ApiController) UpdateAdapter() {
 	var adapter *object.Adapter
+	
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &adapter)
 	if err != nil {
 		panic(err)
 	}
-
 	c.Data["json"] = object.UpdateAdapter(adapter)
+	c.ServeJSON()
+}
+
+func (c *ApiController) DeleteAdapter() {
+	var adapter *object.Adapter
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &adapter)
+	if err != nil {
+		panic(err)
+	}
+	c.Data["json"] = object.DeleteAdapter(adapter)
 	c.ServeJSON()
 }
 

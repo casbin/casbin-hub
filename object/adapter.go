@@ -1,5 +1,4 @@
 package object
-
 type Adapter struct {
 	Id            string   `xorm:"varchar(100) notnull pk" json:"id"`
 	Name          string   `xorm:"varchar(100)" json:"name"`
@@ -15,7 +14,6 @@ func GetAdapters() []*Adapter {
 	if err != nil {
 		panic(err)
 	}
-
 	return adapters
 }
 
@@ -30,6 +28,16 @@ func GetAdapter(id string) *Adapter {
 		return &adapter
 	} else {
 		return nil
+	}
+}
+
+func NewAdapter() *Adapter {
+	return &Adapter{
+		Id:              "",
+		Name:            "",
+		Type:            "",
+		Param1:          "",
+		Param2:          "", 
 	}
 }
 
@@ -61,10 +69,19 @@ func UpdateAdapters(adapters []*Adapter) bool {
 }
 
 func UpdateAdapter(adapter *Adapter) bool {
-	affected, err := ormManager.engine.Id(adapter.Id).AllCols().Update(adapter)
+	affected, err := ormManager.engine.Insert(adapter)
 	if err != nil {
 		panic(err)
 	}
-
 	return affected != 0
 }
+
+func DeleteAdapter(adapter *Adapter) bool {
+	affected, err := ormManager.engine.Delete(adapter)
+	if err != nil {
+		panic(err)
+	}
+	return affected != 0
+}
+
+
