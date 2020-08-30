@@ -1,21 +1,21 @@
-import * as Setting from "./Setting";
+export let ServerUrl = 'http://localhost:8000';
 
 export function getAdapters() {
-    return fetch(`${Setting.ServerUrl}/api/get-adapters`, {
+    return fetch(`${ServerUrl}/api/v1/adapters`, {
         method: "GET",
         credentials: "include"
-    }).then(res => res.json());
+    }).then(res => res.json())
 }
 
 export function getAdapter(adapterId) {
-    return fetch(`${Setting.ServerUrl}/api/get-adapter?id=${adapterId}`, {
+    return fetch(`${ServerUrl}/api/v1/adapter?id=${adapterId}`, {
         method: "GET",
         credentials: "include"
     }).then(res => res.json());
 }
 
 export function updateAdapters(adapters) {
-    return fetch(`${Setting.ServerUrl}/api/update-adapters`, {
+    return fetch(`${ServerUrl}/api/v1/adapters`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(adapters),
@@ -23,15 +23,23 @@ export function updateAdapters(adapters) {
 }
 
 export function updateAdapter(adapter) {
-    return fetch(`${Setting.ServerUrl}/api/update-adapter`, {
+    return fetch(`${ServerUrl}/api/v1/adapter`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(adapter),
     }).then(res => res.json());
 }
 
+export function deleteAdapter(adapter){
+    return fetch(`${ServerUrl}/api/v1/adapter`, {
+        method: 'DELETE',
+        credentials: 'include',
+        body: JSON.stringify(adapter),
+    }).then(res => res.json());
+}
+
 export function testAdapterConnection(adapter) {
-    return fetch(`${Setting.ServerUrl}/api/test-adapter-connection`, {
+    return fetch(`${ServerUrl}/api/v1/test-adapter-connection`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(adapter),
@@ -39,21 +47,21 @@ export function testAdapterConnection(adapter) {
 }
 
 export function getAdapterPolicies(adapterId) {
-    return fetch(`${Setting.ServerUrl}/api/get-adapter-policies?id=${adapterId}`, {
+    return fetch(`${ServerUrl}/api/v1/adapter-policies?id=${adapterId}`, {
         method: 'GET',
         credentials: 'include',
     }).then(res => res.json());
 }
 
 export function getAdapterGroupingPolicies(adapterId) {
-    return fetch(`${Setting.ServerUrl}/api/get-adapter-grouping-policies?id=${adapterId}`, {
+    return fetch(`${ServerUrl}/api/v1/adapter-grouping-policies?id=${adapterId}`, {
         method: 'GET',
         credentials: 'include',
     }).then(res => res.json());
 }
 
 export function setAdapterAllPolicies(adapterId, policies) {
-    return fetch(`${Setting.ServerUrl}/api/set-adapter-all-policies?id=${adapterId}`, {
+    return fetch(`${ServerUrl}/api/v1/adapter-all-policies?id=${adapterId}`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(policies),
@@ -61,7 +69,7 @@ export function setAdapterAllPolicies(adapterId, policies) {
 }
 
 export function addAdapterPolicy(adapterId, policy) {
-    return fetch(`${Setting.ServerUrl}/api/add-adapter-policy?id=${adapterId}`, {
+    return fetch(`${ServerUrl}/api/v1/adapter-policy?id=${adapterId}`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(policy),
@@ -69,29 +77,36 @@ export function addAdapterPolicy(adapterId, policy) {
 }
 
 export function removeAdapterPolicy(adapterId, policy) {
-    return fetch(`${Setting.ServerUrl}/api/remove-adapter-policy?id=${adapterId}`, {
-        method: 'POST',
+    return fetch(`${ServerUrl}/api/v1/adapter-policy?id=${adapterId}`, {
+        method: 'DELETE',
         credentials: 'include',
         body: JSON.stringify(policy),
     }).then(res => res.json());
 }
 
+export function getEmptyAdapter() {
+    return fetch(`${ServerUrl}/api/v1/empty-adapter`, {
+        method: 'GET',
+        credentials: 'include'
+    }).then(res => res.json());
+}
+
 export function getModels() {
-    return fetch(`${Setting.ServerUrl}/api/get-models`, {
+    return fetch(`${ServerUrl}/api/v1/models`, {
         method: "GET",
         credentials: "include"
     }).then(res => res.json());
 }
 
 export function getModel(modelId) {
-    return fetch(`${Setting.ServerUrl}/api/get-model?id=${modelId}`, {
+    return fetch(`${ServerUrl}/api/v1/model?id=${modelId}`, {
         method: "GET",
         credentials: "include"
     }).then(res => res.json());
 }
 
 export function updateModels(models) {
-    return fetch(`${Setting.ServerUrl}/api/update-models`, {
+    return fetch(`${ServerUrl}/api/v1/models`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(models),
@@ -99,31 +114,114 @@ export function updateModels(models) {
 }
 
 export function updateModel(model) {
-    return fetch(`${Setting.ServerUrl}/api/update-model`, {
+    return fetch(`${ServerUrl}/api/v1/model`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(model),
     }).then(res => res.json());
 }
 
+export function getEmptyModel() {
+    return fetch(`${ServerUrl}/api/v1/empty-model`, {
+        method: 'GET',
+        credentials: 'include'
+    }).then(res => res.json());
+}
+
+export function deleteModel(model){
+    return fetch(`${ServerUrl}/api/v1/model`, {
+        method: 'DELETE',
+        credentials: 'include',
+        body: JSON.stringify(model),
+    }).then(res => res.json());
+}
+
 export function getEnforcers() {
-    return fetch(`${Setting.ServerUrl}/api/get-enforcers`, {
+    return fetch(`${ServerUrl}/api/v1/enforcers`, {
         method: "GET",
         credentials: "include"
     }).then(res => res.json());
 }
 
 export function getEnforcer(enforcerId) {
-    return fetch(`${Setting.ServerUrl}/api/get-enforcer?id=${enforcerId}`, {
+    return fetch(`${ServerUrl}/api/v1/enforcer?id=${enforcerId}`, {
         method: "GET",
         credentials: "include"
     }).then(res => res.json());
 }
 
 export function updateEnforcers(enforcers) {
-    return fetch(`${Setting.ServerUrl}/api/update-enforcers`, {
+    return fetch(`${ServerUrl}/api/v1/enforcers`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(enforcers),
+    }).then(res => res.json());
+}
+
+export function getEmptyEnforcer() {
+    return fetch(`${ServerUrl}/api/v1/empty-enforcer`, {
+        method: 'GET',
+        credentials: 'include'
+    }).then(res => res.json());
+}
+
+export function updateEnforcer(enforcer) {
+    return fetch(`${ServerUrl}/api/v1/enforcer`, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(enforcer),
+    }).then(res => res.json());
+}
+
+export function deleteEnforcer(enforcer){
+    return fetch(`${ServerUrl}/api/v1/enforcer`, {
+        method: 'DELETE',
+        credentials: 'include',
+        body: JSON.stringify(enforcer),
+    }).then(res => res.json());
+}
+
+export function getPolicyLists() {
+    return fetch(`${ServerUrl}/api/v1/policyLists`, {
+        method: "GET",
+        credentials: "include"
+    }).then(res => res.json())
+}
+
+export function getPolicyList(policyListId) {
+    return fetch(`${ServerUrl}/api/v1/policyList?id=${policyListId}`, {
+        method: "GET",
+        credentials: "include"
+    }).then(res => res.json());
+}
+
+export function updatePolicyLists(policyLists) {
+    return fetch(`${ServerUrl}/api/v1/policyLists`, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(policyLists),
+    }).then(res => res.json());
+}
+
+export function updatePolicyList(policyList) {
+    return fetch(`${ServerUrl}/api/v1/policyList`, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(policyList),
+    }).then(res => res.json());
+}
+
+export function deletePolicyList(policyList){
+    return fetch(`${ServerUrl}/api/v1/policyList`, {
+        method: 'DELETE',
+        credentials: 'include',
+        body: JSON.stringify(policyList),
+    }).then(res => res.json());
+}
+
+export function getEmptyPolicyList() {
+    return fetch(`${ServerUrl}/api/v1/empty-policyList`, {
+        method: 'GET',
+        credentials: 'include'
     }).then(res => res.json());
 }

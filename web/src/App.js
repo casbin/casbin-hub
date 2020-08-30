@@ -1,4 +1,25 @@
 import React from 'react';
+<<<<<<< HEAD
+import {Switch, Route, Redirect} from 'react-router-dom'
+import Frame from './components/frame/Index'
+import 'antd/dist/antd.css';
+import {dashboardRoutes} from "./routes";
+import {isLogined} from './utils/auth'
+
+
+function App(){
+  return isLogined() ? ( 
+      <Frame>
+      <Switch>
+          {dashboardRoutes.map(route => {
+          return(
+            <Route 
+            key={route.path} 
+            path={route.path} 
+            exact = {route.exact}
+            render={routeProps=>{
+              return <route.component{...routeProps}/>
+=======
 import './App.css';
 import * as Setting from "./Setting";
 import {Switch, Route} from 'react-router-dom'
@@ -107,14 +128,19 @@ class App extends React.Component {
               borderTop: '1px solid #e8e8e8',
               backgroundColor: 'white',
               textAlign: 'center',
+>>>>>>> b6c9fe06e438bb12c0d13c8406443e4ab07c32cb
             }
-          }>
-            Made with <span style={{color: 'rgb(255, 0, 0)'}}>❤</span> by <a style={{fontWeight: "bold", color: "black"}} rel='noopener noreferrer' target="_blank" href="https://casbin.org">Casbin</a>
-          </Footer>
-        </div>
-    );
-  }
-
+          }
+            />
+          );
+        })}
+          <Redirect to ={dashboardRoutes[0].path} from="/dashboard"/>
+          <Redirect to ="/404" />
+        </Switch>
+        </Frame>
+  ):(
+    <Redirect to ="/login" />
+  );
 }
 
 export default App;

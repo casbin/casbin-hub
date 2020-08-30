@@ -1,14 +1,5 @@
 import {message} from "antd";
 
-export let ServerUrl = '';
-
-export function initServerUrl() {
-    const hostname = window.location.hostname;
-    if (hostname === 'localhost') {
-        ServerUrl = `http://${hostname}:8000`;
-    }
-}
-
 export function openLink(link) {
     const w = window.open('about:blank');
     w.location.href = link;
