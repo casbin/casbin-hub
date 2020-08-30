@@ -27,9 +27,8 @@ class Policy extends React.Component {
       );
   }
 
-
-  updateTable(table) {
-    Backend.updatePolicyLists(table)
+  deleteRow(policyList) {
+    Backend.deletePolicyList(policyList)
       .then((res) => {
         Setting.showMessage("success", `Save succeeded`);
         this.getPolicyLists();
@@ -37,12 +36,6 @@ class Policy extends React.Component {
       .catch(error => {
         Setting.showMessage("error", `Sava failed: ${error}`);
       });
-  }
-
-  deleteRow(i) {
-    let table = this.state.policyLists;
-    table = Setting.deleteRow(table, i);
-    this.updateTable(table);
   }
 
   renderTable(table) {
@@ -96,7 +89,7 @@ class Policy extends React.Component {
               onCancel={() => console.log("Cancel deletion")}
               onConfirm={() => {
                 console.log("Confirm deletion");
-                this.deleteRow.bind(this)(index);
+                this.deleteRow.bind(this)(record);
               }}>
               <Tooltip placement="topLeft" title="Delete">
                 <Button icon={<MinusOutlined />} size="small" />
