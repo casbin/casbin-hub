@@ -34,7 +34,7 @@ export function myParseInt(i) {
 }
 
 export function addRow(array, row) {
-    return [...array, row];
+    return [row,...array];
 }
 
 export function deleteRow(array, i) {

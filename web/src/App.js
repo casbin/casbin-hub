@@ -3,12 +3,12 @@ import './App.css';
 import * as Setting from "./Setting";
 import {Switch, Route} from 'react-router-dom'
 import HomePage from "./HomePage";
-import {Layout, Menu, Typography} from "antd";
+import {Layout, Menu} from "antd";
 import ModelPage from "./ModelPage";
 import AdapterPage from "./AdapterPage";
 import EnforcerPage from "./EnforcerPage";
 
-const {Text} = Typography;
+
 const {Header, Footer} = Layout;
 
 class App extends React.Component {
@@ -26,17 +26,17 @@ class App extends React.Component {
     return location.pathname;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const path = this.getUrlPath();
-    if (path.includes('model')) {
-      this.setState({ selectedMenuKey: 2 });
-    } else if (path.includes('adapter')) {
-      this.setState({ selectedMenuKey: 3 });
-    } else if (path.includes('enforcer')) {
-      this.setState({ selectedMenuKey: 4 });
-    } else {
-      this.setState({ selectedMenuKey: 1 });
-    }
+    switch(path.includes){
+      case 'model': this.setState({ selectedMenuKey: 2 });
+        break;
+      case 'adapter': this.setState({ selectedMenuKey: 3 });
+        break;
+      case 'enforcer': this.setState({ selectedMenuKey: 4 });
+        break;
+      default: this.setState({ selectedMenuKey: 1 });
+           }
   }
 
   render() {
@@ -52,9 +52,9 @@ class App extends React.Component {
                     mode="horizontal"
                     defaultSelectedKeys={[`${this.state.selectedMenuKey}`]}
                     style={{lineHeight: '64px'}}
-                    inlineCollapsed={false}
+                
                 >
-                  <Text style={{marginRight: "20px", fontSize: "x-large"}}>Dashboard</Text>
+                
 
                   <Menu.Item key="1">
                     <a href="/">
@@ -64,7 +64,7 @@ class App extends React.Component {
                   {
                     !this.getUrlPath().includes('model') ? null :
                       <Menu.Item key="2">
-                        <a href="#">
+                        <a href="/#">
                           Model
                         </a>
                       </Menu.Item>
@@ -72,7 +72,7 @@ class App extends React.Component {
                   {
                     !this.getUrlPath().includes('adapter') ? null :
                       <Menu.Item key="3">
-                        <a href="#">
+                        <a href="/#">
                           Adapter
                         </a>
                       </Menu.Item>
@@ -80,13 +80,13 @@ class App extends React.Component {
                   {
                     !this.getUrlPath().includes('enforcer') ? null :
                       <Menu.Item key="4">
-                        <a href="#">
+                        <a href="/#">
                           Enforcer
                         </a>
                       </Menu.Item>
                   }
                   <Menu.Item key='5' style={{float: 'right'}}>
-                    <a target="_blank" href="https://github.com/casbin/casbin-dashboard" rel='noreferrer'>
+                    <a target="_blank" href="https://github.com/casbin/casbin-dashboard" rel='noopener noreferrer'>
                       <img alt="GitHub stars" src="https://img.shields.io/github/stars/casbin/casbin-dashboard?style=social" />
                     </a>
                   </Menu.Item>
@@ -109,7 +109,7 @@ class App extends React.Component {
               textAlign: 'center',
             }
           }>
-            Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤️</span> by <a style={{fontWeight: "bold", color: "black"}} target="_blank" href="https://casbin.org">Casbin</a>
+            Made with <span style={{color: 'rgb(255, 0, 0)'}}>❤</span> by <a style={{fontWeight: "bold", color: "black"}} rel='noopener noreferrer' target="_blank" href="https://casbin.org">Casbin</a>
           </Footer>
         </div>
     );

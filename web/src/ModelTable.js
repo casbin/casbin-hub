@@ -1,5 +1,5 @@
 import React from "react";
-import {DownOutlined, EditOutlined, MinusOutlined, UpOutlined} from '@ant-design/icons';
+import {DownOutlined, EditOutlined, UpOutlined, DeleteOutlined} from '@ant-design/icons';
 import {Button, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 
@@ -43,9 +43,9 @@ class ModelTable extends React.Component {
       table = [];
     }
     if (table.length > 0) {
-      const last = table.slice(-1)[0];
-      row = Setting.deepCopy(last);
-      row.id = last.id + " (new)";
+      const first = table.slice(0,1)[0];
+      row = Setting.deepCopy(first);
+      row.id = first.id + " (new)";
     }
     table = Setting.addRow(table, row);
     this.updateTable(table);
@@ -137,7 +137,7 @@ class ModelTable extends React.Component {
                 <Button style={{marginRight: "5px"}} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Delete">
-                <Button icon={<MinusOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
+                <Button icon={<DeleteOutlined />} size="small" onClick={() => this.deleteRow.bind(this)(index)} />
               </Tooltip>
             </div>
           );
@@ -147,7 +147,7 @@ class ModelTable extends React.Component {
 
     return (
       <div className='full-width'>
-        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 10}} 
+        <Table columns={columns} dataSource={table} size="middle" bordered pagination={{pageSize: 10}} rowKey={obj => obj.id}
                title={() => (
                  <div>
                    {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;

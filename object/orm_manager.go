@@ -89,4 +89,9 @@ func (a *OrmManager) createTables() {
 	if err != nil {
 		panic(err)
 	}
+	
+	err = a.engine.Sync2(new(PolicyList))
+	if err != nil {
+		panic(err)
+	}
 }
