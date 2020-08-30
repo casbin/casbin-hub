@@ -54,25 +54,6 @@ func dropPolicyListTable() error {
 	return ormManager.engine.DropTables(new(PolicyList))
 }
 
-func UpdatePolicyLists(policyLists []*PolicyList) bool {
-	err := dropPolicyListTable()
-	if err != nil {
-		panic(err)
-	}
-
-	err = createPolicyListTable()
-	if err != nil {
-		panic(err)
-	}
-
-	affected, err := ormManager.engine.Insert(&policyLists)
-	if err != nil {
-		panic(err)
-	}
-
-	return affected != 0
-}
-
 func UpdatePolicyList(policyList *PolicyList) bool {
 	affected, err := ormManager.engine.Insert(policyList)
 	if err != nil {
@@ -88,5 +69,3 @@ func DeletePolicyList(policyList *PolicyList) bool {
 	}
 	return affected != 0
 }
-
-

@@ -36,7 +36,7 @@ func initAPI() {
 	beego.Router("/api/v1/enforcer", &controllers.ApiController{}, "GET:GetEnforcer;POST:UpdateEnforcer;DELETE:DeleteEnforcer")
 	beego.Router("/api/v1/empty-enforcer", &controllers.ApiController{}, "GET:GetEmptyEnforcer")
 
-	beego.Router("/api/v1/policyLists", &controllers.ApiController{}, "GET:GetPolicyLists;POST:UpdatePolicyLists")
+	beego.Router("/api/v1/policyLists", &controllers.ApiController{}, "GET:GetPolicyLists")
 	beego.Router("/api/v1/policyList", &controllers.ApiController{}, "GET:GetPolicyList;POST:UpdatePolicyList;DELETE:DeletePolicyList")
 	beego.Router("/api/v1/empty-policyList", &controllers.ApiController{}, "GET:GetEmptyPolicyList")
 }

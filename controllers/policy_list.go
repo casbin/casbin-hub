@@ -22,17 +22,6 @@ func (c *ApiController) GetPolicyList() {
 	c.ServeJSON()
 }
 
-func (c *ApiController) UpdatePolicyLists() {
-	var policyLists []*object.PolicyList
-	err := json.Unmarshal(c.Ctx.Input.RequestBody, &policyLists)
-	if err != nil {
-		panic(err)
-	}
-
-	c.Data["json"] = object.UpdatePolicyLists(policyLists)
-	c.ServeJSON()
-}
-
 func (c *ApiController) UpdatePolicyList() {
 	var policyList *object.PolicyList
 	
