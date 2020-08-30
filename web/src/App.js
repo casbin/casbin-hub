@@ -26,7 +26,7 @@ class App extends React.Component {
     return location.pathname;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const path = this.getUrlPath();
     switch(path.includes){
       case 'model': this.setState({ selectedMenuKey: 2 });
