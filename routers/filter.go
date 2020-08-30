@@ -3,7 +3,6 @@ package routers
 import (
 	"net/http"
 	"strings"
-
 	"github.com/astaxie/beego/context"
 	"github.com/casbin/casbin-dashboard/util"
 )
