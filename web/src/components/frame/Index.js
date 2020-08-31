@@ -51,10 +51,10 @@ function index(props) {
                         >
                                 <Menu.Item style={{marginTop: '1rem'}} onClick={p => props.history.push("/dashboard/home")} icon={<HomeOutlined />}>
                                     Home
-                                </Menu.Item>;
+                                </Menu.Item>
                                 <Menu.Item style={{marginTop: '1rem'}} onClick={p => props.history.push("/dashboard/policy")} icon={<GroupOutlined />}>
                                     Policy
-                                </Menu.Item>;
+                                </Menu.Item>
                         </Menu>
                     </Sider>
                     <Content style={{ padding: '0 3rem',width: "100%" }}>
