@@ -1,8 +1,8 @@
 .card-form{
-    width: 30rem;
+    width: 20rem;
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: 40%;
     transform: translate3d(-50%, -30%, 0);
 }
 
@@ -17,4 +17,10 @@
   }
  .login-form-button {
     width: 100%;
+  }
+
+  .register-now {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
