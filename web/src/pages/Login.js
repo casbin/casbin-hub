@@ -48,7 +48,9 @@ function Login(props) {
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Log in
                     </Button>
-                    Or <a href="/">register now!</a>
+                    <br/>
+                    <br/>
+                    <span className="register-now">Or &nbsp; <a href="/">Register now!</a> </span>
                 </Form.Item>
             </Form>
         </Card>
