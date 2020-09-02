@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Card, Table, Popconfirm, Tooltip } from 'antd';
-import { DownOutlined, EditOutlined, MinusOutlined, UpOutlined } from '@ant-design/icons';
+import { DownOutlined, EditOutlined, DeleteOutlined, UpOutlined } from '@ant-design/icons';
 import * as Setting from "../../../Setting";
 import * as Backend from "../../../Backend";
 
@@ -100,7 +100,7 @@ class ModelTable extends React.Component {
                   this.deleteRow.bind(this)(index);
                 }}>
                 <Tooltip placement="topLeft" title="Delete">
-                  <Button icon={<MinusOutlined />} size="small" />
+                  <Button icon={<DeleteOutlined />} size="small" />
                 </Tooltip>
               </Popconfirm>
             </div>
