@@ -21,7 +21,7 @@ function index(props) {
         <Menu
             onClick={p => adminRoute(p.key)}>
             <Menu.Item key="notice" icon = {<NotificationOutlined />}>Notice</Menu.Item>
-            <Menu.Item key="Seting" icon = {<SettingOutlined />}>Seting</Menu.Item>
+            <Menu.Item key="Seting" icon = {<SettingOutlined />}>Setting</Menu.Item>
             <Menu.Item key="logout" icon = {<LoginOutlined />}>Exit</Menu.Item>
         </Menu>)
 
