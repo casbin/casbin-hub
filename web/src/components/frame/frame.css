@@ -7,6 +7,10 @@
     font-size: 1rem !important;
 }
 
+#frame{
+    min-width: 100rem;
+}
+
 #content-wrap {
     padding-bottom: 4rem;    /* Footer height */
 }
