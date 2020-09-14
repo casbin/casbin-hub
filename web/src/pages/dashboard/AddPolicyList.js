@@ -68,7 +68,7 @@ class AddPolicyList extends React.Component {
                 this.props.history.push('/dashboard/policy');
             })
             .catch(error => {
-                Setting.showMessage("error", `Sava failed: ${error}`);
+                Setting.showMessage("error", `Save failed: ${error}`);
             });
         };
         return (
