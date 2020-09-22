@@ -14,8 +14,8 @@ class AddEnforcer extends React.Component {
         this.state = {
             classes: props,
             enforcer: null,
-            adapters: this.props.location.state.adapters,
-            models: this.props.location.state.models,
+            adapters: this.props.location.state[0],
+            models: this.props.location.state[1],
         };
     }
 

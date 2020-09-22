@@ -16,14 +16,14 @@ class AddPolicyList extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount(){
         Backend.getEmptyPolicyList()
             .then((res) => {
                 this.setState({
                     policyList: res,
                 });
             },
-            );
+        );
     }
 
     render() {
@@ -36,7 +36,7 @@ class AddPolicyList extends React.Component {
                 span: 16,
             },
         };
-
+        
         const tailFormItemLayout = {
             wrapperCol: {
                 xs: {
@@ -59,17 +59,17 @@ class AddPolicyList extends React.Component {
                     resourcePath: values.policyList.resourcePath,
                     action: values.policyList.action,
                     service: values.policyList.service,
-                    authEffect: values.policyList.authEffect,
+                    authEffect: values.policyList.authEffect,                
                 }
             })
             Backend.updatePolicyList(this.state.policyList)
-                .then((res) => {
-                    Setting.showMessage("success", `Save succeeded`);
-                    this.props.history.push('/dashboard/policy');
-                })
-                .catch(error => {
-                    Setting.showMessage("error", `Save failed: ${error}`);
-                });
+            .then((res) => {
+                Setting.showMessage("success", `Save succeeded`);
+                this.props.history.push('/dashboard/policy');
+            })
+            .catch(error => {
+                Setting.showMessage("error", `Sava failed: ${error}`);
+            });
         };
         return (
             <Card

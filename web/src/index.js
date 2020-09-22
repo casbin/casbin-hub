@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'antd/dist/antd.css';
 import { 
-    HashRouter as Router,
+    BrowserRouter as Router,
     Switch,
     Route,
     Redirect
@@ -19,7 +19,7 @@ ReactDOM.render((
                 {mainRoutes.map(route => {
                     return <Route key = {route.path}{...route} />;
                 })}
-                <Redirect to ="/dashboard" from="/"/>
+                <Redirect to ="/dashboard/home" from="/"/>
                 <Redirect to ="/404" />
             </Switch>
         </Router>

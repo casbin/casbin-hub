@@ -1,6 +1,16 @@
-export let ServerUrl = 'http://localhost:8000';
+export let ServerUrl = '';
+
+export function initServerUrl() {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost') {
+        ServerUrl = `http://${hostname}:8000`;
+    } else {
+        ServerUrl = `https://${hostname}`;
+    }
+}
 
 export function getAdapters() {
+    console.log(ServerUrl)
     return fetch(`${ServerUrl}/api/v1/adapters`, {
         method: "GET",
         credentials: "include"
@@ -30,7 +40,7 @@ export function updateAdapter(adapter) {
     }).then(res => res.json());
 }
 
-export function deleteAdapter(adapter){
+export function deleteAdapter(adapter) {
     return fetch(`${ServerUrl}/api/v1/adapter`, {
         method: 'DELETE',
         credentials: 'include',
@@ -128,7 +138,7 @@ export function getEmptyModel() {
     }).then(res => res.json());
 }
 
-export function deleteModel(model){
+export function deleteModel(model) {
     return fetch(`${ServerUrl}/api/v1/model`, {
         method: 'DELETE',
         credentials: 'include',
@@ -173,7 +183,7 @@ export function updateEnforcer(enforcer) {
     }).then(res => res.json());
 }
 
-export function deleteEnforcer(enforcer){
+export function deleteEnforcer(enforcer) {
     return fetch(`${ServerUrl}/api/v1/enforcer`, {
         method: 'DELETE',
         credentials: 'include',
@@ -211,7 +221,7 @@ export function updatePolicyList(policyList) {
     }).then(res => res.json());
 }
 
-export function deletePolicyList(policyList){
+export function deletePolicyList(policyList) {
     return fetch(`${ServerUrl}/api/v1/policyList`, {
         method: 'DELETE',
         credentials: 'include',
@@ -223,5 +233,20 @@ export function getEmptyPolicyList() {
     return fetch(`${ServerUrl}/api/v1/empty-policyList`, {
         method: 'GET',
         credentials: 'include'
+    }).then(res => res.json());
+}
+
+export function logout() {
+    return fetch(`${ServerUrl}/api/v1/logout`, {
+        method: 'POST',
+        credentials: "include",
+    }).then(res => res.json());
+}
+
+export function githubLogin(code, state, redirectUrl, addition) {
+    console.log(`${ServerUrl}/api/v1/auth-github?code=${code}&state=${state}&redirect_url=${redirectUrl}&addition=${addition}`)
+    return fetch(`${ServerUrl}/api/v1/auth-github?code=${code}&state=${state}&redirect_url=${redirectUrl}&addition=${addition}`, {
+        method: 'GET',
+        credentials: 'include',
     }).then(res => res.json());
 }

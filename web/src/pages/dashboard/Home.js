@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Col, Row} from 'antd';
+import {Card, Col, Row, message} from 'antd';
 import * as Backend from "../../Backend";
 import * as Setting from "../../Setting";
 import AdapterTable from "./AdapterPage/AdapterTable";
@@ -19,11 +19,15 @@ class Home extends React.Component {
       }
     
       componentDidMount() {
-        this.getAdapters();
-        this.getModels();
-        this.getEnforcers();
+        if(this.props.location.state===undefined){
+          message.info("Please login with you Github!")
+        }
+        this.getAdapters()
+        this.getModels()
+        this.getEnforcers()
+        this.props.change(this.props.location.state)
       }
-    
+      
       getAdapters() {
         Backend.getAdapters()
           .then((res) => {

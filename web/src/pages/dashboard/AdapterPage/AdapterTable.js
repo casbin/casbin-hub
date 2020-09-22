@@ -5,10 +5,16 @@ import * as Setting from "../../../Setting";
 import * as Backend from "../../../Backend";
 
 
-const AdapterTable = (props) => {
+class AdapterTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      classes: props,
+    };
+  }
 
-  const updateTable = (table) => {
-    props.onUpdateTable(table);
+  updateTable(table) {
+    this.props.onUpdateTable(table);
     Backend.updateAdapters(table)
       .then((res) => {
         Setting.showMessage("success", `Save succeeded`);
@@ -18,26 +24,26 @@ const AdapterTable = (props) => {
       });
   }
 
-  const deleteRow = (i) => {
-    let table = props.table;
+  deleteRow(i) {
+    let table = this.props.table;
     table = Setting.deleteRow(table, i);
-    updateTable(table);
+    this.updateTable(table);
   }
 
-  const upRow = (i) => {
-    let table = props.table;
+  upRow(i) {
+    let table = this.props.table;
     table = Setting.swapRow(table, i - 1, i);
-    updateTable(table);
+    this.updateTable(table);
   }
 
-  const downRow = (i) => {
-    let table = props.table;
+  downRow(i) {
+    let table = this.props.table;
     table = Setting.swapRow(table, i, i + 1);
-    updateTable(table);
+    this.updateTable(table);
   }
 
 
-  const renderTable = (table) => {
+  renderTable(table) {
     const columns = [
       {
         title: 'Id',
@@ -78,21 +84,22 @@ const AdapterTable = (props) => {
             <div>
               <Tooltip placement="topLeft" title="Edit">
                 <Button style={{ marginRight: "0.5rem" }} icon={<EditOutlined />} size="small" 
-                onClick={() => props.history.push({pathname:`/dashboard/adapters/edit/${record.id}`,state:record})} 
+                onClick={() => this.props.history.push({pathname:`/dashboard/adapters/edit/${record.id}`,state:record})} 
                 />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
-                <Button style={{ marginRight: "0.5rem" }} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => upRow(index)} />
+                <Button style={{ marginRight: "0.5rem" }} disabled={index === 0} icon={<UpOutlined />} size="small" onClick={() => this.upRow.bind(this)(index)} />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move down">
-                <Button style={{ marginRight: "0.5rem" }} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => downRow(index)} />
+                <Button style={{ marginRight: "0.5rem" }} disabled={index === table.length - 1} icon={<DownOutlined />} size="small" onClick={() => this.downRow.bind(this)(index)} />
               </Tooltip>
               <Popconfirm
                 title="Sure to DELETE this adapter?"
                 onCancel={() => console.log("Cancel deletion")}
-                onConfirm={
-                  () => deleteRow(index)
-                }>
+                onConfirm={() => {
+                  console.log("Confirm deletion");
+                  this.deleteRow.bind(this)(index);
+                }}>
                 <Tooltip placement="topLeft" title="Delete">
                   <Button icon={<DeleteOutlined />} size="small" />
                 </Tooltip>
@@ -111,7 +118,7 @@ const AdapterTable = (props) => {
             // onChange: loadData,
           }}
           columns={columns}
-          dataSource={props.table}
+          dataSource={this.props.table}
           size="middle"
           bordered
           rowKey={obj => obj.id}
@@ -120,17 +127,19 @@ const AdapterTable = (props) => {
     );
   }
 
+  render() {
     return (
       <Card
         title="Adapters"
         extra={
-          <Button type="primary" size="small" onClick={() => props.history.push('/dashboard/adapters/add')}>Add</Button>
+          <Button type="primary" size="small" onClick={() => this.props.history.push('/dashboard/adapters/add')}>Add</Button>
         }>
         {
-          renderTable(props.table)
+          this.renderTable(this.props.table)
         }
       </Card>
     )
   }
+}
 
 export default AdapterTable;

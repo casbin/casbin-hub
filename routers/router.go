@@ -19,6 +19,10 @@ func initAPI() {
 		)
 	beego.AddNamespace(ns)
 
+	beego.Router("/api/v1/logout", &controllers.ApiController{}, "POST:Logout")
+	beego.Router("/api/v1/user", &controllers.ApiController{}, "GET:GetUser")
+	beego.Router("/api/v1/auth-github", &controllers.ApiController{}, "GET:AuthGithub")
+
 	beego.Router("/api/v1/adapters", &controllers.ApiController{}, "GET:GetAdapters;POST:UpdateAdapters")
 	beego.Router("/api/v1/adapter", &controllers.ApiController{}, "GET:GetAdapter;POST:UpdateAdapter;DELETE:DeleteAdapter")
 	beego.Router("/api/v1/test-adapter-connection", &controllers.ApiController{}, "POST:TestAdapterConnection")
