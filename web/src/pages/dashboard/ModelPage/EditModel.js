@@ -27,6 +27,67 @@ class EditModel extends React.Component {
             );
     }
 
+    parseLine(s) {
+        const res = s.split(",").map(value => value.trim(" "));
+        return res;
+    }
+
+    parseModel(text) {
+
+        if (text === null || text === undefined  || text === "") {
+            return null
+        }
+        const res = {};
+        const lines = text.match(/[^\r\n]+/g);
+        lines.forEach((line, i) => {
+            if (line.startsWith("p = ")) {
+                res.p = line.slice(4);
+                res.p = this.parseLine(res.p);
+            } else if (line.startsWith("r = ")) {
+                res.r = line.slice(4);
+                res.r = this.parseLine(res.r);
+            } else if (line.endsWith("= _, _")) {
+                if (res.g === undefined) {
+                    res.g = [];
+                }
+                res.g.push(line.split("=")[0].trim(" "));
+            } else if (line.startsWith("e = ")) {
+                res.e = line.slice(4);
+            } else if (line.startsWith("m = ")) {
+                res.m = line.slice(4);
+            }
+        });
+        return res;
+    }
+
+    validateModel = (rule, value, callback) => {
+        let listOfValidPolicyEffects = [
+            "some(where (p.eft == allow))",
+            "!some(where (p.eft == deny))",
+            "some(where (p.eft == allow)) && !some(where (p.eft == deny))",
+            "priority(p.eft) || deny"
+        ];
+        let res = this.parseModel(value);
+        if (res === null || res.r === undefined || res.r[0].length === 0) {
+            return Promise.reject("Please add arguments to request_definition");
+        } else if (res === null || res.p === undefined || res.p[0].length === 0) {
+            return Promise.reject("Please add a policy_definition");
+        } else if (res === null || res.e === undefined || listOfValidPolicyEffects.indexOf(res.e.trim())) {
+            return Promise.reject("Please add valid policy_effect");
+        } else if (res === null || res.m === undefined || res.m[0].length === 0) {
+            return Promise.reject("Please add matchers expresion");
+        } else if (this.state.model.type === "RBAC") {
+            if (res === null || res.g === undefined || res.g.length === 0) {
+                return Promise.reject("Please add role_definition");
+            } else {
+                return Promise.resolve();
+            }
+        } else {
+            return Promise.resolve();
+        }
+    }
+
+
     render() {
         const layout = {
             labelCol: {
@@ -36,7 +97,7 @@ class EditModel extends React.Component {
                 span: 16,
             },
         };
-        
+
         const tailFormItemLayout = {
             wrapperCol: {
                 xs: {
@@ -131,11 +192,13 @@ class EditModel extends React.Component {
                             {
                                 required: true,
                                 message: 'The text is required!',
-                            },
+                            }, {
+                                validator: this.validateModel
+                            }
                         ]}
                         initialValue={this.props.location.state.text}
                     >
-                        <Input.TextArea />
+                        <Input.TextArea rows={11} />
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
