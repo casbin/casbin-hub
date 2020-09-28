@@ -25,8 +25,6 @@ class Callback extends React.Component {
     Backend.githubLogin(this.state.code, this.state.state, redirectUrl, this.state.addition)
       .then((res) => {
         if (res.status === "ok") {
-          // window.location.href = '/dashboard/home';
-          console.log(res.data)
           this.props.history.push(
             {pathname: "/dashboard/home",
             state:{
@@ -39,6 +37,7 @@ class Callback extends React.Component {
             }})
         } else {
           setting.showMessage("error", res?.msg);
+          this.props.history.push("/dashboard/home")
         }
       });
 

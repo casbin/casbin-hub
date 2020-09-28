@@ -21,7 +21,6 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    // this.getAccount();
     Backend.initServerUrl();
     setting.initFullClientUrl();
     this.getAccount();
@@ -145,14 +144,6 @@ class App extends React.Component {
             {
               this.renderAccount()
             }
-            {/* <Dropdown overlay={popMenu} trigger={['click']}>
-                            <div>
-                                <Avatar style={{ marginRight: '1rem' }}>U</Avatar>
-                                <a href="/" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                                    Admin <DownOutlined />
-                                </a>
-                            </div>
-                        </Dropdown> */}
           </Header>
           <Content style={{ padding: '0 3rem' }}>
             <Layout className="site-layout-background" style={{ padding: '1.5rem 0' }}>
@@ -204,42 +195,3 @@ class App extends React.Component {
 }
 
 export default withRouter(App)
-
-
-
-
-
-
-
-// import React from 'react';
-// import {Switch, Route, Redirect} from 'react-router-dom'
-// import Frame from './frame/Index'
-// import 'antd/dist/antd.css';
-// import {dashboardRoutes} from "./routes";
-
-
-// function App(){
-//   return ( 
-//       <Frame>
-//       <Switch>
-//           {dashboardRoutes.map(route => {
-//           return(
-//             <Route 
-//             key={route.path} 
-//             path={route.path} 
-//             exact = {route.exact}
-//             render={routeProps=>{
-//               return <route.component{...routeProps}/>
-//             }
-//           }
-//             />
-//           );
-//         })}
-//           <Redirect to ={dashboardRoutes[0].path} from="/dashboard"/>
-//           <Redirect to ="/404" />
-//         </Switch>
-//         </Frame>
-//   )
-// }
-
-// export default App;

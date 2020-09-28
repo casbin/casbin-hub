@@ -39,7 +39,6 @@ export function swapRow(array, i, j) {
 export function getGithubAuthCode(method) {
     window.event.returnValue = false
     window.location.href = `${Conf.config.oauth_uri}?client_id=${Conf.config.client_id}&redirect_uri=${ClientUrl}/callback/${method}&scope=${Conf.GithubAuthScope}&response_type=code&state=${Conf.GithubAuthState}`;
-    // console.log(`${Conf.GithubOauthUri}?client_id=${Conf.GithubClientId}&redirect_uri=${ClientUrl}/callback/github/${method}&scope=${Conf.GithubAuthScope}&response_type=code&state=${Conf.GithubAuthState}`)
 }
 
 export function getShortName(s) {

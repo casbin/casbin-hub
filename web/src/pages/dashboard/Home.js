@@ -79,12 +79,8 @@ class Home extends React.Component {
       updateMetadata() {
         Backend.updateAdapters(this.state.adapters)
           .then((res) => {
-            // Setting.showMessage("success", `Save succeeded`);
-    
             Backend.updateModels(this.state.models)
               .then((res) => {
-                // Setting.showMessage("success", `Save succeeded`);
-    
                 Backend.updateEnforcers(this.state.enforcers)
                   .then((res) => {
                     Setting.showMessage("success", `Save succeeded`);

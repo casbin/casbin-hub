@@ -114,7 +114,6 @@ class ModelTable extends React.Component {
         <Table
           pagination={{
             defaultPageSize: 3,
-            // onChange: loadData,
           }}
           columns={columns}
           dataSource={this.props.table}

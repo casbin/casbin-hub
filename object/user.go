@@ -14,11 +14,9 @@
 
 package object
 
+import "github.com/astaxie/beego"
+
 type User struct {
-	// User      string `xorm:"varchar(100) unique pk" json:"username"`
-	// Type      string `xorm:"varchar(100)" json:"type"`
-	// Password  string `xorm:"varchar(100)" json:"-"`
-	// CreatedAt string `xorm:"varchar(100)" json:"createdAt"`
 	Github  string `xorm:"varchar(100)" unique pk" json:"github"`
 	IsAdmin bool   `json:"isAdmin"`
 }
@@ -28,10 +26,6 @@ type UserList []*User
 func (list UserList) Len() int {
 	return len(list)
 }
-
-// func (list UserList) Less(i, j int) bool {
-// 	return list[i].CreatedAt < list[j].CreatedAt
-// }
 
 func (list UserList) Swap(i, j int) {
 	list[i], list[j] = list[j], list[i]
@@ -100,7 +94,8 @@ func dropUserTable() error {
 func LinkUserAccount(field, value string) bool {
 	affected, err := ormManager.engine.Table(new(User)).Insert(map[string]interface{}{field: value})
 	if err != nil {
-		panic(err)
+		beego.Error("Unable to Insert the user")
+		return affected == 0
 	}
 
 	return affected != 0
