@@ -14,7 +14,9 @@
 
 package object
 
-import "github.com/astaxie/beego"
+import (
+	"github.com/astaxie/beego"
+)
 
 type User struct {
 	Github  string `xorm:"varchar(100)" unique pk" json:"github"`
@@ -35,52 +37,59 @@ func GetUser(user string) *User {
 	u := User{Github: user}
 	has, err := ormManager.engine.Get(&u)
 	if err != nil {
-		panic(err)
+		beego.Error(err)
 	}
 
 	if has {
 		return &u
-	} else {
-		return nil
 	}
+	return nil
 }
 
 func IsUserAdmin(user string) bool {
 	objUser := User{Github: user}
 	has, err := ormManager.engine.Get(&objUser)
 	if err != nil {
-		panic(err)
+		beego.Error(err)
 	}
-
 	if has {
 		return objUser.IsAdmin
-	} else {
-		return false
 	}
+	return false
+}
+
+func HasGithub(github string) string {
+	user := GetGithub(github)
+	if user != nil {
+		return user.Github
+	}
+	return ""
 }
 
 func GetGithub(github string) *User {
 	user := User{Github: github}
 	tableExisted, err := ormManager.engine.IsTableExist(new(User))
 	if err != nil {
-		panic(err)
+		beego.Error(err)
+		return nil
 	}
 	if !tableExisted {
 		err = createUserTable()
 		if err != nil {
-			panic(err)
+			beego.Error(err)
+			return nil
 		}
 	}
 	existed, err := ormManager.engine.Get(&user)
 	if err != nil {
-		panic(err)
+		beego.Error(err)
+		return nil
 	}
 
 	if existed {
 		return &user
-	} else {
-		return nil
 	}
+	return nil
 }
 
 func createUserTable() error {
@@ -94,9 +103,8 @@ func dropUserTable() error {
 func LinkUserAccount(field, value string) bool {
 	affected, err := ormManager.engine.Table(new(User)).Insert(map[string]interface{}{field: value})
 	if err != nil {
-		beego.Error("Unable to Insert the user")
+		beego.Error(err)
 		return affected == 0
 	}
-
 	return affected != 0
 }
