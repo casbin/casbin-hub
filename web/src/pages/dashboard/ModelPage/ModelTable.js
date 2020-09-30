@@ -53,25 +53,25 @@ class ModelTable extends React.Component {
       {
         title: 'Id',
         dataIndex: 'id',
-        width: "20%",
+        width: "15%",
         key: 'id',
       },
       {
         title: 'Name',
         dataIndex: 'name',
-        width: "20%",
+        width: "15%",
         key: 'name',
       },
       {
         title: 'Type',
         dataIndex: 'type',
-        width: "20%",
+        width: "15%",
         key: 'type',
       },
       {
         title: 'Text',
         dataIndex: 'text',
-        width: "20%",
+        width: "35%",
         key: 'text',
         render: (text, record) => {
           let br = <br></br>;
