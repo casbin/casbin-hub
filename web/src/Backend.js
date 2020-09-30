@@ -10,7 +10,6 @@ export function initServerUrl() {
 }
 
 export function getAdapters() {
-    console.log(ServerUrl)
     return fetch(`${ServerUrl}/api/v1/adapters`, {
         method: "GET",
         credentials: "include"
@@ -244,9 +243,15 @@ export function logout() {
 }
 
 export function githubLogin(code, state, redirectUrl, addition) {
-    console.log(`${ServerUrl}/api/v1/auth-github?code=${code}&state=${state}&redirect_url=${redirectUrl}&addition=${addition}`)
     return fetch(`${ServerUrl}/api/v1/auth-github?code=${code}&state=${state}&redirect_url=${redirectUrl}&addition=${addition}`, {
         method: 'GET',
         credentials: 'include',
+    }).then(res => res.json());
+}
+
+export function getAccount() {
+    return fetch(`${ServerUrl}/api/v1/account`, {
+        method: 'GET',
+        credentials: 'include'
     }).then(res => res.json());
 }

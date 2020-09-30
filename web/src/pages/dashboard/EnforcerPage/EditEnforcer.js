@@ -20,7 +20,6 @@ class EditEnforcer extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.props.location.state)
         Backend.getEnforcer(this.props.match.params.id)
             .then((res) => {
                 this.setState({

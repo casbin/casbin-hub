@@ -24,21 +24,10 @@ class Callback extends React.Component {
     redirectUrl = `${setting.ClientUrl}/callback/${this.state.addition}`;
     Backend.githubLogin(this.state.code, this.state.state, redirectUrl, this.state.addition)
       .then((res) => {
-        if (res.status === "ok") {
-          this.props.history.push(
-            {pathname: "/dashboard/home",
-            state:{
-              isAuthenticated: res.data.isAuthenticated,
-              isSignedUp: res.data.isSignedUp,
-              email: res.data.email,
-              account: res.data.addition,
-              avatar: res.data.avatar,
-              isAdmin: res.data.isAdmin
-            }})
-        } else {
+        if (res.status === "fail") {
           setting.showMessage("error", res?.msg);
-          this.props.history.push("/dashboard/home")
         }
+        this.props.history.push("/dashboard/home")
       });
 
   }

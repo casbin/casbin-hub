@@ -5,11 +5,10 @@ import './frame.css';
 import * as setting from './Setting'
 import * as Backend from './Backend'
 import { LoginOutlined, DownOutlined, UserOutlined, HomeOutlined, GroupOutlined, HeartFilled } from '@ant-design/icons';
-import {dashboardRoutes} from "./routes";
+import { dashboardRoutes } from "./routes";
 import Home from "./pages/dashboard/Home";
 
 const { Header, Content, Footer, Sider } = Layout;
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -26,21 +25,17 @@ class App extends React.Component {
     this.getAccount();
   }
 
-  getAccount(msg) {
-    if(msg!==undefined){
-      this.setState({
-        account: msg,
+  getAccount() {
+    Backend.getAccount()
+      .then((res) => {
+        if (res.status === "ok") {
+          this.setState({
+            account: res.data,
+          })
+        } else {
+          message.info("Please login first!", 0.5)
+        }
       })
-    }
-    
-  }
-
-  handleRightDropdownClick(e) {
-    if (e.key === '0') {
-      this.props.history.push(`/account`);
-    } else if (e.key === '1') {
-      this.logout();
-    }
   }
 
   renderRightDropdown() {
@@ -54,16 +49,9 @@ class App extends React.Component {
     return (
       <Dropdown key="4" overlay={menu} trigger={['click']}>
         <a className="ant-dropdown-link" href="/" style={{ float: 'right' }}>
-          <Avatar src={this.state.account.avatar} size="large">
-            {setting.getShortName(this.state.account.account)}
-          </Avatar>
-                &nbsp;
-                &nbsp;
-                {setting.getShortName(this.state.account.account)} &nbsp; <DownOutlined />
-                &nbsp;
-                &nbsp;
-                &nbsp;
-              </a>
+          <Avatar src={this.state.account.avatar} style={{ marginRight: '1rem' }} size="large" />
+          {this.state.account.Github} &nbsp; <DownOutlined />
+        </a>
       </Dropdown>
     )
   }
@@ -88,7 +76,7 @@ class App extends React.Component {
           account: null,
         }
       )
-    }else if(this.state.account === null){
+    } else if (this.state.account === null) {
       res.push(
         <div key="0" onClick={() => setting.getGithubAuthCode("signup")}>
           <LoginOutlined style={{ marginRight: '0.25rem', marginTop: '0.5rem', fontSize: '1rem' }} /> <a href="/" style={{ marginRight: '1rem', marginTop: '0.5rem' }}>Login with Github</a>
@@ -113,9 +101,7 @@ class App extends React.Component {
           this.setState({
             account: null
           });
-
           setting.showMessage("success", `Successfully logged out, redirected to homepage`);
-
           setting.goToLink("/");
         } else {
           setting.showMessage("error", `Logout failed: ${res.msg}`);
@@ -164,7 +150,7 @@ class App extends React.Component {
               </Sider>
               <Content style={{ padding: '0 3rem', width: "100%" }}>
                 <Switch>
-                <Route exact path="/dashboard/home" render={(props) => <Home change={this.getAccount.bind(this)} {...props} />} />
+                  <Route exact path="/dashboard/home" render={(props) => <Home />} />
                   {dashboardRoutes.map(route => {
                     return (
                       <Route

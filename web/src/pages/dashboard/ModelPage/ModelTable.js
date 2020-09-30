@@ -73,6 +73,19 @@ class ModelTable extends React.Component {
         dataIndex: 'text',
         width: "20%",
         key: 'text',
+        render: (text, record) => {
+          let br = <br></br>;
+          let contentStr = text.toString().split("\n");
+          let result = null;
+          for (let j = 0; j < contentStr.length; j++) {
+            if (j === 0) {
+              result = contentStr[j];
+            } else {
+              result = <span>{result}{br}{contentStr[j]}</span>;
+            }
+          }
+          return(<div>{result}</div>)
+        }
       },
       {
         title: 'Action',
@@ -120,7 +133,7 @@ class ModelTable extends React.Component {
           size="middle"
           bordered
           rowKey={obj => obj.id}
-          />
+        />
       </div>
     );
   }

@@ -20,6 +20,8 @@ import (
 
 type User struct {
 	Github  string `xorm:"varchar(100)" unique pk" json:"github"`
+	Email   string `json:"email"`
+	Avatar  string `json:"avatar"`
 	IsAdmin bool   `json:"isAdmin"`
 }
 
@@ -100,8 +102,14 @@ func dropUserTable() error {
 	return ormManager.engine.DropTables(new(User))
 }
 
-func LinkUserAccount(field, value string) bool {
-	affected, err := ormManager.engine.Table(new(User)).Insert(map[string]interface{}{field: value})
+func LinkUserAccount(Github, Email, Avatar string, IsAdmin bool) bool {
+	user := &User{
+		Github:  Github,
+		Email:   Email,
+		Avatar:  Avatar,
+		IsAdmin: IsAdmin,
+	}
+	affected, err := ormManager.engine.Table(new(User)).Insert(user)
 	if err != nil {
 		beego.Error(err)
 		return affected == 0

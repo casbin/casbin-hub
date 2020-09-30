@@ -83,9 +83,9 @@ func (c *ApiController) AuthGithub() {
 	var tempUserAccount userInfoFromGithub
 	wg.Add(2)
 	go func() {
+		defer wg.Done()
 		response, err := http.Get("https://api.github.com/user/emails?access_token=" + token.AccessToken)
 		if err != nil {
-			defer wg.Done()
 			res.IsAuthenticated = false
 			beego.Error(err)
 		} else {
@@ -102,13 +102,12 @@ func (c *ApiController) AuthGithub() {
 					break
 				}
 			}
-			wg.Done()
 		}
 	}()
 	go func() {
+		defer wg.Done()
 		response2, err := http.Get("https://api.github.com/user?access_token=" + token.AccessToken)
 		if err != nil {
-			defer wg.Done()
 			res.IsAuthenticated = false
 			beego.Error("Unexpected error while processing get account", err)
 		} else {
@@ -119,11 +118,11 @@ func (c *ApiController) AuthGithub() {
 				res.IsAuthenticated = false
 				beego.Error("Unexpected error while processing get account", err)
 			}
-			wg.Done()
 		}
 	}()
 	wg.Wait()
 	if res.IsAuthenticated == false {
+		c.SetSessionUser("")
 		resp = Response{Status: "fail", Msg: "unauthorized", Data: res}
 		c.Data["json"] = resp
 		c.ServeJSON()
@@ -139,7 +138,6 @@ func (c *ApiController) AuthGithub() {
 				c.SetSessionUser(Github)
 				util.LogInfo(c.Ctx, "API: [%s] signed in", Github)
 				res.IsSignedUp = true
-				_ = object.LinkUserAccount("github", tempUserAccount.Login)
 			}
 			res.Addition = tempUserAccount.Login
 			res.Avatar = tempUserAccount.AvatarUrl
@@ -148,6 +146,7 @@ func (c *ApiController) AuthGithub() {
 			} else {
 				res.IsAdmin = false
 			}
+			_ = object.LinkUserAccount(res.Addition, res.Email, res.Avatar, res.IsAdmin)
 			resp = Response{Status: "ok", Msg: "success", Data: res}
 		}
 		c.Data["json"] = resp
@@ -167,9 +166,7 @@ func (c *ApiController) Logout() {
 	util.LogInfo(c.Ctx, "API: [%s] logged out", user)
 
 	c.SetSessionUser("")
-
 	resp = Response{Status: "ok", Msg: "Logged out successfully", Data: user}
-
 	c.Data["json"] = resp
 	c.ServeJSON()
 }
@@ -180,5 +177,23 @@ func (c *ApiController) GetUser() {
 	userObj = object.GetUser(username)
 
 	c.Data["json"] = userObj
+	c.ServeJSON()
+}
+
+func (c *ApiController) GetAccount() {
+	var resp Response
+
+	if c.GetSessionUser() == "" {
+		resp = Response{Status: "error", Msg: "Please login first", Data: c.GetSessionUser()}
+		c.Data["json"] = resp
+		c.ServeJSON()
+		return
+	}
+
+	var userObj interface{}
+	username := c.GetSessionUser()
+	userObj = object.GetUser(username)
+	resp = Response{Status: "ok", Msg: "", Data: userObj}
+	c.Data["json"] = resp
 	c.ServeJSON()
 }

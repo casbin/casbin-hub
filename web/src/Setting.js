@@ -41,6 +41,3 @@ export function getGithubAuthCode(method) {
     window.location.href = `${Conf.config.oauth_uri}?client_id=${Conf.config.client_id}&redirect_uri=${ClientUrl}/callback/${method}&scope=${Conf.GithubAuthScope}&response_type=code&state=${Conf.GithubAuthState}`;
 }
 
-export function getShortName(s) {
-    return s.split('/').slice(-1)[0];
-}

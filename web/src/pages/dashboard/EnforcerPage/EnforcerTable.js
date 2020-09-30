@@ -1,6 +1,6 @@
 import React from "react";
-import {Alert, Button, Card, Table, Popconfirm, Tooltip } from 'antd';
-import { DownOutlined, EditOutlined, DeleteOutlined, UpOutlined} from '@ant-design/icons';
+import { Alert, Button, Card, Table, Popconfirm, Tooltip } from 'antd';
+import { DownOutlined, EditOutlined, DeleteOutlined, UpOutlined } from '@ant-design/icons';
 import * as Setting from "../../../Setting";
 import * as Backend from "../../../Backend";
 
@@ -43,14 +43,13 @@ class EnforcerTable extends React.Component {
   }
 
   renderTable(table) {
-    console.log(this.props)
     const columns = [
       {
         title: 'Id',
         dataIndex: 'id',
         width: "15%",
         key: 'id',
-        
+
       },
       {
         title: 'Name',
@@ -75,10 +74,10 @@ class EnforcerTable extends React.Component {
         key: 'state',
         width: "20%",
         render: (text, record, index) => {
-          let modelState,adapterState=""
+          let modelState, adapterState = ""
           this.props.models.map(
-            function(item){
-              if(item.id===record.model){
+            function (item) {
+              if (item.id === record.model) {
                 modelState = "validModel"
                 return modelState
               }
@@ -86,15 +85,15 @@ class EnforcerTable extends React.Component {
             }
           )
           this.props.adapters.map(
-            function(item){
-              if(item.id===record.adapter){
+            function (item) {
+              if (item.id === record.adapter) {
                 adapterState = "validAdapter"
                 return adapterState
               }
               return adapterState
             }
           )
-          if(adapterState!=="validAdapter"&&modelState!=="validModel"){
+          if (adapterState !== "validAdapter" && modelState !== "validModel") {
             return (<Alert
               message="Error"
               description="The model and adapter has missed!"
@@ -102,15 +101,15 @@ class EnforcerTable extends React.Component {
               showIcon
             />)
           }
-          if(modelState!=="validModel"){
-          return (<Alert
-            message="Error"
-            description="The model has missed!"
-            type="error"
-            showIcon
-          />)
+          if (modelState !== "validModel") {
+            return (<Alert
+              message="Error"
+              description="The model has missed!"
+              type="error"
+              showIcon
+            />)
           }
-          if(adapterState!=="validAdapter"){
+          if (adapterState !== "validAdapter") {
             return (<Alert
               message="Error"
               description="The adapter has missed!"
@@ -119,8 +118,8 @@ class EnforcerTable extends React.Component {
             />)
           }
         }
-          
-          
+
+
       },
       {
         title: 'Action',
@@ -130,8 +129,8 @@ class EnforcerTable extends React.Component {
           return (
             <div>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{ marginRight: "0.5rem" }} icon={<EditOutlined />} size="small" 
-                onClick={() => this.props.history.push({pathname:`/dashboard/enforcers/edit/${record.id}`,state:[record, this.props.adapters, this.props.models]})} 
+                <Button style={{ marginRight: "0.5rem" }} icon={<EditOutlined />} size="small"
+                  onClick={() => this.props.history.push({ pathname: `/dashboard/enforcers/edit/${record.id}`, state: [record, this.props.adapters, this.props.models] })}
                 />
               </Tooltip>
               <Tooltip placement="topLeft" title="Move up">
@@ -175,14 +174,14 @@ class EnforcerTable extends React.Component {
 
   render() {
     return (
-      <Card 
-      title="Enforcers"
-      extra={
-        <Button type="primary" size="small" onClick={() => this.props.history.push({pathname:'/dashboard/enforcers/add',state:[this.props.adapters, this.props.models]})}>Add</Button>
-      }>
-          {
-            this.renderTable(this.props.table)
-          }
+      <Card
+        title="Enforcers"
+        extra={
+          <Button type="primary" size="small" onClick={() => this.props.history.push({ pathname: '/dashboard/enforcers/add', state: [this.props.adapters, this.props.models] })}>Add</Button>
+        }>
+        {
+          this.renderTable(this.props.table)
+        }
       </Card>
     )
   }
