@@ -7,15 +7,8 @@ import { clearToken } from '../../utils/auth'
 
 const { Header, Content, Footer, Sider } = Layout;
 
-function index(props) {
-    function adminRoute(option) {
-        if (option === "logout") {
-            clearToken()
-            props.history.push('/login')
-        } else {
-            message.info(option)//tip
-        };
-    }
+function index =(props)=> {
+    function adminRoute(option) { option === "logout" ? clearToken() props.history.push('/login') : message.info(option); }
 
     const popMenu = (
         <Menu
@@ -26,6 +19,7 @@ function index(props) {
         </Menu>)
 
     return (
+        <>
         <div id='frame'>
             <Layout id="content-wrap" style={{ minHeight: '100vh' }}>
                 <Header className="header" style={{
@@ -68,6 +62,7 @@ function index(props) {
                 </Footer>
             </Layout>
         </div>
+       </>
     )
 }
 
