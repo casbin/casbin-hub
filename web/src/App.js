@@ -3,11 +3,11 @@ import {Switch, Route, Redirect} from 'react-router-dom'
 import Frame from './components/frame/Index'
 import 'antd/dist/antd.css';
 import {dashboardRoutes} from "./routes";
-import {isLogined} from './utils/auth'
+import {isLoggedIn} from './utils/auth'
 
 
 function App(){
-  return isLogined() ? ( 
+  return isLoggedIn() ? ( 
       <Frame>
       <Switch>
           {dashboardRoutes.map(route => {
