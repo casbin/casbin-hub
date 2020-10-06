@@ -1,12 +1,11 @@
 import React from 'react'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
-import { Avatar, Dropdown, Layout, Menu, message } from 'antd';
+import { Avatar, Dropdown, Layout, Menu, message, Result } from 'antd';
 import './frame.css';
 import * as setting from './Setting'
 import * as Backend from './Backend'
 import { LoginOutlined, DownOutlined, UserOutlined, HomeOutlined, GroupOutlined, HeartFilled } from '@ant-design/icons';
 import { dashboardRoutes } from "./routes";
-import Home from "./pages/dashboard/Home";
 
 const { Header, Content, Footer, Sider } = Layout;
 class App extends React.Component {
@@ -19,7 +18,7 @@ class App extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     Backend.initServerUrl();
     setting.initFullClientUrl();
     this.getAccount();
@@ -50,7 +49,7 @@ class App extends React.Component {
       <Dropdown key="4" overlay={menu} trigger={['click']}>
         <a className="ant-dropdown-link" href="/" style={{ float: 'right' }}>
           <Avatar src={this.state.account.avatar} style={{ marginRight: '1rem' }} size="large" />
-          {this.state.account.Github} &nbsp; <DownOutlined />
+          {this.state.account.Github} <DownOutlined />
         </a>
       </Dropdown>
     )
@@ -118,19 +117,10 @@ class App extends React.Component {
       account: account
     });
   }
-
-  render() {
-    return (
-      <div id='frame'>
-        <Layout id="content-wrap" style={{ minHeight: '100vh' }}>
-          <Header className="header" style={{
-            backgroundColor: "#FFFFFF",
-          }}>
-            <div className="logo" />
-            {
-              this.renderAccount()
-            }
-          </Header>
+  renderPages() {
+    if (this.state.account !== undefined && this.state.account !== null) {
+      return (
+        <div>
           <Content style={{ padding: '0 3rem' }}>
             <Layout className="site-layout-background" style={{ padding: '1.5rem 0' }}>
               <Sider className="site-layout-background" width={200}>
@@ -150,7 +140,7 @@ class App extends React.Component {
               </Sider>
               <Content style={{ padding: '0 3rem', width: "100%" }}>
                 <Switch>
-                  <Route exact path="/dashboard/home" render={(props) => <Home />} />
+
                   {dashboardRoutes.map(route => {
                     return (
                       <Route
@@ -173,6 +163,36 @@ class App extends React.Component {
           <Footer id="footer" style={{ textAlign: 'center' }}>
             Made with <HeartFilled style={{ color: "red" }} /> by <a style={{ fontWeight: "bold", color: "black" }} rel='noopener noreferrer' target="_blank" href="https://casbin.org">Casbin</a>
           </Footer>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <Result
+            status="403"
+            title="Casbin Dashboard"
+            subTitle="Sorry, you must login first!"
+          />
+        </div>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <div id='frame'>
+        <Layout id="content-wrap" style={{ minHeight: '100vh' }}>
+          <Header className="header" style={{
+            backgroundColor: "#FFFFFF",
+          }}>
+            <div className="logo" />
+            {
+              this.renderAccount()
+            }
+          </Header>
+          {
+            this.renderPages()
+          }
         </Layout>
       </div>
     )

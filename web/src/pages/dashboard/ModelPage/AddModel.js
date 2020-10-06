@@ -23,10 +23,10 @@ class AddModel extends React.Component {
     componentDidMount() {
         Backend.getEmptyModel()
             .then((res) => {
-                this.setState({
-                    model: res,
-                });
-            },
+                    this.setState({
+                        model: res,
+                    });
+                },
             );
     }
 
@@ -35,25 +35,31 @@ class AddModel extends React.Component {
         return res;
     }
 
-    parseModel(text) {
+    parseModel(modelText) {
+        var text = modelText.split(" ")
+        var texts = "";
+        for (var i = 0; i<text.length; i++){
+            texts += text[i]
+        }
+        console.log(texts)
         const res = {};
-        const lines = text.match(/[^\r\n]+/g);
+        const lines = texts.match(/[^\r\n]+/g);
         lines.forEach((line, i) => {
-            if (line.startsWith("p = ")) {
-                res.p = line.slice(4);
+            if (line.startsWith("p=")||line.startsWith("P=")) {
+                res.p = line.slice(2);
                 res.p = this.parseLine(res.p);
-            } else if (line.startsWith("r = ")) {
-                res.r = line.slice(4);
+            } else if (line.startsWith("r=")||line.startsWith("R=")) {
+                res.r = line.slice(2);
                 res.r = this.parseLine(res.r);
-            } else if (line.endsWith("= _, _")) {
+            } else if (line.endsWith("=_,_")) {
                 if (res.g === undefined) {
                     res.g = [];
                 }
                 res.g.push(line.split("=")[0].trim(" "));
-            } else if (line.startsWith("e = ")) {
-                res.e = line.slice(4);
-            } else if (line.startsWith("m = ")) {
-                res.m = line.slice(4);
+            } else if (line.startsWith("e=")||line.startsWith("E=")) {
+                res.e = line.slice(2);
+            } else if (line.startsWith("m=")||line.startsWith("M=")) {
+                res.m = line.slice(2);
             }
         });
         return res;
@@ -63,10 +69,10 @@ class AddModel extends React.Component {
 
     validateModel = (rule, value, callback) => {
         let listOfValidPolicyEffects = [
-            "some(where (p.eft == allow))",
-            "!some(where (p.eft == deny))",
-            "some(where (p.eft == allow)) && !some(where (p.eft == deny))",
-            "priority(p.eft) || deny"
+            "some(where(p.eft==allow))",
+            "!some(where(p.eft==deny))",
+            "some(where(p.eft==allow))&&!some(where(p.eft==deny))",
+            "priority(p.eft)||deny"
         ];
         let res = this.parseModel(value);
         if (res === null || res.r === undefined || res.r[0].length === 0) {
@@ -95,128 +101,128 @@ class AddModel extends React.Component {
         }
     }
 
-render() {
+    render() {
 
-    const layout = {
-        labelCol: {
-            span: 4,
-        },
-        wrapperCol: {
-            span: 16,
-        },
-    };
-
-    const tailFormItemLayout = {
-        wrapperCol: {
-            xs: {
-                span: 24,
-                offset: 0,
+        const layout = {
+            labelCol: {
+                span: 4,
             },
-            sm: {
+            wrapperCol: {
                 span: 16,
-                offset: 8,
-            }
-        }
-    }
-    const onFinish = values => {
-        let result = this.validateRBAC(values)
-        if (result === true) {
-            this.setState({
-                model: {
-                    id: values.model.id,
-                    name: values.model.name,
-                    type: values.model.type,
-                    text: values.model.text,
+            },
+        };
+
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    span: 16,
+                    offset: 8,
                 }
-            })
-            Backend.updateModel(this.state.model)
-                .then((res) => {
-                    Setting.showMessage("success", `Save succeeded`);
-                    this.props.history.push("/dashboard/home");
+            }
+        }
+        const onFinish = values => {
+            let result = this.validateRBAC(values)
+            if (result === true) {
+                this.setState({
+                    model: {
+                        id: values.model.id,
+                        name: values.model.name,
+                        type: values.model.type,
+                        text: values.model.text,
+                    }
                 })
-                .catch(error => {
-                    Setting.showMessage("error", `Sava failed: ${error}`);
-                });
-        } else {
-            message.info("Please add role_definition!")
+                Backend.updateModel(this.state.model)
+                    .then((res) => {
+                        Setting.showMessage("success", `Save succeeded`);
+                        this.props.history.push("/dashboard/home");
+                    })
+                    .catch(error => {
+                        Setting.showMessage("error", `Sava failed: ${error}`);
+                    });
+            } else {
+                message.info("Please add role_definition!")
+            }
+
         }
 
-    }
-
-    return (
-        <Card
-            title="Add Models"
-            extra={
-                < Button onClick={() => this.props.history.push("/dashboard/home")}>
-                    Cancel
+        return (
+            <Card
+                title="Add Models"
+                extra={
+                    < Button onClick={() => this.props.history.push("/dashboard/home")}>
+                        Cancel
                     </Button >
-            }
-        >
-            <Form {...layout} name="nest-messages" onFinish={onFinish}>
-                <Form.Item
-                    name={['model', 'id']}
-                    label="Id"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'The id is required!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    name={['model', 'name']}
-                    label="Name"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'The name is required!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    name={['model', 'type']}
-                    label="Type"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'The type is required!',
-                        },
-                    ]}
-                >
-                    <Select style={{ width: '100%' }}>
-                        <Option value="ALC">ALC</Option>
-                        <Option value="RBAC">RBAC</Option>
-                        <Option value="ABAC">ABAC</Option>
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                    name={['model', 'text']}
-                    label="Text"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'The text is required!',
-                        }, {
-                            validator: this.validateModel
-                        }
-                    ]}
-                    initialValue={this.modelDefault}
-                >
-                    <Input.TextArea rows={11} />
-                </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
+                }
+            >
+                <Form {...layout} name="nest-messages" onFinish={onFinish}>
+                    <Form.Item
+                        name={['model', 'id']}
+                        label="Id"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'The id is required!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        name={['model', 'name']}
+                        label="Name"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'The name is required!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        name={['model', 'type']}
+                        label="Type"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'The type is required!',
+                            },
+                        ]}
+                    >
+                        <Select style={{ width: '100%' }}>
+                            <Option value="ALC">ALC</Option>
+                            <Option value="RBAC">RBAC</Option>
+                            <Option value="ABAC">ABAC</Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        name={['model', 'text']}
+                        label="Text"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'The text is required!',
+                            }, {
+                                validator: this.validateModel
+                            }
+                        ]}
+                        initialValue={this.modelDefault}
+                    >
+                        <Input.TextArea rows={11} />
+                    </Form.Item>
+                    <Form.Item {...tailFormItemLayout}>
+                        <Button type="primary" htmlType="submit">
+                            Submit
                         </Button>
-                </Form.Item>
-            </Form>
-        </Card >
-    )
-}
+                    </Form.Item>
+                </Form>
+            </Card >
+        )
+    }
 }
 
 export default AddModel

@@ -32,29 +32,31 @@ class EditModel extends React.Component {
         return res;
     }
 
-    parseModel(text) {
-
-        if (text === null || text === undefined  || text === "") {
-            return null
+    parseModel(modelText) {
+        var text = modelText.split(" ")
+        var texts = "";
+        for (var i = 0; i<text.length; i++){
+            texts += text[i]
         }
+        console.log(texts)
         const res = {};
-        const lines = text.match(/[^\r\n]+/g);
+        const lines = texts.match(/[^\r\n]+/g);
         lines.forEach((line, i) => {
-            if (line.startsWith("p = ")) {
-                res.p = line.slice(4);
+            if (line.startsWith("p=")||line.startsWith("P=")) {
+                res.p = line.slice(2);
                 res.p = this.parseLine(res.p);
-            } else if (line.startsWith("r = ")) {
-                res.r = line.slice(4);
+            } else if (line.startsWith("r=")||line.startsWith("R=")) {
+                res.r = line.slice(2);
                 res.r = this.parseLine(res.r);
-            } else if (line.endsWith("= _, _")) {
+            } else if (line.endsWith("=_,_")) {
                 if (res.g === undefined) {
                     res.g = [];
                 }
                 res.g.push(line.split("=")[0].trim(" "));
-            } else if (line.startsWith("e = ")) {
-                res.e = line.slice(4);
-            } else if (line.startsWith("m = ")) {
-                res.m = line.slice(4);
+            } else if (line.startsWith("e=")||line.startsWith("E=")) {
+                res.e = line.slice(2);
+            } else if (line.startsWith("m=")||line.startsWith("M=")) {
+                res.m = line.slice(2);
             }
         });
         return res;
@@ -62,10 +64,10 @@ class EditModel extends React.Component {
 
     validateModel = (rule, value, callback) => {
         let listOfValidPolicyEffects = [
-            "some(where (p.eft == allow))",
-            "!some(where (p.eft == deny))",
-            "some(where (p.eft == allow)) && !some(where (p.eft == deny))",
-            "priority(p.eft) || deny"
+            "some(where(p.eft==allow))",
+            "!some(where(p.eft==deny))",
+            "some(where(p.eft==allow))&&!some(where(p.eft==deny))",
+            "priority(p.eft)||deny"
         ];
         let res = this.parseModel(value);
         if (res === null || res.r === undefined || res.r[0].length === 0) {
@@ -76,12 +78,6 @@ class EditModel extends React.Component {
             return Promise.reject("Please add valid policy_effect");
         } else if (res === null || res.m === undefined || res.m[0].length === 0) {
             return Promise.reject("Please add matchers expresion");
-        } else if (this.state.model.type === "RBAC") {
-            if (res === null || res.g === undefined || res.g.length === 0) {
-                return Promise.reject("Please add role_definition");
-            } else {
-                return Promise.resolve();
-            }
         } else {
             return Promise.resolve();
         }
