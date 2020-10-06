@@ -1,4 +1,3 @@
-import Login from "../pages/Login";
 import PageNotFound from "../pages/PageNotFound";
 import AddAdapter from "../pages/dashboard/AdapterPage/AddAdapter";
 import EditAdapter from "../pages/dashboard/AdapterPage/EditAdapter";
@@ -10,13 +9,14 @@ import Home from "../pages/dashboard/Home";
 import Policy from "../pages/dashboard/Policy";
 import AddPolicyList from "../pages/dashboard/AddPolicyList";
 import EditPolicyList from "../pages/dashboard/EditPolicyList";
+import Callback from "../pages/callback";
 
 export const mainRoutes = [{
-    path: '/login',
-    component: Login
-},{
     path: "/404",
     component: PageNotFound
+},{
+    path: "/callback/:addition",
+    component: Callback
 }]
 
 export const dashboardRoutes = [{
@@ -32,7 +32,6 @@ export const dashboardRoutes = [{
 },{
     path: "/dashboard/adapters/edit/:id", 
     component: EditAdapter,
-    isShow: false,
     title: "Edit Adapter",
 },{
     path: "/dashboard/models/add", 

@@ -31,13 +31,12 @@ func GetModel(id string) *Model {
 	}
 }
 
-
 func NewModel() *Model {
 	return &Model{
-		Id:              "",
-		Name:            "",
-		Type:            "",
-		Text:            "",
+		Id:   "",
+		Name: "",
+		Type: "",
+		Text: "",
 	}
 }
 

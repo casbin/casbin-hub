@@ -14,8 +14,8 @@ class EditEnforcer extends React.Component {
         this.state = {
             classes: props,
             enforcer: null,
-            adapters: this.props.location.state[1].adapters,
-            models: this.props.location.state[1].models,
+            adapters: this.props.location.state[1],
+            models: this.props.location.state[2],
         };
     }
 

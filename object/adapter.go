@@ -1,4 +1,5 @@
 package object
+
 type Adapter struct {
 	Id            string   `xorm:"varchar(100) notnull pk" json:"id"`
 	Name          string   `xorm:"varchar(100)" json:"name"`
@@ -33,11 +34,11 @@ func GetAdapter(id string) *Adapter {
 
 func NewAdapter() *Adapter {
 	return &Adapter{
-		Id:              "",
-		Name:            "",
-		Type:            "",
-		Param1:          "",
-		Param2:          "", 
+		Id:     "",
+		Name:   "",
+		Type:   "",
+		Param1: "",
+		Param2: "",
 	}
 }
 
@@ -83,5 +84,3 @@ func DeleteAdapter(adapter *Adapter) bool {
 	}
 	return affected != 0
 }
-
-

@@ -53,26 +53,39 @@ class ModelTable extends React.Component {
       {
         title: 'Id',
         dataIndex: 'id',
-        width: "20%",
+        width: "15%",
         key: 'id',
       },
       {
         title: 'Name',
         dataIndex: 'name',
-        width: "20%",
+        width: "15%",
         key: 'name',
       },
       {
         title: 'Type',
         dataIndex: 'type',
-        width: "20%",
+        width: "15%",
         key: 'type',
       },
       {
         title: 'Text',
         dataIndex: 'text',
-        width: "20%",
+        width: "35%",
         key: 'text',
+        render: (text, record) => {
+          let br = <br></br>;
+          let contentStr = text.toString().split("\n");
+          let result = null;
+          for (let j = 0; j < contentStr.length; j++) {
+            if (j === 0) {
+              result = contentStr[j];
+            } else {
+              result = <span>{result}{br}{contentStr[j]}</span>;
+            }
+          }
+          return(<div>{result}</div>)
+        }
       },
       {
         title: 'Action',
@@ -114,14 +127,13 @@ class ModelTable extends React.Component {
         <Table
           pagination={{
             defaultPageSize: 3,
-            // onChange: loadData,
           }}
           columns={columns}
           dataSource={this.props.table}
           size="middle"
           bordered
           rowKey={obj => obj.id}
-          />
+        />
       </div>
     );
   }

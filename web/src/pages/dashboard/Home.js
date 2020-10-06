@@ -19,11 +19,11 @@ class Home extends React.Component {
       }
     
       componentDidMount() {
-        this.getAdapters();
-        this.getModels();
-        this.getEnforcers();
+        this.getAdapters()
+        this.getModels()
+        this.getEnforcers()
       }
-    
+      
       getAdapters() {
         Backend.getAdapters()
           .then((res) => {
@@ -75,12 +75,8 @@ class Home extends React.Component {
       updateMetadata() {
         Backend.updateAdapters(this.state.adapters)
           .then((res) => {
-            // Setting.showMessage("success", `Save succeeded`);
-    
             Backend.updateModels(this.state.models)
               .then((res) => {
-                // Setting.showMessage("success", `Save succeeded`);
-    
                 Backend.updateEnforcers(this.state.enforcers)
                   .then((res) => {
                     Setting.showMessage("success", `Save succeeded`);
