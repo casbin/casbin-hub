@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import { Avatar, Dropdown, Layout, Menu, message, Result } from 'antd';
@@ -189,28 +188,6 @@ class App extends React.Component {
             <div className="logo" />
             {
               this.renderAccount()
-=======
-import React from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom'
-import Frame from './components/frame/Index'
-import 'antd/dist/antd.css';
-import {dashboardRoutes} from "./routes";
-import {isLoggedIn} from './utils/auth'
-
-
-function App(){
-  return isLoggedIn() ? ( 
-      <Frame>
-      <Switch>
-          {dashboardRoutes.map(route => {
-          return(
-            <Route 
-            key={route.path} 
-            path={route.path} 
-            exact = {route.exact}
-            render={routeProps=>{
-              return <route.component{...routeProps}/>
->>>>>>> ebadbac1d3b3e42e352927b4ae8d785b32d1eead
             }
           </Header>
           {
