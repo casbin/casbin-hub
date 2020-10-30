@@ -34,6 +34,10 @@ dataSourceName = root:123@tcp(localhost:3306)/
 
 Casbin-dashboard uses XORM to connect to DB, so all DBs supported by XORM can also be used.
 
+- Modified config files:
+
+Change your `GithubAuthClientID`, `GithubAuthClientSecret` in conf/app.conf, web/src/conf.js.
+
 - Run backend (in port 8000):
 
 ```
