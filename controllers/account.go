@@ -81,20 +81,23 @@ func (c *ApiController) AuthGithub() {
 	var wg sync.WaitGroup
 	var tempUserEmail []userEmailFromGithub
 	var tempUserAccount userInfoFromGithub
+	client := &http.Client{}
 	wg.Add(2)
 	go func() {
 		defer wg.Done()
-		response, err := http.Get("https://api.github.com/user/emails?access_token=" + token.AccessToken)
+		request1, _ := http.NewRequest("GET", "https://api.github.com/user/emails", nil)
+		request1.Header.Set("Authorization", "token "+token.AccessToken)
+		response1, err := client.Do(request1)
 		if err != nil {
 			res.IsAuthenticated = false
-			beego.Error(err)
+			beego.Error("Unexpected error while processing get user emails", err)
 		} else {
-			defer response.Body.Close()
-			contents, err := ioutil.ReadAll(response.Body)
+			defer response1.Body.Close()
+			contents, err := ioutil.ReadAll(response1.Body)
 			err = json.Unmarshal(contents, &tempUserEmail)
 			if err != nil {
 				res.IsAuthenticated = false
-				beego.Error(err)
+				beego.Error("Unexpected error while processing get user emails", err)
 			}
 			for _, v := range tempUserEmail {
 				if v.Primary == true {
@@ -106,7 +109,9 @@ func (c *ApiController) AuthGithub() {
 	}()
 	go func() {
 		defer wg.Done()
-		response2, err := http.Get("https://api.github.com/user?access_token=" + token.AccessToken)
+		request2, _ := http.NewRequest("GET", "https://api.github.com/user", nil)
+		request2.Header.Set("Authorization", "token "+token.AccessToken)
+		response2, err := client.Do(request2)
 		if err != nil {
 			res.IsAuthenticated = false
 			beego.Error("Unexpected error while processing get account", err)
@@ -127,32 +132,31 @@ func (c *ApiController) AuthGithub() {
 		c.Data["json"] = resp
 		c.ServeJSON()
 		return
-	} else {
-		if addition == "signup" {
-			Github := object.HasGithub(tempUserAccount.Login)
-			if Github != "" {
-				c.SetSessionUser(Github)
-				util.LogInfo(c.Ctx, "API: [%s] signed in", Github)
-				res.IsSignedUp = true
-			} else {
-				c.SetSessionUser(Github)
-				util.LogInfo(c.Ctx, "API: [%s] signed in", Github)
-				res.IsSignedUp = true
-			}
-			res.Addition = tempUserAccount.Login
-			res.Avatar = tempUserAccount.AvatarUrl
-			if Github == "438561537" || Github == "hsluoyz" || Github == "nodece" || Github == "BetaCat0" {
-				res.IsAdmin = true
-			} else {
-				res.IsAdmin = false
-			}
-			_ = object.LinkUserAccount(res.Addition, res.Email, res.Avatar, res.IsAdmin)
-			resp = Response{Status: "ok", Msg: "success", Data: res}
-		}
-		c.Data["json"] = resp
-		c.ServeJSON()
-		return
 	}
+	if addition == "signup" {
+		Github := object.HasGithub(tempUserAccount.Login)
+		if Github != "" {
+			c.SetSessionUser(Github)
+			util.LogInfo(c.Ctx, "API: [%s] signed in", Github)
+			res.IsSignedUp = true
+		} else {
+			c.SetSessionUser(Github)
+			util.LogInfo(c.Ctx, "API: [%s] signed in", Github)
+			res.IsSignedUp = true
+		}
+		res.Addition = tempUserAccount.Login
+		res.Avatar = tempUserAccount.AvatarUrl
+		if Github == "438561537" || Github == "hsluoyz" || Github == "nodece" || Github == "BetaCat0" {
+			res.IsAdmin = true
+		} else {
+			res.IsAdmin = false
+		}
+		_ = object.LinkUserAccount(res.Addition, res.Email, res.Avatar, res.IsAdmin)
+		resp = Response{Status: "ok", Msg: "success", Data: res}
+	}
+	c.Data["json"] = resp
+	c.ServeJSON()
+	return
 }
 
 // @Title Logout
