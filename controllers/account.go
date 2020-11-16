@@ -146,11 +146,8 @@ func (c *ApiController) AuthGithub() {
 		}
 		res.Addition = tempUserAccount.Login
 		res.Avatar = tempUserAccount.AvatarUrl
-		if Github == "438561537" || Github == "hsluoyz" || Github == "nodece" || Github == "BetaCat0" {
-			res.IsAdmin = true
-		} else {
-			res.IsAdmin = false
-		}
+		res.IsAdmin = true
+
 		_ = object.LinkUserAccount(res.Addition, res.Email, res.Avatar, res.IsAdmin)
 		resp = Response{Status: "ok", Msg: "success", Data: res}
 	}
