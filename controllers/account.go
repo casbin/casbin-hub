@@ -82,41 +82,58 @@ func (c *ApiController) AuthGithub() {
 	var tempUserEmail []userEmailFromGithub
 	var tempUserAccount userInfoFromGithub
 	wg.Add(2)
+	client := &http.Client{}
 	go func() {
 		defer wg.Done()
-		response, err := http.Get("https://api.github.com/user/emails?access_token=" + token.AccessToken)
+		req, err := http.NewRequest("GET", "https://api.github.com/user/emails", nil)
 		if err != nil {
 			res.IsAuthenticated = false
-			beego.Error(err)
+			beego.Error("Unexpected error while generate request", err)
 		} else {
-			defer response.Body.Close()
-			contents, err := ioutil.ReadAll(response.Body)
-			err = json.Unmarshal(contents, &tempUserEmail)
+			req.Header.Add("access", "application/vnd.github.v3+json")
+			req.Header.Add("Authorization", "token "+token.AccessToken)
+			response, err := client.Do(req)
 			if err != nil {
 				res.IsAuthenticated = false
 				beego.Error(err)
-			}
-			for _, v := range tempUserEmail {
-				if v.Primary == true {
-					res.Email = v.Email
-					break
+			} else {
+				defer response.Body.Close()
+				contents, err := ioutil.ReadAll(response.Body)
+				err = json.Unmarshal(contents, &tempUserEmail)
+				if err != nil {
+					res.IsAuthenticated = false
+					beego.Error(err)
+				}
+				for _, v := range tempUserEmail {
+					if v.Primary == true {
+						res.Email = v.Email
+						break
+					}
 				}
 			}
 		}
 	}()
 	go func() {
 		defer wg.Done()
-		response2, err := http.Get("https://api.github.com/user?access_token=" + token.AccessToken)
+		req, err := http.NewRequest("GET", "https://api.github.com/user", nil)
 		if err != nil {
 			res.IsAuthenticated = false
-			beego.Error("Unexpected error while processing get account", err)
+			beego.Error("Unexpected error while generate request", err)
 		} else {
-			defer response2.Body.Close()
-			contents2, err := ioutil.ReadAll(response2.Body)
-			err = json.Unmarshal(contents2, &tempUserAccount)
+			req.Header.Add("access", "application/vnd.github.v3+json")
+			req.Header.Add("Authorization", "token "+token.AccessToken)
+			response2, err := client.Do(req)
 			if err != nil {
 				res.IsAuthenticated = false
 				beego.Error("Unexpected error while processing get account", err)
+			} else {
+				defer response2.Body.Close()
+				contents2, err := ioutil.ReadAll(response2.Body)
+				err = json.Unmarshal(contents2, &tempUserAccount)
+				if err != nil {
+					res.IsAuthenticated = false
+					beego.Error("Unexpected error while processing get account", err)
+				}
 			}
 		}
 	}()
