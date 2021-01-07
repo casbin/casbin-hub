@@ -28,15 +28,21 @@ go get github.com/casbin/casbin-dashboard
 
 Casbin-dashboard will store its metadata in a MySQL database named: `casbin_metadata`, will create it if not existed. The DB connection string can be specified at: https://github.com/casbin/casbin-dashboard/blob/master/conf/app.conf
 
+- Setup casbin-dashboard to enable some third-party login platform
+
+Casbin-forum provide a way to sign up using Github account, so you may have to get your own `GithubAuthClientID`, `GithubAuthClientSecret` first.
+
+You could get them by clicking on this url: https://github.com/settings/developers , You should set `Homepage URL` to fit your own domain address, for local testing, set`http://localhost:3000`. And set the Authorization callback URL, the same domain address as `Homepage URL`, for local testing, set`http://localhost:3000`.
+
+- Modified config files:
+
+Change your own `GithubAuthClientID`, `GithubAuthClientSecret` in conf/app.conf, web/src/conf.js.
+
 ```ini
 dataSourceName = root:123@tcp(localhost:3306)/
 ```
 
 Casbin-dashboard uses XORM to connect to DB, so all DBs supported by XORM can also be used.
-
-- Modified config files:
-
-Change your `GithubAuthClientID`, `GithubAuthClientSecret` in conf/app.conf, web/src/conf.js.
 
 - Run backend (in port 8000):
 
