@@ -37,18 +37,6 @@ class AddPolicyList extends React.Component {
             },
         };
         
-        const tailFormItemLayout = {
-            wrapperCol: {
-                xs: {
-                    span: 24,
-                    offset: 0,
-                },
-                sm: {
-                    span: 16,
-                    offset: 8,
-                }
-            }
-        }
         const onFinish = values => {
             this.setState({
                 policyList: {
@@ -183,11 +171,13 @@ class AddPolicyList extends React.Component {
                             <Option value="deny">deny</Option>
                         </Select>
                     </Form.Item>
-                    <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </Form.Item>
+                    <Row>
+                        <Col span={24} align="center">
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </Col>
+                    </Row>
                 </Form>
             </Card>
         )
