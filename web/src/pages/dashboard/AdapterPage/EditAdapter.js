@@ -30,18 +30,6 @@ class EditAdapter extends React.Component {
       },
     };
 
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 16,
-          offset: 8,
-        },
-      },
-    };
     const onFinish = values => {
       Backend.deleteAdapter(this.props.location.state).then(res => {
         this.setState({
