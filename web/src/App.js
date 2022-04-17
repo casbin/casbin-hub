@@ -26,11 +26,12 @@ class App extends React.Component {
       selectedMenuKey: 0,
       account: null,
     };
+
+    Backend.initServerUrl();
+    setting.initFullClientUrl();
   }
 
   componentDidMount() {
-    Backend.initServerUrl();
-    setting.initFullClientUrl();
     this.getAccount();
   }
 
