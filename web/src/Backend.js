@@ -4,8 +4,6 @@ export function initServerUrl() {
     const hostname = window.location.hostname;
     if (hostname === 'localhost') {
         ServerUrl = `http://${hostname}:8800`;
-    } else {
-        ServerUrl = `https://${hostname}`;
     }
 }
 
