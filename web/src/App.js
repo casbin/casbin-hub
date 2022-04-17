@@ -41,7 +41,7 @@ class App extends React.Component {
           account: res.data,
         });
       } else {
-        message.info('Please login first!', 0.5);
+        // message.info('Please login first!', 0.5);
       }
     });
   }
@@ -146,7 +146,8 @@ class App extends React.Component {
     });
   }
   renderPages() {
-    if (this.state.account !== undefined && this.state.account !== null) {
+    // if (this.state.account !== undefined && this.state.account !== null) {
+    if (true) {
       return (
         <div>
           <Content style={{ padding: '0 3rem' }}>
