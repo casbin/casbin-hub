@@ -5,7 +5,7 @@ Casbin-dashboard is the official web UI (admin portal) for Casbin models and pol
 
 ## Demo
 
-https://dashboard.casbin.org/
+https://dashboard.casbin.com
 
 ## Architecture
 
