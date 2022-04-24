@@ -93,7 +93,6 @@ class Home extends React.Component {
       <Card
         className="full-width"
         title={
-          <div style={{ width: '90vw' }}>
             <a
               className="row-header"
               target="_blank"
@@ -104,12 +103,11 @@ class Home extends React.Component {
                 src="https://img.shields.io/github/stars/casbin/casbin-dashboard?style=social"
               />
             </a>
-          </div>
         }
         style={{ marginLeft: '0.5rem' }}
         type="inner">
         <Row style={{ marginTop: '1rem' }}>
-          <Col span={22}>
+          <Col span={24}>
             <ModelTable
               history={this.props.history}
               table={this.state.models}
@@ -118,7 +116,7 @@ class Home extends React.Component {
           </Col>
         </Row>
         <Row style={{ marginTop: '1rem' }}>
-          <Col span={22}>
+          <Col span={24}>
             <AdapterTable
               history={this.props.history}
               table={this.state.adapters}
@@ -127,7 +125,7 @@ class Home extends React.Component {
           </Col>
         </Row>
         <Row style={{ marginTop: '1rem' }}>
-          <Col span={22}>
+          <Col span={24}>
             <EnforcerTable
               history={this.props.history}
               table={this.state.enforcers}
