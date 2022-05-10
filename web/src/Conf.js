@@ -18,6 +18,6 @@ export const GithubAuthScope = 'user:email+read:user';
 
 export const config = {
   oauth_uri: 'https://github.com/login/oauth/authorize',
-  client_id: '478a4b4c61886c6eca19',
-  client_secret: 'ad6daac64ecc66fe62fe1a39183bfdf421d97ed5',
+  client_id: '********************',
+  client_secret: '****************************************',
 };

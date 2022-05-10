@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
-import { Avatar, Button, Dropdown, Layout, Menu, message, Result } from 'antd';
+import { Avatar, Dropdown, Layout, Menu, message, Result } from 'antd';
 import './frame.css';
 import * as setting from './Setting';
 import * as Backend from './Backend';
