@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
-import { Avatar, Dropdown, Layout, Menu, message, Result } from 'antd';
+import { Avatar, Button, Dropdown, Layout, Menu, message, Result } from 'antd';
 import './frame.css';
 import * as setting from './Setting';
 import * as Backend from './Backend';
@@ -13,6 +13,7 @@ import {
   HeartFilled,
 } from '@ant-design/icons';
 import { dashboardRoutes } from './routes';
+import Logo from './logo.png';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -61,13 +62,17 @@ class App extends React.Component {
 
     return (
       <Dropdown key="4" overlay={menu} trigger={['click']}>
-        <a className="ant-dropdown-link" href="/" style={{ float: 'right' }}>
+        <a className="user-dropdown" href="/" onClick={e => e.preventDefault()}>
           <Avatar
             src={this.state.account.avatar}
-            style={{ marginRight: '1rem', cursor: 'pointer' }}
+            style={{ cursor: 'pointer' }}
             size="large"
           />
-          {this.state.account.Github} <DownOutlined />
+
+          <span>
+            {this.state.account.Github}
+            <DownOutlined />
+          </span>
         </a>
       </Dropdown>
     );
@@ -222,19 +227,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div id="frame">
-        <Layout id="content-wrap" style={{ minHeight: '100vh' }}>
-          <Header
-            className="header"
-            style={{
-              backgroundColor: '#FFFFFF',
-            }}>
-            <div className="logo" />
-            {this.renderAccount()}
-          </Header>
-          {this.renderPages()}
-        </Layout>
-      </div>
+      <Layout id="frame" style={{ minHeight: '100vh' }}>
+        <Header
+          className="header"
+          style={{
+            backgroundColor: '#FFFFFF',
+          }}>
+          <img src={Logo} id="logo" />
+          {this.renderAccount()}
+        </Header>
+        {this.renderPages()}
+      </Layout>
     );
   }
 }
