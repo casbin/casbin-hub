@@ -30,9 +30,7 @@ Casbin-dashboard will store its metadata in a MySQL database named: `casbin_meta
 
 - Setup casbin-dashboard to enable some third-party login platform
 
-Casbin-forum provide a way to sign up using Github account, so you may have to get your own `GithubAuthClientID`, `GithubAuthClientSecret` first.
-
-You could get them by clicking on this url: https://github.com/settings/developers , You should set `Homepage URL` to fit your own domain address, for local testing, set`http://localhost:3000`. And set the Authorization callback URL, the same domain address as `Homepage URL`, for local testing, set`http://localhost:3000`.
+Casbin-forum provide a way to sign up using Github account, so you may have to get your own `GithubAuthClientID` and `GithubAuthClientSecret` first. You could get them by clicking on this url: https://github.com/settings/developers. `Homepage URL` should be set to fit your own domain address, and for local testing, set`http://localhost:3000`. Set the Authorization callback URL, the same domain address as `Homepage URL`, for local testing, set`http://localhost:3000`.
 
 - Modified config files:
 
