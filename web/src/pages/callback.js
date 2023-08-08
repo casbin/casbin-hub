@@ -38,7 +38,6 @@ class Callback extends React.Component {
 
   render() {
     return (
-      // https://codesandbox.io/s/antd-reproduction-template-q2dwk
       <div className="App">
         <Spin size="large" tip="Logging in..." style={{ paddingTop: "10%", paddingLeft: "50%" }} />
       </div>
