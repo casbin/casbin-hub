@@ -12,19 +12,18 @@ code {
     monospace;
 }
 
-.logo {
-  background: url("logo.png");
-  background-size: 8.5rem;
+#logo {
   width: 8rem;
   height: 2rem;
-  margin: 0.875rem 0.625rem 1rem 0.625rem;
-  float: left;
 }
 
-.ant-table.ant-table-middle .ant-table-title, .ant-table.ant-table-middle .ant-table-footer, .ant-table.ant-table-middle thead > tr > th, .ant-table.ant-table-middle tbody > tr > td {
+.ant-table.ant-table-middle .ant-table-title,
+.ant-table.ant-table-middle .ant-table-footer,
+.ant-table.ant-table-middle thead > tr > th,
+.ant-table.ant-table-middle tbody > tr > td {
   padding: 0.1rem 0.5rem !important;
 }
 
-.full-width{
+.full-width {
   width: 100%;
 }

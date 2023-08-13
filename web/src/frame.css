@@ -1,23 +1,43 @@
-.header{
-    display: flex;
-    justify-content: space-between;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .ant-menu-inline > .ant-menu-item {
-    font-size: 1rem !important;
+  font-size: 1rem !important;
 }
 
-#frame{
-    min-width: 80rem;
+#frame {
+  min-width: 460px; /* Responsive breakpoint */
+  padding-bottom: 4rem; /* Footer height */
 }
 
-#content-wrap {
-    padding-bottom: 4rem;    /* Footer height */
+.user-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.user-dropdown > span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 #footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 4rem;            /* Footer height */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 4rem; /* Footer height */
+}
+
+@media screen and (max-width: 460px) {
+  #logo {
+    width: 6rem;
+    height: 1.5rem;
+  }
+  .user-dropdown > span {
+  }
 }

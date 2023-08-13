@@ -1,4 +1,3 @@
-  
 // Copyright 2020 The casbin Authors. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export const GithubAuthState  = "casbin-dashboard"
+export const GithubAuthState = 'casbin-dashboard';
 
-export const GithubAuthScope  = "user:email+read:user"
+export const GithubAuthScope = 'user:email+read:user';
 
 export const config = {
-    'oauth_uri': 'https://github.com/login/oauth/authorize',
-    'client_id': '*****************',
-    'client_secret': '********************************',
-  };
+  oauth_uri: 'https://github.com/login/oauth/authorize',
+  client_id: '********************',
+  client_secret: '****************************************',
+};
