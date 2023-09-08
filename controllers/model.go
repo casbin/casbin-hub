@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 
-	"github.com/casbin/casbin-dashboard/object"
+	"github.com/casbin/casbin-hub/object"
 )
 
 func (c *ApiController) GetModels() {

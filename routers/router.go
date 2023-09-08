@@ -3,7 +3,7 @@ package routers
 import (
 	"github.com/astaxie/beego"
 
-	"github.com/casbin/casbin-dashboard/controllers"
+	"github.com/casbin/casbin-hub/controllers"
 )
 
 func init() {

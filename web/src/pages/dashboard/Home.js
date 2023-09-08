@@ -97,11 +97,11 @@ class Home extends React.Component {
             <a
               className="row-header"
               target="_blank"
-              href="https://github.com/casbin/casbin-dashboard"
+              href="https://github.com/casbin/casbin-hub"
               rel="noopener noreferrer">
               <img
                 alt="GitHub stars"
-                src="https://img.shields.io/github/stars/casbin/casbin-dashboard?style=social"
+                src="https://img.shields.io/github/stars/casbin/casbin-hub?style=social"
               />
             </a>
           </div>

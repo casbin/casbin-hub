@@ -1,34 +1,34 @@
-casbin-dashboard
+Casbin-Hub
 ====
 
-Casbin-dashboard is the official web UI (admin portal) for Casbin models and policies. A security administrator can use it to view & edit Casbin models and policy rules.
+Casbin-Hub is the official web UI (admin portal) for Casbin models and policies. A security administrator can use it to view & edit Casbin models and policy rules.
 
 ## Demo
 
-https://dashboard.casbin.com
+https://hub.casbin.com
 
 ## Architecture
 
-Casbin-dashboard contains 2 parts:
+Casbin-Hub contains 2 parts:
 
-Name | Description | Language | Source code
-----|------|----|----
-Frontend | Web frontend UI for Casbin-dashboard | Javascript + React + Ant Design | https://github.com/casbin/casbin-dashboard/tree/master/web
-Backend | RESTful API backend for Casbin-dashboard | Golang + Beego + MySQL | https://github.com/casbin/casbin-dashboard
+| Name     | Description                              | Language                        | Source code                                                |
+|----------|------------------------------------------|---------------------------------|------------------------------------------------------------|
+| Frontend | Web frontend UI for Casbin-Hub     | Javascript + React + Ant Design | https://github.com/casbin/casbin-hub/tree/master/web |
+| Backend  | RESTful API backend for Casbin-Hub | Golang + Beego + MySQL          | https://github.com/casbin/casbin-hub                 |
 
 ## Installation
 
 - Get the code:
 
 ```shell
-go get github.com/casbin/casbin-dashboard
+go get github.com/casbin/casbin-hub
 ```
 
 - Setup database:
 
-Casbin-dashboard will store its metadata in a MySQL database named: `casbin_metadata`, will create it if not existed. The DB connection string can be specified at: https://github.com/casbin/casbin-dashboard/blob/master/conf/app.conf
+Casbin-Hub will store its metadata in a MySQL database named: `casbin_metadata`, will create it if not existed. The DB connection string can be specified at: https://github.com/casbin/casbin-hub/blob/master/conf/app.conf
 
-- Setup casbin-dashboard to enable some third-party login platform
+- Setup Casbin-Hub to enable some third-party login platform
 
 Casbin-forum provide a way to sign up using Github account, so you may have to get your own `GithubAuthClientID`, `GithubAuthClientSecret` first.
 
@@ -42,7 +42,7 @@ Change your own `GithubAuthClientID`, `GithubAuthClientSecret` in conf/app.conf,
 dataSourceName = root:123@tcp(localhost:3306)/
 ```
 
-Casbin-dashboard uses XORM to connect to DB, so all DBs supported by XORM can also be used.
+Casbin-Hub uses XORM to connect to DB, so all DBs supported by XORM can also be used.
 
 - Run backend (in port 8800):
 

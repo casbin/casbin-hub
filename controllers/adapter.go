@@ -2,7 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/casbin/casbin-dashboard/object"
+
+	"github.com/casbin/casbin-hub/object"
 )
 
 type Response struct {
@@ -41,7 +42,7 @@ func (c *ApiController) UpdateAdapters() {
 
 func (c *ApiController) UpdateAdapter() {
 	var adapter *object.Adapter
-	
+
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &adapter)
 	if err != nil {
 		panic(err)

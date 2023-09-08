@@ -1,6 +1,6 @@
-module github.com/casbin/casbin-dashboard
+module github.com/casbin/casbin-hub
 
-go 1.14
+go 1.16
 
 require (
 	github.com/astaxie/beego v1.12.1

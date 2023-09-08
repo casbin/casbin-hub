@@ -2,7 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/casbin/casbin-dashboard/object"
+
+	"github.com/casbin/casbin-hub/object"
 )
 
 func (c *ApiController) GetEnforcers() {
@@ -36,7 +37,7 @@ func (c *ApiController) UpdateEnforcers() {
 
 func (c *ApiController) UpdateEnforcer() {
 	var enforcer *object.Enforcer
-	
+
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &enforcer)
 	if err != nil {
 		panic(err)

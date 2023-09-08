@@ -15,8 +15,8 @@
 package controllers
 
 import (
-	"github.com/casbin/casbin-dashboard/object"
-	"github.com/casbin/casbin-dashboard/util"
+	"github.com/casbin/casbin-hub/object"
+	"github.com/casbin/casbin-hub/util"
 
 	"context"
 	"encoding/json"

@@ -2,7 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/casbin/casbin-dashboard/object"
+
+	"github.com/casbin/casbin-hub/object"
 )
 
 func (c *ApiController) GetPolicyLists() {
@@ -24,7 +25,7 @@ func (c *ApiController) GetPolicyList() {
 
 func (c *ApiController) UpdatePolicyList() {
 	var policyList *object.PolicyList
-	
+
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &policyList)
 	if err != nil {
 		panic(err)
@@ -42,6 +43,3 @@ func (c *ApiController) DeletePolicyList() {
 	c.Data["json"] = object.DeletePolicyList(policyList)
 	c.ServeJSON()
 }
-
-
-

@@ -3,8 +3,9 @@ package routers
 import (
 	"net/http"
 	"strings"
+
 	"github.com/astaxie/beego/context"
-	"github.com/casbin/casbin-dashboard/util"
+	"github.com/casbin/casbin-hub/util"
 )
 
 func TransparentStatic(ctx *context.Context) {
